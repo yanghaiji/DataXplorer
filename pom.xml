@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>javayh-agent</module>
+        <module>agent-example</module>
     </modules>
 
     <properties>
