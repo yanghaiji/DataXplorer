@@ -13,5 +13,7 @@ public interface AgentConstant {
     String PACKAGE_NAME = "com.javayh.agent.core.logger.LogbackBytesEnhance";
     String LOGGER_NAME = "ch.qos.logback.classic.Logger";
     String AGENT_DISPATCHER_SERVLET = "agentDispatcherServlet";
+    String S_LINE= "/";
+    String H_LINE = "-";
 
 }
