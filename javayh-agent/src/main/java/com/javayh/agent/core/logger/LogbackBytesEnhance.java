@@ -6,6 +6,7 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.LoggingEvent;
 import cn.hutool.core.util.StrUtil;
 import com.javayh.agent.core.context.TraceContext;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Marker;
 
@@ -19,6 +20,7 @@ import org.slf4j.Marker;
  * @version 1.0.0
  * @since 2022-06-27
  */
+@Slf4j
 public class LogbackBytesEnhance {
 
 
@@ -39,8 +41,8 @@ public class LogbackBytesEnhance {
         // 日志内容
         String resultLog;
         // 生成traceId
-        if (StringUtils.isNotBlank(TraceContext.getTraceId())) {
-            // 将traceId和日志内容拼接，这里是重点，trceId正是在这里生成并拼接到日志内容中
+        if (log.isTraceEnabled() && StringUtils.isNotBlank(TraceContext.getTraceId())) {
+            // 将traceId和日志内容拼接，这里是重点，traceId正是在这里生成并拼接到日志内容中
             resultLog = StrUtil.format("{} {}", TraceContext.getTraceId(), msg);
         } else {
             resultLog = msg;

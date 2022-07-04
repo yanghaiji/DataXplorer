@@ -29,6 +29,7 @@
         <servlet-api.version>2.5</servlet-api.version>
         <tomcat.version>9.0.46</tomcat.version>
         <boot-autoconfigure.version>2.6.3</boot-autoconfigure.version>
+        <bytebuddy.version>1.11.18</bytebuddy.version>
     </properties>
 
     <dependencies>
