@@ -24,12 +24,12 @@ import java.util.Date;
 /**
  * @author haiji
  */
-public class RequestLogInterception implements HandlerInterceptor {
+public class AgentLogInterception implements HandlerInterceptor {
 
     @Resource
     private LogStorageRepository storageRepository;
 
-    private static final Logger log = LoggerFactory.getLogger(RequestLogInterception.class);
+    private static final Logger log = LoggerFactory.getLogger(AgentLogInterception.class);
 
     private static final ThreadLocal<StopWatch> STOP_WATCH_THREAD_LOCAL = new ThreadLocal<>();
     private static final ThreadLocal<String> BODY = new ThreadLocal<>();
@@ -63,14 +63,16 @@ public class RequestLogInterception implements HandlerInterceptor {
         String ip = IpAddressUtil.getIpAddress(request);
         String body = BODY.get();
         LoggerCollector collector = LoggerCollector.builder().url(url).query(query).body(body).ip(ip)
-                        .webName(webName.replaceAll(AgentConstant.S_LINE, AgentConstant.H_LINE).replace(AgentConstant.H_LINE,""))
-                        .actionTime(stopWatch.getTime())
-                        .type(LoggerType.INTERCEPTOR.value()).method(method)
-                        .createTime(new Date()).traceId(TraceContext.getTraceId())
-                        .build();
+                .webName(webName.replaceAll(AgentConstant.S_LINE, AgentConstant.H_LINE)
+                        .replace(AgentConstant.H_LINE, " ").trim().replaceAll(" ", AgentConstant.H_LINE))
+                .actionTime(stopWatch.getTime())
+                .type(LoggerType.INTERCEPTOR.value()).method(method)
+                .createTime(new Date()).traceId(TraceContext.getTraceId())
+                .build();
         log.info("埋点日志 : {}", JSON.toJSONString(collector));
         STOP_WATCH_THREAD_LOCAL.remove();
         BODY.remove();
+        TraceContext.remove();
     }
 
 

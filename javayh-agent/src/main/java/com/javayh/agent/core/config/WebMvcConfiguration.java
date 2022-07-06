@@ -1,7 +1,7 @@
 package com.javayh.agent.core.config;
 
 import cn.hutool.core.util.ReflectUtil;
-import com.javayh.agent.core.interceptor.RequestLogInterception;
+import com.javayh.agent.core.interceptor.AgentLogInterception;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
@@ -30,7 +30,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration interceptorRegistration;
         // 拦截的请求路径
-        interceptorRegistration = registry.addInterceptor(new RequestLogInterception()).addPathPatterns("/**");
+        interceptorRegistration = registry.addInterceptor(new AgentLogInterception()).addPathPatterns("/**");
         try{
             if (log.isInfoEnabled()) {
                 log.info("耗时拦截器加载成功");

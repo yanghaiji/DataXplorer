@@ -30,6 +30,8 @@
         <tomcat.version>9.0.46</tomcat.version>
         <boot-autoconfigure.version>2.6.3</boot-autoconfigure.version>
         <bytebuddy.version>1.11.18</bytebuddy.version>
+        <openfeign.version>2.2.10.RELEASE</openfeign.version>
+        <feign-core.version>11.8</feign-core.version>
     </properties>
 
     <dependencies>
