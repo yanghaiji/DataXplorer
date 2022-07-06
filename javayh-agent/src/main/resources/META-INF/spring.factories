@@ -1,2 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.javayh.agent.core.config.SpringInterceptorConfiguration
+  com.javayh.agent.core.config.SpringInterceptorConfiguration, \
+  com.javayh.agent.core.config.AgentFeignAutoConfiguration
+

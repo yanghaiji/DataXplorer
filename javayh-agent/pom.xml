@@ -61,6 +61,16 @@
             <artifactId>tomcat-embed-core</artifactId>
             <version>${tomcat.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-core</artifactId>
+            <version>${feign-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>${openfeign.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
