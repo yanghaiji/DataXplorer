@@ -1,6 +1,7 @@
 package com.javayh.agent.core.config;
 
 import cn.hutool.core.util.ReflectUtil;
+import com.javayh.agent.core.context.AppNamingContext;
 import com.javayh.agent.core.interceptor.AgentLogInterception;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,21 +27,27 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     private static final Logger log = LoggerFactory.getLogger(WebMvcConfiguration.class);
 
+    private AppNamingContext appNamingContext;
+
+    public WebMvcConfiguration(AppNamingContext appNamingContext) {
+        this.appNamingContext = appNamingContext;
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration interceptorRegistration;
         // 拦截的请求路径
-        interceptorRegistration = registry.addInterceptor(new AgentLogInterception()).addPathPatterns("/**");
-        try{
+        interceptorRegistration = registry.addInterceptor(new AgentLogInterception(appNamingContext)).addPathPatterns("/**");
+        try {
             if (log.isInfoEnabled()) {
                 log.info("耗时拦截器加载成功");
             }
             Method method = ReflectUtil.getMethod(InterceptorRegistration.class, "order", Integer.class);
-            if (Objects.nonNull(method)){
+            if (Objects.nonNull(method)) {
                 method.invoke(interceptorRegistration, Ordered.HIGHEST_PRECEDENCE);
             }
-        } catch (Exception e){
-            log.error("耗时拦截器加载失败 >>>",e);
+        } catch (Exception e) {
+            log.error("耗时拦截器加载失败 >>>", e);
         }
         // 拦截的请求路径
 //        interceptorRegistration = registry.addInterceptor(new WebInterceptor()).addPathPatterns("/**");
