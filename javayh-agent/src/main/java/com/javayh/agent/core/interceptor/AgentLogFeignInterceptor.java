@@ -37,7 +37,7 @@ public class AgentLogFeignInterceptor implements RequestInterceptor {
             String body = Arrays.toString(tmp.body());
             String method = tmp.method();
             LoggerCollector collector = LoggerCollector.builder()
-                    .url(url).query(query).ip(IpAddressUtil.getIpAddress(request))
+                    .url(url).query(query).ip(IpAddressUtil.getIpAddr(request))
                     .type(LoggerType.FEIGN.value()).method(method)
                     .body(body)
                     .createTime(new Date()).traceId(TraceContext.getTraceId()).build();

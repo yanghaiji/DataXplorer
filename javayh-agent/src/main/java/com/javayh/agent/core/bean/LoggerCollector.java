@@ -27,28 +27,62 @@ public class LoggerCollector implements Serializable {
 
     private Long id;
 
+    /**
+     * 请求的trace id
+     */
     private String traceId;
 
+    /**
+     * 操作的方法类型 GET | POST
+     */
     private String method;
 
+    /**
+     * 请求路径
+     */
     private String url;
 
+    /**
+     * 请求的参数
+     */
     private String query;
 
+    /**
+     * 请求的参数
+     */
     private String body;
 
+    /**
+     * 操作耗时
+     */
     private Long actionTime;
 
+    /**
+     * 操作人的ip
+     */
     private String ip;
 
-    private String webName;
+    /**
+     * 服务的名字
+     */
+    private String appName;
 
     /**
-     * 请求放生的类型
+     * 请求访问的类型，
      */
     private Integer type;
 
+    /**
+     * 创建的时间
+     */
     private Date createTime;
+
+    /**
+     * 创建人
+     * <p>
+     * 这里需要结合自己的开发脚手架进行创建人
+     */
+    private String createBy;
 
 
 }

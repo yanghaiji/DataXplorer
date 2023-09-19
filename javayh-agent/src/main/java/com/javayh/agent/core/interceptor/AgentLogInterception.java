@@ -3,8 +3,8 @@ package com.javayh.agent.core.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.javayh.agent.core.bean.LoggerCollector;
-import com.javayh.agent.core.constant.AgentConstant;
 import com.javayh.agent.core.constant.LoggerType;
+import com.javayh.agent.core.context.AppNamingContext;
 import com.javayh.agent.core.context.TraceContext;
 import com.javayh.agent.core.servlet.AgentHttpServletRequestWrapper;
 import com.javayh.agent.core.storage.LogStorageRepository;
@@ -28,6 +28,11 @@ public class AgentLogInterception implements HandlerInterceptor {
 
     @Resource
     private LogStorageRepository storageRepository;
+    private AppNamingContext appNamingContext;
+
+    public AgentLogInterception(AppNamingContext appNamingContext) {
+        this.appNamingContext = appNamingContext;
+    }
 
     private static final Logger log = LoggerFactory.getLogger(AgentLogInterception.class);
 
@@ -56,18 +61,19 @@ public class AgentLogInterception implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         StopWatch stopWatch = STOP_WATCH_THREAD_LOCAL.get();
         stopWatch.stop();
-        String url = request.getRequestURL().toString();
+        String url = request.getRequestURI();
         String query = request.getQueryString();
         String webName = request.getContextPath();
         String method = request.getMethod();
-        String ip = IpAddressUtil.getIpAddress(request);
+        String ip = IpAddressUtil.getIpAddr(request);
         String body = BODY.get();
         LoggerCollector collector = LoggerCollector.builder().url(url).query(query).body(body).ip(ip)
-                .webName(webName.replaceAll(AgentConstant.S_LINE, AgentConstant.H_LINE)
-                        .replace(AgentConstant.H_LINE, " ").trim().replaceAll(" ", AgentConstant.H_LINE))
+                .appName(appNamingContext.getAppNaming())
                 .actionTime(stopWatch.getTime())
                 .type(LoggerType.INTERCEPTOR.value()).method(method)
                 .createTime(new Date()).traceId(TraceContext.getTraceId())
+                // TODO: 2023/9/19 根据实际的项目进行集成
+                .createBy("javayh-agent")
                 .build();
         log.info("埋点日志 : {}", JSON.toJSONString(collector));
         STOP_WATCH_THREAD_LOCAL.remove();

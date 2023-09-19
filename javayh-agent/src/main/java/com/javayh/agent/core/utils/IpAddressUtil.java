@@ -1,6 +1,7 @@
 package com.javayh.agent.core.utils;
 
 import com.javayh.agent.core.constant.AgentConstant;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,4 +33,27 @@ public class IpAddressUtil {
         return rip;
     }
 
+
+
+    public static String getIpAddr(HttpServletRequest request) {
+
+        String ips = head(request,"X-Forwarded-For");
+
+        String realIp = head(request,"X-Real-IP");
+
+        if(StringUtils.isNotEmpty(realIp)){
+            return realIp;
+        }else if(StringUtils.isNotEmpty(ips)){
+            ips = ips.replaceAll(" ","");
+            String[] array = ips.split(",");
+            return array[array.length-1];
+
+        }else{
+            return request.getRemoteAddr();
+        }
+    }
+
+    private static String head(HttpServletRequest request, String s) {
+        return request.getHeader(s);
+    }
 }
