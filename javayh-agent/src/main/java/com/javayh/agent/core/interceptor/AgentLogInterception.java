@@ -2,12 +2,11 @@ package com.javayh.agent.core.interceptor;
 
 
 import com.alibaba.fastjson.JSON;
-import com.javayh.agent.core.bean.LoggerCollector;
+import com.javayh.agent.common.bean.LoggerCollector;
 import com.javayh.agent.core.constant.LoggerType;
 import com.javayh.agent.core.context.AppNamingContext;
 import com.javayh.agent.core.context.TraceContext;
 import com.javayh.agent.core.servlet.AgentHttpServletRequestWrapper;
-import com.javayh.agent.core.storage.LogStorageRepository;
 import com.javayh.agent.core.utils.IpAddressUtil;
 import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
@@ -26,9 +24,7 @@ import java.util.Date;
  */
 public class AgentLogInterception implements HandlerInterceptor {
 
-    @Resource
-    private LogStorageRepository storageRepository;
-    private AppNamingContext appNamingContext;
+    private final AppNamingContext appNamingContext;
 
     public AgentLogInterception(AppNamingContext appNamingContext) {
         this.appNamingContext = appNamingContext;

@@ -71,6 +71,11 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>${openfeign.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.javayh.agent</groupId>
+            <artifactId>javayh-logger-common</artifactId>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
