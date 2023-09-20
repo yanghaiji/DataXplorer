@@ -11,6 +11,7 @@
     <modules>
         <module>javayh-agent</module>
         <module>agent-example</module>
+        <module>javayh-logger-common</module>
     </modules>
 
     <properties>
@@ -72,4 +73,13 @@
             </plugins>
         </pluginManagement>
     </build>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.javayh.agent</groupId>
+                <artifactId>javayh-logger-common</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

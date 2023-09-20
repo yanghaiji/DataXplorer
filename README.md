@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  <a href="https://github.com/yanghaiji/logger-agent.git"><img src="https://github.com/yanghaiji/logger-agent/blob/main/doc/img/logo.png" alt="Standard - SecureTransmit" width="500"></a>
+  <a href="https://github.com/yanghaiji/logger-agent.git"><img src="https://github.com/yanghaiji/logger-agent/blob/main/doc/img/new_logo.png" alt="Standard - logger-agent" width="500"></a>
   <br>
   Javayh-Logger-Agent
   <br>

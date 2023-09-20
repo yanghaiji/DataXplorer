@@ -1,4 +1,4 @@
-package com.javayh.agent.core.bean;
+package com.javayh.agent.common.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

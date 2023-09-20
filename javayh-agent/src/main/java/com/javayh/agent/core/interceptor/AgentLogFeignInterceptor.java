@@ -1,6 +1,6 @@
 package com.javayh.agent.core.interceptor;
 
-import com.javayh.agent.core.bean.LoggerCollector;
+import com.javayh.agent.common.bean.LoggerCollector;
 import com.javayh.agent.core.constant.LoggerType;
 import com.javayh.agent.core.context.TraceContext;
 import com.javayh.agent.core.utils.IpAddressUtil;
