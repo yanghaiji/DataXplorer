@@ -1,10 +1,6 @@
 
 <h1 align="center">
   <a href="https://github.com/yanghaiji/logger-agent.git"><img src="https://github.com/yanghaiji/logger-agent/blob/main/doc/img/new_logo.png" alt="Standard - logger-agent" width="500"></a>
-  <br>
-  Javayh-Logger-Agent
-  <br>
-  <br>
 </h1>
 <p align="center">
     <a href="https://spring.io/projects"><img src='https://img.shields.io/badge/license-Apache%202-borightgreen' alt='License'/></a>
@@ -12,7 +8,7 @@
     <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - Java Style Guide"></a>
 </p>
 
----
+#
 
 一款基于`javassist`无侵入的日志收集工具，主要用于日志的收集，通过`javassist`与`spring`的联动实现对web请求的记录，实现真正的可扩展与可自定开发的框架
 
