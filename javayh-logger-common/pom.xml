@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>logger-agent</artifactId>
+        <artifactId>javayh-logger-agent</artifactId>
         <groupId>com.javayh.agent</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -11,5 +11,34 @@
 
     <artifactId>javayh-logger-common</artifactId>
 
+    <properties>
+        <netty.version>4.1.86.Final</netty.version>
+        <esotericsoftware.version>4.0.2</esotericsoftware.version>
+        <commons-io.version>2.5</commons-io.version>
+        <jakarta.validation.version>2.0.2</jakarta.validation.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>${javassist.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo</artifactId>
+            <version>${esotericsoftware.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

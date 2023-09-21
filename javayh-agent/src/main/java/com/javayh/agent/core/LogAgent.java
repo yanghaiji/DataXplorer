@@ -1,6 +1,7 @@
 package com.javayh.agent.core;
 
 
+import com.javayh.agent.common.rpc.NettyClient;
 import com.javayh.agent.core.logger.AspectLogEnhance;
 
 import java.lang.instrument.Instrumentation;
@@ -18,8 +19,8 @@ public class LogAgent {
     /**
      * 该方法在main方法之前运行，与main方法运行在同一个JVM中
      */
-    public static void premain(String arg, Instrumentation instrumentation) {
-
+    public static void premain(String arg, Instrumentation instrumentation) throws Exception {
+        new NettyClient().start();
         AspectLogEnhance.enhance();
         //instrumentation.addTransformer(new RequestInterceptionLogTransformer(arg));
     }
