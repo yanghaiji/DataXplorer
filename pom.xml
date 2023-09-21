@@ -5,13 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.javayh.agent</groupId>
-    <artifactId>logger-agent</artifactId>
+    <artifactId>javayh-logger-agent</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>javayh-agent</module>
         <module>agent-example</module>
         <module>javayh-logger-common</module>
+        <module>javayh-logger-agent-server</module>
     </modules>
 
     <properties>
@@ -29,6 +30,7 @@
         <springframework.version>5.3.15</springframework.version>
         <servlet-api.version>2.5</servlet-api.version>
         <tomcat.version>9.0.46</tomcat.version>
+        <boot.version>2.6.3</boot.version>
         <boot-autoconfigure.version>2.6.3</boot-autoconfigure.version>
         <bytebuddy.version>1.11.18</bytebuddy.version>
         <openfeign.version>2.2.10.RELEASE</openfeign.version>
@@ -75,6 +77,13 @@
     </build>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>com.javayh.agent</groupId>
                 <artifactId>javayh-logger-common</artifactId>

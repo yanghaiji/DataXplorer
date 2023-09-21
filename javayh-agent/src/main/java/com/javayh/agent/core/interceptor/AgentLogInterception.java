@@ -3,6 +3,7 @@ package com.javayh.agent.core.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.javayh.agent.common.bean.LoggerCollector;
+import com.javayh.agent.common.bean.cache.AgentCache;
 import com.javayh.agent.core.constant.LoggerType;
 import com.javayh.agent.core.context.AppNamingContext;
 import com.javayh.agent.core.context.TraceContext;
@@ -59,7 +60,6 @@ public class AgentLogInterception implements HandlerInterceptor {
         stopWatch.stop();
         String url = request.getRequestURI();
         String query = request.getQueryString();
-        String webName = request.getContextPath();
         String method = request.getMethod();
         String ip = IpAddressUtil.getIpAddr(request);
         String body = BODY.get();
@@ -75,6 +75,7 @@ public class AgentLogInterception implements HandlerInterceptor {
         STOP_WATCH_THREAD_LOCAL.remove();
         BODY.remove();
         TraceContext.remove();
+        AgentCache.queue.offer(JSON.toJSONString(collector));
     }
 
 
