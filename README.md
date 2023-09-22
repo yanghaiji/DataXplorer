@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  <a href="https://github.com/yanghaiji/javayh-logger-agent.git"><img src="https://github.com/yanghaiji/logger-agent/blob/main/doc/img/new_logo.png" alt="Standard - javayh-logger-agent" width="500"></a>
+  <a href="https://github.com/yanghaiji/javayh-logger-agent.git"><img src="https://github.com/yanghaiji/logger-agent/blob/main/doc/img/new_logo_01.png" alt="Standard - javayh-logger-agent" width="500"></a>
 </h1>
 <p align="center">
     <a href="https://spring.io/projects"><img src='https://img.shields.io/badge/license-Apache%202-borightgreen' alt='License'/></a>
@@ -12,14 +12,14 @@
 
 一款基于`javassist`无侵入的日志收集工具，主要用于日志的收集，通过`javassist`与`spring`的联动实现对web请求的记录，实现真正的可扩展与可自定开发的框架。
 
-`javayh-logger-agent`致力于解决多个服务没有统一的日志收集工具，替代原有AOP的方式，可扩展性极强，开箱即用，对于项目代码无任何侵入。
+`DataXplorer`致力于解决多个服务没有统一的日志收集工具，替代原有AOP的方式，可扩展性极强，开箱即用，对于项目代码无任何侵入。
 
-`javayh-logger-agent` 支持将收集的日志发送给`javayh-logger-agent-server`进行最终的数据处理与持久化，方便统一的日志分析，进行用户画像。
+`DataXplorer` 支持将收集的日志发送给`javayh-logger-agent-server`进行最终的数据处理与持久化，方便统一的日志分析，进行用户画像。
 
 # 源码编译
 
 ```
-git https://github.com/yanghaiji/logger-agent.git
+git clone https://github.com/yanghaiji/DataXplorer.git
 
 mvn clean package install
 
@@ -40,8 +40,8 @@ mvn clean package install
 进行agent的配置进行自动的日志收集
 
 ```
-22:17:05.317 [nioEventLoopGroup-3-3] INFO com.javayh.agent.server.handler.NettyServerHandler - 客户端地址: /127.0.0.1:60163
-22:17:05.317 [nioEventLoopGroup-3-3] INFO com.javayh.agent.server.handler.NettyServerHandler - 客户端发送消息是: {"actionTime":7596,"appName":"agent-example","body":"sss=sss","createBy":"javayh-agent","createTime":123,"ip":"0:0:0:0:0:0:0:1","method":"GET","sourceType":0,"traceId":"b4d071fb-54c2-40f8-b025-f4362232f7d6","type":1,"url":"/agent/example/test/agent"}
+22:17:05.317 [nioEventLoopGroup-3-3] INFO com.javayh.agent.server.handler.AgentServerHandler - 客户端地址: /127.0.0.1:60163
+22:17:05.317 [nioEventLoopGroup-3-3] INFO com.javayh.agent.server.handler.AgentServerHandler - 客户端发送消息是: {"actionTime":7596,"appName":"agent-example","body":"sss=sss","createBy":"javayh-agent","createTime":123,"ip":"0:0:0:0:0:0:0:1","method":"GET","sourceType":0,"traceId":"b4d071fb-54c2-40f8-b025-f4362232f7d6","type":1,"url":"/agent/example/test/agent"}
 
 ```
 
@@ -53,8 +53,8 @@ LoggerReceived.received("test自定义埋点", 1, "haiji", null);
 ```
 
 ```
-22:17:05.316 [nioEventLoopGroup-3-3] INFO com.javayh.agent.server.handler.NettyServerHandler - 客户端地址: /127.0.0.1:60163
-22:17:05.317 [nioEventLoopGroup-3-3] INFO com.javayh.agent.server.handler.NettyServerHandler - 客户端发送消息是: {"appName":"agent-example","body":"test自定义埋点","createBy":"haiji","createTime":123,"query":"test自定义埋点","sourceType":0,"traceId":"b4d071fb-54c2-40f8-b025-f4362232f7d6","type":1}
+22:17:05.316 [nioEventLoopGroup-3-3] INFO com.javayh.agent.server.handler.AgentServerHandler - 客户端地址: /127.0.0.1:60163
+22:17:05.317 [nioEventLoopGroup-3-3] INFO com.javayh.agent.server.handler.AgentServerHandler - 客户端发送消息是: {"appName":"agent-example","body":"test自定义埋点","createBy":"haiji","createTime":123,"query":"test自定义埋点","sourceType":0,"traceId":"b4d071fb-54c2-40f8-b025-f4362232f7d6","type":1}
 
 ```
 
