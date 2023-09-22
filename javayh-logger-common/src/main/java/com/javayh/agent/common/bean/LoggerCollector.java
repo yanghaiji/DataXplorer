@@ -84,5 +84,16 @@ public class LoggerCollector implements Serializable {
      */
     private String createBy;
 
+    /**
+     * 异常信息
+     */
+    private String errorMsg;
+
+    /**
+     * 数据来源，自动拦截或者自定义埋点
+     * {@link com.javayh.agent.common.constant.LoggerSourceType}
+     */
+    private Integer sourceType;
+
 
 }

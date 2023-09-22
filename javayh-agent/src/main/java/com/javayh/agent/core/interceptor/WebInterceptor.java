@@ -1,6 +1,6 @@
 package com.javayh.agent.core.interceptor;
 
-import com.javayh.agent.core.context.TraceContext;
+import com.javayh.agent.common.context.TraceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;

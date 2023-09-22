@@ -3,12 +3,14 @@ package com.javayh.agent.core.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.javayh.agent.common.bean.LoggerCollector;
-import com.javayh.agent.common.bean.cache.AgentCache;
-import com.javayh.agent.core.constant.LoggerType;
-import com.javayh.agent.core.context.AppNamingContext;
-import com.javayh.agent.core.context.TraceContext;
-import com.javayh.agent.core.servlet.AgentHttpServletRequestWrapper;
-import com.javayh.agent.core.utils.IpAddressUtil;
+import com.javayh.agent.common.cache.AgentCacheQueue;
+import com.javayh.agent.common.constant.LoggerSourceType;
+import com.javayh.agent.common.constant.LoggerType;
+import com.javayh.agent.common.context.AppNamingContext;
+import com.javayh.agent.common.context.TraceContext;
+import com.javayh.agent.common.servlet.AgentHttpServletRequestWrapper;
+import com.javayh.agent.common.utils.IpUtil;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.Objects;
 
 
 /**
@@ -61,21 +64,31 @@ public class AgentLogInterception implements HandlerInterceptor {
         String url = request.getRequestURI();
         String query = request.getQueryString();
         String method = request.getMethod();
-        String ip = IpAddressUtil.getIpAddr(request);
+        String ip = IpUtil.getIpAddr(request);
         String body = BODY.get();
         LoggerCollector collector = LoggerCollector.builder().url(url).query(query).body(body).ip(ip)
                 .appName(appNamingContext.getAppNaming())
                 .actionTime(stopWatch.getTime())
                 .type(LoggerType.INTERCEPTOR.value()).method(method)
                 .createTime(new Date()).traceId(TraceContext.getTraceId())
+                .sourceType(LoggerSourceType.AUTOMATIC.value())
                 // TODO: 2023/9/19 根据实际的项目进行集成
                 .createBy("javayh-agent")
                 .build();
-        log.info("埋点日志 : {}", JSON.toJSONString(collector));
+        String msg = JSON.toJSONString(collector);
+        if (log.isDebugEnabled()) {
+            log.debug("agent 拦截日志 : {}", msg);
+        }
+        if (log.isInfoEnabled()) {
+            log.info("agent 拦截日志 : {}", msg);
+        }
+        if (Objects.nonNull(ex)) {
+            collector.setErrorMsg(ExceptionUtils.getStackTrace(ex));
+        }
         STOP_WATCH_THREAD_LOCAL.remove();
         BODY.remove();
         TraceContext.remove();
-        AgentCache.queue.offer(JSON.toJSONString(collector));
+        AgentCacheQueue.MSG_CACHE_DE.offer(collector);
     }
 
 

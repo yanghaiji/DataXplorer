@@ -1,5 +1,6 @@
 package com.javayh.agent.example.web;
 
+import com.javayh.agent.common.LoggerReceived;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,21 +21,22 @@ import java.util.Map;
 public class ExampleController {
 
     @GetMapping(value = "/agent")
-    public String getName(){
+    public String getName() {
         log.info("ewohefo");
+        LoggerReceived.received("test自定义埋点", 1, "haiji", null);
         return "JavaYh Agent";
     }
 
 
     @PostMapping(value = "/agent")
-    public String getNam3(@RequestBody Map<String,Object> map){
+    public String getNam3(@RequestBody Map<String, Object> map) {
         log.info("ewohefo");
         return "JavaYh Agent";
     }
 
 
     @GetMapping
-    public String getName2(){
+    public String getName2() {
         log.info("ewohefo");
         return "JavaYh Agent";
     }
