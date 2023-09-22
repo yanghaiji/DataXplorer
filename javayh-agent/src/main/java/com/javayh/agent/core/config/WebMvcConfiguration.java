@@ -1,7 +1,7 @@
 package com.javayh.agent.core.config;
 
 import cn.hutool.core.util.ReflectUtil;
-import com.javayh.agent.core.context.AppNamingContext;
+import com.javayh.agent.common.context.AppNamingContext;
 import com.javayh.agent.core.interceptor.AgentLogInterception;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

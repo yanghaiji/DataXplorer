@@ -1,7 +1,7 @@
 package com.javayh.agent.core.config;
 
-import com.javayh.agent.core.context.AppNamingContext;
-import com.javayh.agent.core.servlet.AgentChannelFilter;
+import com.javayh.agent.common.context.AppNamingContext;
+import com.javayh.agent.common.servlet.AgentChannelFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class SpringInterceptorConfiguration {
 
     @Bean
     public WebMvcConfiguration addWebInterceptor() {
-        if(log.isInfoEnabled()){
+        if (log.isInfoEnabled()) {
             log.info("Define web interceptors RequestWebInterceptorConfiguration");
         }
         return new WebMvcConfiguration(appNamingContext);

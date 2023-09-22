@@ -1,4 +1,4 @@
-package com.javayh.agent.core.constant;
+package com.javayh.agent.common.constant;
 
 /**
  * <p>

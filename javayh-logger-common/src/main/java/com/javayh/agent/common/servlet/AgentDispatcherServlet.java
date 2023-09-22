@@ -1,4 +1,4 @@
-package com.javayh.agent.core.servlet;
+package com.javayh.agent.common.servlet;
 
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -18,9 +18,9 @@ public class AgentDispatcherServlet extends DispatcherServlet {
     /**
      * 包装成我们自定义的request
      *
-     * @param request
-     * @param response
-     * @throws Exception
+     * @param request  {@link HttpServletRequest}
+     * @param response {@link HttpServletResponse}
+     * @throws Exception {@link Exception}
      */
     @Override
     protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {

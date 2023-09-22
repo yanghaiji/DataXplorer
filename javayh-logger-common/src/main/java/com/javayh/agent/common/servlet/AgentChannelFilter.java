@@ -1,4 +1,4 @@
-package com.javayh.agent.core.servlet;
+package com.javayh.agent.common.servlet;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

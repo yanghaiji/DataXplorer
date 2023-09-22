@@ -5,7 +5,7 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.LoggingEvent;
 import cn.hutool.core.util.StrUtil;
-import com.javayh.agent.core.context.TraceContext;
+import com.javayh.agent.common.context.TraceContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Marker;

@@ -1,6 +1,6 @@
-package com.javayh.agent.core.utils;
+package com.javayh.agent.common.utils;
 
-import com.javayh.agent.core.constant.AgentConstant;
+import com.javayh.agent.common.constant.AgentConstant;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author haiji
  */
-public class IpAddressUtil {
+public class IpUtil {
 
 
     /**
@@ -17,6 +17,7 @@ public class IpAddressUtil {
      * @param request
      * @return
      */
+    @Deprecated
     public static String getIpAddress(HttpServletRequest request) {
         String rip = request.getRemoteAddr();
         for (String header : AgentConstant.HEADERS_TO_TRY) {
@@ -34,21 +35,20 @@ public class IpAddressUtil {
     }
 
 
-
     public static String getIpAddr(HttpServletRequest request) {
 
-        String ips = head(request,"X-Forwarded-For");
+        String ips = head(request, "X-Forwarded-For");
 
-        String realIp = head(request,"X-Real-IP");
+        String realIp = head(request, "X-Real-IP");
 
-        if(StringUtils.isNotEmpty(realIp)){
+        if (StringUtils.isNotEmpty(realIp)) {
             return realIp;
-        }else if(StringUtils.isNotEmpty(ips)){
-            ips = ips.replaceAll(" ","");
+        } else if (StringUtils.isNotEmpty(ips)) {
+            ips = ips.replaceAll(" ", "");
             String[] array = ips.split(",");
-            return array[array.length-1];
+            return array[array.length - 1];
 
-        }else{
+        } else {
             return request.getRemoteAddr();
         }
     }

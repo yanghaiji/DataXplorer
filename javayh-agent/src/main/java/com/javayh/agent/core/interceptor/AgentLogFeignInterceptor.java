@@ -1,9 +1,9 @@
 package com.javayh.agent.core.interceptor;
 
 import com.javayh.agent.common.bean.LoggerCollector;
-import com.javayh.agent.core.constant.LoggerType;
-import com.javayh.agent.core.context.TraceContext;
-import com.javayh.agent.core.utils.IpAddressUtil;
+import com.javayh.agent.common.constant.LoggerType;
+import com.javayh.agent.common.context.TraceContext;
+import com.javayh.agent.common.utils.IpUtil;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class AgentLogFeignInterceptor implements RequestInterceptor {
             String body = Arrays.toString(tmp.body());
             String method = tmp.method();
             LoggerCollector collector = LoggerCollector.builder()
-                    .url(url).query(query).ip(IpAddressUtil.getIpAddr(request))
+                    .url(url).query(query).ip(IpUtil.getIpAddr(request))
                     .type(LoggerType.FEIGN.value()).method(method)
                     .body(body)
                     .createTime(new Date()).traceId(TraceContext.getTraceId()).build();
