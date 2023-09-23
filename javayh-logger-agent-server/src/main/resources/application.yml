@@ -4,3 +4,10 @@ server:
 spring:
   application:
     name: javayh-logger-agent-server
+
+# rpc 通信协议
+data:
+  xplorer:
+    host: 127.0.0.1
+    port: 9098
+

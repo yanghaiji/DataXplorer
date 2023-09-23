@@ -34,7 +34,14 @@
         <dependency>
             <groupId>com.javayh.agent</groupId>
             <artifactId>javayh-logger-common</artifactId>
-            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.javayh.agent</groupId>
+            <artifactId>javayh-logger-rpc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.javayh.agent</groupId>
+            <artifactId>javayh-logger-boot-starter</artifactId>
         </dependency>
     </dependencies>
 

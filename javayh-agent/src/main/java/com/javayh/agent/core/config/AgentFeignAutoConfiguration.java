@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
  * @author haiji
  */
 @Slf4j
-@Configuration
 public class AgentFeignAutoConfiguration {
 
 

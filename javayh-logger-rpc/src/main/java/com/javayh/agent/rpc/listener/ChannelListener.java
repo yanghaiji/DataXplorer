@@ -1,10 +1,11 @@
-package com.javayh.agent.common.listener;
+package com.javayh.agent.rpc.listener;
 
 import com.alibaba.fastjson.JSONObject;
 import com.javayh.agent.common.bean.LoggerCollector;
 import com.javayh.agent.common.cache.AgentCacheQueue;
 import com.javayh.agent.common.exception.ChannelListenerException;
-import com.javayh.agent.common.listener.queue.QueueListener;
+import com.javayh.agent.common.executor.AgentExecutor;
+import com.javayh.agent.common.listener.QueueListener;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.CharsetUtil;
@@ -12,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.util.Objects;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -28,8 +27,6 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class ChannelListener {
 
-    private final ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1);
-
     /**
      * channel的监听器
      *
@@ -38,7 +35,7 @@ public class ChannelListener {
     public void listener(ChannelHandlerContext ctx) {
         // initialDelay（初始延迟）和 period（间隔时间）来控制定期执行的频率
         // 初始延迟30秒，之后每次执行后等待30秒再继续
-        executorService.scheduleAtFixedRate(new QueueListener<>(
+        AgentExecutor.singe().scheduleAtFixedRate(new QueueListener<>(
                 AgentCacheQueue.MSG_CACHE_DE, data -> sendData(ctx, data)), 30, 10, TimeUnit.SECONDS);
     }
 

@@ -1,7 +1,6 @@
 package com.javayh.agent.core.config;
 
-import com.javayh.agent.common.context.AppNamingContext;
-import com.javayh.agent.common.context.SpringBeanContext;
+import com.javayh.agent.core.runner.AgentClientRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -15,6 +14,6 @@ import java.lang.annotation.*;
 @Inherited
 @Documented
 @Configuration
-@Import({SpringInterceptorConfiguration.class, AppNamingContext.class, SpringBeanContext.class})
+@Import({SpringInterceptorConfiguration.class, AgentClientRunner.class})
 public @interface JavayhAgentAutoConfiguration {
 }

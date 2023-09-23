@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>com.javayh.agent</groupId>
-            <artifactId>javayh-logger-common</artifactId>
+            <artifactId>javayh-logger-boot-starter</artifactId>
         </dependency>
     </dependencies>
     <dependencyManagement>
