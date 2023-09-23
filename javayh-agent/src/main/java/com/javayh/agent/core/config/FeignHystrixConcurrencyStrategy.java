@@ -21,7 +21,6 @@ import java.util.concurrent.Callable;
  * </p>
  * @author haiji
  */
-@Component
 public class FeignHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy {
 
     private static final Logger log = LoggerFactory.getLogger(FeignHystrixConcurrencyStrategy.class);

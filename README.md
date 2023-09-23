@@ -10,11 +10,19 @@
 
 #
 
-一款基于`javassist`无侵入的日志收集工具，主要用于日志的收集，通过`javassist`与`spring`的联动实现对web请求的记录，实现真正的可扩展与可自定开发的框架。
+`DataXplorer` 并不是一个常见的英语单词，而是由`Data` 和`Explorer`组合而成，可以被理解为一个探索数据或发现数据中的信息的概念。
+
+`DataXplorer`一款基于`javassist`无侵入的日志收集工具，主要用于日志的收集，通过`javassist`与`spring`的联动实现对web请求的记录，实现真正的可扩展与可自定开发的框架。
 
 `DataXplorer`致力于解决多个服务没有统一的日志收集工具，替代原有AOP的方式，可扩展性极强，开箱即用，对于项目代码无任何侵入。
 
 `DataXplorer` 支持将收集的日志发送给`javayh-logger-agent-server`进行最终的数据处理与持久化，方便统一的日志分析，进行用户画像。
+
+# 原理
+
+<h1 align="center">
+  <a href="https://github.com/yanghaiji/javayh-logger-agent.git"><img src="https://github.com/yanghaiji/logger-agent/blob/main/doc/img/theory.png" alt="Standard - javayh-logger-agent" width="500"></a>
+</h1>
 
 # 源码编译
 

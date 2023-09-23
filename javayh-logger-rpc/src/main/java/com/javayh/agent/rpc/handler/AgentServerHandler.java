@@ -1,4 +1,4 @@
-package com.javayh.agent.server.handler;
+package com.javayh.agent.rpc.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author haiji
  */
 @Slf4j
-public class NettyServerHandler extends ChannelInboundHandlerAdapter {
+public class AgentServerHandler extends ChannelInboundHandlerAdapter {
 
 
     /**

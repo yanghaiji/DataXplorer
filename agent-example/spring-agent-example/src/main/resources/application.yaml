@@ -6,3 +6,9 @@ server:
 spring:
   application:
     name: agent-example
+
+# rpc 通信协议
+data:
+  xplorer:
+    host: 127.0.0.1
+    port: 9098

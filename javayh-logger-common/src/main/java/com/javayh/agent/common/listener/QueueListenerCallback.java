@@ -1,4 +1,4 @@
-package com.javayh.agent.common.listener.queue;
+package com.javayh.agent.common.listener;
 
 /**
  * @author haiji

@@ -9,24 +9,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>javayh-logger-agent-server</artifactId>
+    <artifactId>javayh-logger-rpc</artifactId>
+
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
         </dependency>
         <dependency>
             <groupId>com.javayh.agent</groupId>
             <artifactId>javayh-logger-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.javayh.agent</groupId>
-            <artifactId>javayh-logger-rpc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.javayh.agent</groupId>
-            <artifactId>javayh-logger-boot-starter</artifactId>
         </dependency>
     </dependencies>
 

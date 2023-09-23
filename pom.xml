@@ -13,6 +13,8 @@
         <module>agent-example</module>
         <module>javayh-logger-common</module>
         <module>javayh-logger-agent-server</module>
+        <module>javayh-logger-rpc</module>
+        <module>javayh-logger-boot-starter</module>
     </modules>
 
     <properties>
@@ -87,6 +89,16 @@
             <dependency>
                 <groupId>com.javayh.agent</groupId>
                 <artifactId>javayh-logger-common</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.javayh.agent</groupId>
+                <artifactId>javayh-logger-rpc</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.javayh.agent</groupId>
+                <artifactId>javayh-logger-boot-starter</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
         </dependencies>

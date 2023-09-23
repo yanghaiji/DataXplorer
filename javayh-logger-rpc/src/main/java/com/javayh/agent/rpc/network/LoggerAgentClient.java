@@ -1,19 +1,26 @@
-package com.javayh.agent.common.rpc;
+package com.javayh.agent.rpc.network;
 
+import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.exception.LoggerAgentClientException;
-import com.javayh.agent.common.handler.AgentChannelInitializer;
+import com.javayh.agent.rpc.channel.AgentChannelInitializer;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
+ * 客户端
+ *
  * @author haiji
  */
 @Slf4j
-public class JavayhLoggerAgentClient extends Thread {
+public class LoggerAgentClient extends Thread {
+
+    @Autowired
+    private DataXplorerProperties dataXplorerProperties;
 
 
     /**
@@ -43,7 +50,8 @@ public class JavayhLoggerAgentClient extends Thread {
                     .handler(new AgentChannelInitializer());
             //启动客户端去连接服务器端
             //关于 ChannelFuture 要分析，涉及到netty的异步模型
-            ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 9090).sync();
+            ChannelFuture channelFuture = bootstrap.connect(dataXplorerProperties.getHost(), dataXplorerProperties.getPort()).sync();
+            log.info("DataXplorer continuously serving you");
             //给关闭通道进行监听
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {

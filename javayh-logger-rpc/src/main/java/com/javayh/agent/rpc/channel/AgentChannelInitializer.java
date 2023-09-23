@@ -1,8 +1,10 @@
-package com.javayh.agent.common.handler;
+package com.javayh.agent.rpc.channel;
 
+import com.javayh.agent.rpc.handler.AgentClientHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
 
 /**
  * <p>
@@ -28,6 +30,9 @@ public class AgentChannelInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         //加入自己的处理器
-        ch.pipeline().addLast(new JavayhAgentClientHandler());
+        ch.pipeline()
+                // 加入心跳检测
+                .addLast(new IdleStateHandler(5, 10, 15))
+                .addLast(new AgentClientHandler());
     }
 }
