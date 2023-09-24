@@ -1,14 +1,15 @@
 package com.javayh.agent.rpc.handler;
 
+import com.javayh.agent.common.bean.LoggerCollector;
 import com.javayh.agent.rpc.listener.ChannelListener;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.util.CharsetUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author haiji
  */
+@Slf4j
 public class AgentClientHandler extends ChannelInboundHandlerAdapter {
 
     /**
@@ -16,7 +17,8 @@ public class AgentClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush(Unpooled.copiedBuffer("javayh logger agent ", CharsetUtil.UTF_8));
+        LoggerCollector sedData = LoggerCollector.builder().appName("内部消息传递，请忽略").ignore(true).build();
+        ctx.writeAndFlush(sedData);
     }
 
     /**

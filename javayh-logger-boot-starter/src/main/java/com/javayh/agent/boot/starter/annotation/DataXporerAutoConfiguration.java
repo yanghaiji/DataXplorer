@@ -3,6 +3,8 @@ package com.javayh.agent.boot.starter.annotation;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.context.AppNamingContext;
 import com.javayh.agent.common.context.SpringBeanContext;
+import com.javayh.agent.common.repository.DefaultLoggerRepository;
+import com.javayh.agent.rpc.handler.AgentServerHandler;
 import com.javayh.agent.rpc.network.LoggerAgentClient;
 import com.javayh.agent.rpc.network.LoggerAgentServer;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,7 +27,8 @@ import java.lang.annotation.*;
 @Inherited
 @Documented
 @Configuration
-@ComponentScan(value = "com.javayh.agent")
-@Import({DataXplorerProperties.class, AppNamingContext.class, SpringBeanContext.class, LoggerAgentServer.class, LoggerAgentClient.class})
+@Import({DataXplorerProperties.class, AppNamingContext.class, SpringBeanContext.class,
+        LoggerAgentServer.class, LoggerAgentClient.class,
+        AgentServerHandler.class, DefaultLoggerRepository.class})
 public @interface DataXporerAutoConfiguration {
 }

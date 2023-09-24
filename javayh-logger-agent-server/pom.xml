@@ -11,6 +11,10 @@
 
     <artifactId>javayh-logger-agent-server</artifactId>
 
+    <properties>
+        <mybatis.version>3.3.2</mybatis.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

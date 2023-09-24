@@ -9,6 +9,8 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -42,8 +44,10 @@ public class LoggerAgentServer {
                     //使用NioSocketChannel 作为服务器的通道实现
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 128)
-                    //设置保持活动连接状态
+                    .option(ChannelOption.SO_RCVBUF, 1024 * 1024)
+                    .handler(new LoggingHandler(LogLevel.INFO))
                     .childOption(ChannelOption.SO_KEEPALIVE, true)
+                    .childOption(ChannelOption.SO_RCVBUF, 1024 * 1024)
                     .childHandler(new AgentServerChannelInitializer());
 
             //绑定一个端口并且同步, 生成了一个 ChannelFuture 对象
