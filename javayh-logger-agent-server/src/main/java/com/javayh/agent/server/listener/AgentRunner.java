@@ -11,8 +11,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class AgentRunner implements CommandLineRunner {
 
-    @Autowired
-    private LoggerAgentServer agentServer;
+    private final LoggerAgentServer agentServer;
+
+    public AgentRunner(LoggerAgentServer agentServer) {
+        this.agentServer = agentServer;
+    }
 
 
     @Override

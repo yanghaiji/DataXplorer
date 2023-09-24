@@ -1,12 +1,13 @@
 package com.javayh.agent.rpc.handler;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
+import com.javayh.agent.common.bean.LoggerCollector;
+import com.javayh.agent.common.context.SpringBeanContext;
+import com.javayh.agent.common.repository.LoggerRepository;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.util.CharsetUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * 服务端处理器
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author haiji
  */
 @Slf4j
+@ChannelHandler.Sharable
 public class AgentServerHandler extends ChannelInboundHandlerAdapter {
 
 
@@ -23,23 +25,28 @@ public class AgentServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        Channel channel = ctx.channel();
-        //将 msg 转成一个 ByteBuf
-        //ByteBuf 是 Netty 提供的，不是 NIO 的 ByteBuffer.
-        ByteBuf buf = (ByteBuf) msg;
-        String s = buf.toString(CharsetUtil.UTF_8);
-        log.info("客户端地址: {}", channel.remoteAddress());
-        log.info("客户端发送消息是: {}", s);
+        try {
 
-
+            if (msg instanceof LoggerCollector && !((LoggerCollector) msg).isIgnore()) {
+                // 在这里处理 LoggerCollector 对象
+                LoggerRepository loggerRepository = SpringBeanContext.getBean(LoggerRepository.class);
+                loggerRepository.save(msg);
+            } else if (log.isInfoEnabled()) {
+                log.info("客户端发送消息是: {}", msg);
+            }
+        } catch (Exception e) {
+            log.error("channelRead {}", ExceptionUtils.getStackTrace(e));
+        }
     }
+
 
     /**
      * 数据读取完毕，进行数据回复
      */
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush(Unpooled.copiedBuffer("hello, javayh logger agent", CharsetUtil.UTF_8));
+        LoggerCollector sedData = LoggerCollector.builder().appName("内部消息传递，请忽略").ignore(true).build();
+        ctx.writeAndFlush(sedData);
     }
 
     /**
@@ -47,6 +54,7 @@ public class AgentServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
         ctx.close();
     }
 }

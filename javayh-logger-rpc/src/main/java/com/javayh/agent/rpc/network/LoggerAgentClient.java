@@ -8,6 +8,8 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -47,6 +49,7 @@ public class LoggerAgentClient extends Thread {
             bootstrap.group(group)
                     // 设置客户端通道的实现类(反射)
                     .channel(NioSocketChannel.class)
+                    .handler(new LoggingHandler(LogLevel.INFO))
                     .handler(new AgentChannelInitializer());
             //启动客户端去连接服务器端
             //关于 ChannelFuture 要分析，涉及到netty的异步模型

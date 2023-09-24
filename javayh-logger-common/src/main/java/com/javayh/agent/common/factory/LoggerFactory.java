@@ -37,19 +37,19 @@ public class LoggerFactory {
     public LoggerCollector createBean(String parameter, Integer type, String createBy, Throwable ex) {
         AppNamingContext namingContext = SpringBeanContext.getBean(AppNamingContext.class);
         //HttpServletRequest servletRequest = SpringBeanContext.getBean(HttpServletRequest.class);
-        LoggerCollector loggerCollector = LoggerCollector.builder().query(parameter).body(parameter)
-                .type(LoggerType.INTERCEPTOR.value()).type(type)
-                .appName(namingContext.getAppNaming())
-//                .ip(IpUtil.getIpAddr(servletRequest))
-                .createTime(new Date()).traceId(TraceContext.getTraceId())
-                .sourceType(LoggerSourceType.AUTOMATIC.value())
-                .createBy(createBy)
-                .build();
-        if (Objects.nonNull(ex)) {
-            loggerCollector.setErrorMsg(ExceptionUtils.getStackTrace(ex));
-        }
-        AgentCacheQueue.MSG_CACHE_DE.offer(loggerCollector);
-        return loggerCollector;
+//        LoggerCollector loggerCollector = LoggerCollector.builder().query(parameter).body(parameter)
+//                .type(LoggerType.INTERCEPTOR.value()).type(type)
+//                .appName(namingContext.getAppNaming())
+////                .ip(IpUtil.getIpAddr(servletRequest))
+//                .createTime(new Date()).traceId(TraceContext.getTraceId())
+//                .sourceType(LoggerSourceType.AUTOMATIC.value())
+//                .createBy(createBy)
+//                .build();
+//        if (Objects.nonNull(ex)) {
+//            loggerCollector.setErrorMsg(ExceptionUtils.getStackTrace(ex));
+//        }
+//        AgentCacheQueue.MSG_CACHE_DE.offer(loggerCollector);
+        return null;
     }
 
 

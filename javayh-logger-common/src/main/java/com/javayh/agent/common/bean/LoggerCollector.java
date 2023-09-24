@@ -95,5 +95,9 @@ public class LoggerCollector implements Serializable {
      */
     private Integer sourceType;
 
+    /**
+     * 是否忽略此消息，消息传递时判断是否需要继续向下传递
+     */
+    private boolean ignore = false;
 
 }
