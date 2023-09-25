@@ -1,0 +1,34 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: javayh-logger-agent-server
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/DataXplorer?rewriteBatchedStatements=true
+    username: root
+    password: root
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 30
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 60000
+      connection-timeout: 60000
+      validation-timeout: 5000
+      read-only: false
+      login-timeout: 5
+
+server:
+  port: 9090
+  servlet:
+    context-path: /admin/api
+
+
+# rpc 通信协议
+data:
+  xplorer:
+    host: 127.0.0.1
+    port: 9098
+

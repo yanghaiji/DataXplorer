@@ -1,27 +1,22 @@
-package com.javayh.agent.common.bean;
+package com.javayh.agent.server.logger.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.javayh.agent.common.bean.LoggerCollector;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * <p>
- * 收集类
- * </p>
- *
- * @author hai ji
- * @version 1.0.0
- * @since 2022-06-29
- */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoggerCollector implements Serializable {
+@TableName(value = "data_xplorer_logger")
+public class DataXplorerLoggerEntity implements Serializable {
 
     private static final long serialVersionUID = 3575438370068966717L;
 
@@ -68,7 +63,7 @@ public class LoggerCollector implements Serializable {
     private String appName;
 
     /**
-     * 请求访问的类型，{@link com.javayh.agent.common.constant.LoggerType;}
+     * 请求访问的类型，
      */
     private Integer type;
 
@@ -96,8 +91,12 @@ public class LoggerCollector implements Serializable {
     private Integer sourceType;
 
     /**
-     * 是否忽略此消息，消息传递时判断是否需要继续向下传递
+     * 数据落库的时间
      */
-    private boolean ignore = false;
+    private Date insertTime;
 
+    public void copy(LoggerCollector source) {
+        BeanUtils.copyProperties(source, this);
+        this.setInsertTime(new Date());
+    }
 }
