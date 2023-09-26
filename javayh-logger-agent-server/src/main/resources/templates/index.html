@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Data Xplorer BI</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* 新增样式：将图表放在同一行并设置间距 */
+        .chart-container {
+            display: inline-block;
+            margin-right: 100px; /* 设置图表之间的间距为100像素 */
+            vertical-align: top; /* 使图表在垂直方向上对齐顶部 */
+        }
+
+        /* 更新样式：第一个div距离左侧100像素 */
+        .first-chart-container {
+            margin-left: 100px;
+        }
+
+        /* 页面主题样式 */
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 头部标题样式 */
+        h1 {
+            text-align: center;
+            color: #007acc; /* 主要标题颜色 */
+            margin-top: 20px;
+        }
+
+        /* 图表容器样式 */
+        .chart-container {
+            display: inline-block;
+            margin-right: 50px;
+            margin-left: 100px;
+            vertical-align: top;
+            background-color: #f5f5f5; /* 图表容器背景色 */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+            border-radius: 5px; /* 圆角边框 */
+            padding: 20px; /* 内边距 */
+        }
+
+        /* 图表标题样式 */
+        .chart-title {
+            font-size: 18px;
+            color: #333; /* 图表标题颜色 */
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">DataXplorer Business Intelligence Dashboard</h1>
+    <div class="chart-container first-chart-container">
+        <!--    <h3 style="text-align: center;">Top 10 URLs</h3>-->
+        <div class="chart-title" style="text-align: center;">Top 10 URLs</div>
+        <canvas id="barChart" width="450" height="350"></canvas>
+    </div>
+
+    <!-- 新添加的空心饼状图 -->
+    <div class="chart-container">
+        <!--    <h3 style="text-align: center;">Microservices Adoption Rate</h3>-->
+        <div class="chart-title" style="text-align: center;">Microservices Adoption Rate</div>
+        <canvas id="pieChart" width="450" height="350"></canvas>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/admin/api/bi/top-urls", // 后端提供JSON数据的路由
+            success: function (response) {
+                if (response.code === 200) {
+                    var data = response.data;
+                    var topUrls = data.slice(0, 10);
+                    var labels = topUrls.map(function (item) {
+                        return item.url;
+                    });
+                    var requestData = topUrls.map(function (item) {
+                        return item.requests;
+                    });
+
+                    var ctx = document.getElementById('barChart').getContext('2d');
+                    var chart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Requests',
+                                data: requestData,
+                                backgroundColor: [
+                                    '#007acc', '#00a69b', '#ff6b6b', '#313c6e', '#8e43e7', '#ee6666', '#fac858', '#91cc75', '#5470c6', '#73c0de'  // 新的配色
+                                ],
+                                borderColor: 'white',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                } else {
+                    console.error("Error: " + response.msg);
+                }
+            },
+            error: function () {
+                console.error("Error: Unable to fetch data from the server.");
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "/admin/api/bi/pie-chart-data", // 后端提供饼状图数据的路由
+            success: function (response) {
+                if (response.code === 200) {
+                    var pieChartData = response.data;
+
+                    // 绘制空心饼状图
+                    var ctx2 = document.getElementById('pieChart').getContext('2d');
+                    var pieChart = new Chart(ctx2, {
+                        type: 'doughnut', // 使用饼状图类型
+                        data: {
+                            labels: pieChartData.map(function (item) {
+                                return item.appName;
+                            }),
+                            datasets: [{
+                                data: pieChartData.map(function (item) {
+                                    return item.total;
+                                }),
+                                backgroundColor: [
+                                    '#007acc', '#00a69b', '#ff6b6b', '#25befa', '#8e43e7', '#007acc', '#00a69b', '#ff6b6b', '#25befa', '#8e43e7'// 添加更多颜色
+                                ],
+                                borderColor: 'white', // 边框颜色
+                                borderWidth: 2 // 边框宽度
+                            }]
+                        },
+                        options: {
+                            // 空心饼状图选项配置
+                        }
+                    });
+                } else {
+                    console.error("Error: " + response.msg);
+                }
+            },
+            error: function () {
+                console.error("Error: Unable to fetch data from the server.");
+            }
+        });
+    });
+</script>
+
+
+</body>
+</html>
