@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: dev
   application:
     name: javayh-logger-agent-server
   datasource:

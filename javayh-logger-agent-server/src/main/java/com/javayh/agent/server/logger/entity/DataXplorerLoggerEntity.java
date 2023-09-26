@@ -63,9 +63,9 @@ public class DataXplorerLoggerEntity implements Serializable {
     private String appName;
 
     /**
-     * 请求访问的类型，
+     * 请求访问的类型，{@link com.javayh.agent.common.constant.LoggerType}
      */
-    private Integer type;
+    private Integer requestType;
 
     /**
      * 创建的时间
@@ -98,5 +98,6 @@ public class DataXplorerLoggerEntity implements Serializable {
     public void copy(LoggerCollector source) {
         BeanUtils.copyProperties(source, this);
         this.setInsertTime(new Date());
+        this.setRequestType(source.getType());
     }
 }
