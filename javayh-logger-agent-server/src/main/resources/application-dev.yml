@@ -17,6 +17,10 @@ spring:
       validation-timeout: 5000
       read-only: false
       login-timeout: 5
+  security:
+    user:
+      name: DataXplorer
+      password: DataXplorer
 
 server:
   port: 9090

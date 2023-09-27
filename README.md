@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  <a href="https://github.com/yanghaiji/javayh-logger-agent.git"><img src="https://github.com/yanghaiji/logger-agent/blob/main/doc/img/new_logo_01.png" alt="Standard - javayh-logger-agent" width="500"></a>
+  <a href="https://github.com/yanghaiji/DataXplorer.git"><img src="https://github.com/yanghaiji/logger-agent/blob/main/doc/img/new_logo_01.png" alt="Standard - javayh-logger-agent" width="500"></a>
 </h1>
 <p align="center">
     <a href="https://spring.io/projects"><img src='https://img.shields.io/badge/license-Apache%202-borightgreen' alt='License'/></a>
@@ -18,10 +18,19 @@
 
 支持将收集的日志发送给`javayh-logger-agent-server`进行最终的数据处理与持久化，方便统一的日志分析，进行用户画像。
 
+
+# Dashboard
+
+> 由于前端小白，只做了一个简单的页面，提供了报表， 启动项目后访问 http://ip:9090/admin/api/index
+
+<h1 align="center">
+  <a href="https://github.com/yanghaiji/DataXplorer.git"><img src="https://github.com/yanghaiji/logger-agent/blob/main/doc/img/Dashboard.png.png" alt="Dashboard" width="500"></a>
+</h1>
+
 # 原理
 
 <h1 align="center">
-  <a href="https://github.com/yanghaiji/javayh-logger-agent.git"><img src="https://github.com/yanghaiji/logger-agent/blob/main/doc/img/theory.png" alt="Standard - javayh-logger-agent" width="500"></a>
+  <a href="https://github.com/yanghaiji/DataXplorer.git"><img src="https://github.com/yanghaiji/logger-agent/blob/main/doc/img/theory.png" alt="Standard - javayh-logger-agent" width="500"></a>
 </h1>
 
 # 源码编译

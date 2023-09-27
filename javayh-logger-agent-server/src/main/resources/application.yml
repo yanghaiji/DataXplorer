@@ -3,7 +3,10 @@ server:
 spring:
   profiles:
     active: dev
-
+#  mvc:
+#    static-path-pattern: /static/js/**
+  thymeleaf:
+    cache: false
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   #实体扫描，多个package用逗号或者分号分隔

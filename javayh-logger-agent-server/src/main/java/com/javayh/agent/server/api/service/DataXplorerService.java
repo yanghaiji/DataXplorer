@@ -1,5 +1,6 @@
 package com.javayh.agent.server.api.service;
 
+import com.javayh.agent.server.api.entity.DataGrowthDTO;
 import com.javayh.agent.server.api.entity.MicroservicesDataDTO;
 import com.javayh.agent.server.api.entity.UrlDataDTO;
 
@@ -23,7 +24,17 @@ public interface DataXplorerService {
 
     /**
      * 常用微服务
-     * @return
      */
     List<MicroservicesDataDTO> coreBusinessMicroservices();
+
+    /**
+     * 微服务报错率
+     */
+    List<MicroservicesDataDTO> serviceErrorRate();
+
+    /**
+     * 最近的数据
+     *
+     */
+    DataGrowthDTO dataGrowth();
 }
