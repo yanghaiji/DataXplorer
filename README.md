@@ -21,7 +21,7 @@
 
 # Dashboard
 
-> 由于前端小白，只做了一个简单的页面，提供了报表， 启动项目后访问 http://ip:9090/admin/api/index
+> 由于本人是前端小白，只做了一个简单的页面，提供了几个简单的报表， 启动项目后访问 http://ip:9090/admin/api/index
 
 <h1 align="center">
   <a href="https://github.com/yanghaiji/DataXplorer.git"><img src="https://github.com/yanghaiji/logger-agent/blob/main/doc/img/Dashboard.png" alt="Dashboard" width="800"></a>
