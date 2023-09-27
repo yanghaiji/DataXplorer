@@ -41,4 +41,17 @@ public class DataXplorerLoggerServiceImpl extends ServiceImpl<DataXplorerLoggerM
     public List<MicroservicesDataDTO> coreBusinessMicroservices() {
         return dataXplorerLoggerMapper.coreBusinessMicroservices();
     }
+
+    /**
+     * 微服务的报错率
+     */
+    @Override
+    public List<MicroservicesDataDTO> serviceErrorRate() {
+        return dataXplorerLoggerMapper.serviceErrorRate();
+    }
+
+    @Override
+    public List<MicroservicesDataDTO> dataGrowth() {
+        return dataXplorerLoggerMapper.dataGrowth();
+    }
 }

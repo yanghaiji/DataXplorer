@@ -1,6 +1,7 @@
 package com.javayh.agent.server.api.web;
 
 import com.javayh.agent.common.utils.Result;
+import com.javayh.agent.server.api.entity.DataGrowthDTO;
 import com.javayh.agent.server.api.entity.MicroservicesDataDTO;
 import com.javayh.agent.server.api.entity.UrlDataDTO;
 import com.javayh.agent.server.api.service.DataXplorerService;
@@ -49,6 +50,24 @@ public class DataXplorerController {
     @GetMapping("/pie-chart-data")
     public Result coreBusinessMicroservices() {
         List<MicroservicesDataDTO> dataDTOS = dataXplorerService.coreBusinessMicroservices();
+        return Result.ok(dataDTOS);
+    }
+
+    /**
+     * 服务的报错率
+     */
+    @GetMapping("/service-error-rate")
+    public Result serviceErrorRate() {
+        List<MicroservicesDataDTO> dataDTOS = dataXplorerService.serviceErrorRate();
+        return Result.ok(dataDTOS);
+    }
+
+    /**
+     * 服务的进7日增长
+     */
+    @GetMapping("/data-growth")
+    public Result dataGrowth() {
+        DataGrowthDTO dataDTOS = dataXplorerService.dataGrowth();
         return Result.ok(dataDTOS);
     }
 }

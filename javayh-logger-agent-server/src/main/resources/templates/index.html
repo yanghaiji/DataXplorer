@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Data Xplorer BI</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style src="echarts.min.js"></style>
+<!--    <link rel="stylesheet" href="/static/js/echarts.min.js" th:href="@{/js/echarts.min.js}">-->
+<!--    <link rel="stylesheet" href="/static/js/jquery-3.6.0.min.js" th:href="@{/js/jquery-3.6.0.min.js}">-->
+<!--    <link rel="stylesheet" href="/static/js/chart.min.js" th:href="@{/js/chart.min.js}">-->
+
     <style>
         /* 新增样式：将图表放在同一行并设置间距 */
         .chart-container {
@@ -53,20 +59,49 @@
 </head>
 <body>
 <div class="container mt-5">
-    <h1 class="text-center mb-4">DataXplorer Business Intelligence Dashboard</h1>
-    <div class="chart-container first-chart-container">
-        <!--    <h3 style="text-align: center;">Top 10 URLs</h3>-->
-        <div class="chart-title" style="text-align: center;">Top 10 URLs</div>
-        <canvas id="barChart" width="450" height="350"></canvas>
+    <h1 class="text-center mb-4">Data Xplorer Dashboard</h1>
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title" style="text-align: center;">Service(API) Error Rate</h5>
+                    <canvas id="dashboardChart" width="500" height="500"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title" style="text-align: center;">Top 10 URLs</h5>
+                    <canvas id="barChart" width="500" height="500"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title" style="text-align: center;">Microservices Adoption Rate</h5>
+                    <canvas id="pieChart" width="500" height="500"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- 新添加的空心饼状图 -->
-    <div class="chart-container">
-        <!--    <h3 style="text-align: center;">Microservices Adoption Rate</h3>-->
-        <div class="chart-title" style="text-align: center;">Microservices Adoption Rate</div>
-        <canvas id="pieChart" width="450" height="350"></canvas>
+    <div style="background-color: white">
+
+        <h5 class="card-title" style="text-align: center;">Last 7 days the data increased</h5>
+        <!-- 创建一个 canvas 元素来放置折线图 -->
+        <canvas id="lineChart" width="400" height="200"></canvas>
     </div>
 </div>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 <script>
     $(document).ready(function () {
@@ -156,9 +191,129 @@
                 console.error("Error: Unable to fetch data from the server.");
             }
         });
+        var maxValue = 0;
+
+        // 计算最大值的函数
+        function calculateMaxValue(value) {
+            // 从数据中找到最大值，然后增加5
+            // var maxValue = value > maxValue ? value : maxValue;
+            return value > maxValue ? value : maxValue;
+        }
+
+        // 获取仪表盘数据（通过AJAX请求后端获取数据）
+        $.ajax({
+            type: "GET",
+            url: "/admin/api/bi/service-error-rate", // 后端提供仪表盘数据的路由
+            success: function (response) {
+                if (response.code === 200) {
+                    var dashboardData = response.data;
+                    var ctx3 = document.getElementById('dashboardChart').getContext('2d');
+
+                    var dashboardChart = new Chart(ctx3, {
+                        type: 'polarArea', // 使用饼状图类型
+                        data: {
+                            labels: dashboardData.map(function (item) {
+                                return item.appName + " | " + item.total;
+
+                            }),
+                            datasets: [{
+                                data: dashboardData.map(function (item) {
+                                    maxValue = calculateMaxValue(item.rate)
+                                    return item.rate;
+                                }),
+                                backgroundColor: [
+                                    '#007acc', '#00a69b', '#ff6b6b', '#25befa', '#8e43e7', '#007acc', '#00a69b', '#ff6b6b', '#25befa', '#8e43e7'// 添加更多颜色
+                                ],
+                                borderColor: 'white', // 边框颜色
+                                borderWidth: 2, // 边框宽度
+                            }],
+
+                        },
+
+                        options: {
+                            // responsive: ture,
+                            // maintainAspectRatio: false,
+                            // scales: {
+                            //     r: {
+                            //         min: 0, // 最小值
+                            //         max: maxValue + 5, // 计算最大值并增加5
+                            //     }
+                            // }
+                        }
+                    });
+
+                    console.log(maxValue)
+                } else {
+                    console.error("Error: " + response.msg);
+                }
+            },
+            error: function () {
+                console.error("Error: Unable to fetch data from the server.");
+            }
+
+        });
+
     });
 </script>
 
+<script>
+    // 获取 canvas 元素
+    var ctx = document.getElementById('lineChart').getContext('2d');
+
+    // 定义颜色数组
+    var colors = ['rgb(75, 192, 192)', 'rgb(255, 99, 132)', 'rgb(255, 205, 86)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)'];
+
+    // 创建折线图配置
+    var config = {
+        type: 'line',
+        data: {
+            labels: [], // x轴数据
+            datasets: []
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    };
+
+    // 获取数据并渲染图表的函数
+    function fetchDataAndDrawChart() {
+        $.ajax({
+            url: '/admin/api/bi/data-growth', // 替换为你的后端接口URL
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                // 更新图表数据
+                config.data.labels = data.data.dates; // x轴数据
+                config.data.datasets = [];
+
+                // 将每个 appname 的数据添加到折线图，并循环使用颜色
+                for (var i = 0; i < data.data.appName.length; i++) {
+                    var colorIndex = i % colors.length;
+                    config.data.datasets.push({
+                        label: 'App ' + data.data.appName[i],
+                        data: data.data.total[i], // y轴数据
+                        borderColor: colors[colorIndex],
+                        fill: false
+                    });
+                }
+
+                // 创建或更新折线图
+                if (window.myLine) {
+                    window.myLine.update(); // 更新图表
+                } else {
+                    window.myLine = new Chart(ctx, config); // 创建图表
+                }
+            },
+            error: function (error) {
+                console.error('无法获取数据：', error);
+            }
+        });
+    }
+
+    // 初始化时调用数据获取函数
+    fetchDataAndDrawChart();
+</script>
 
 </body>
 </html>

@@ -27,4 +27,11 @@ public interface DataXplorerLoggerService extends IService<DataXplorerLoggerEnti
      * 常用的微服务
      */
     List<MicroservicesDataDTO> coreBusinessMicroservices();
+
+    /**
+     * 微服务的报错率
+     */
+    List<MicroservicesDataDTO> serviceErrorRate();
+
+    List<MicroservicesDataDTO> dataGrowth();
 }
