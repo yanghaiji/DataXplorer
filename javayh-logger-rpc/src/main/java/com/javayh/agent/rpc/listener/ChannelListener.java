@@ -53,7 +53,6 @@ public class ChannelListener {
                 try {
                     if (Objects.nonNull(data)) {
                         ctx.writeAndFlush(data);
-                        //ctx.writeAndFlush(Unpooled.copiedBuffer(JSONObject.toJSONString(data), CharsetUtil.UTF_8));
                     }
                 } catch (Exception ex) {
                     log.error("数据发送异常 {}", ExceptionUtils.getStackTrace(ex));
