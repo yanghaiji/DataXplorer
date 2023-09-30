@@ -1,6 +1,7 @@
 package com.javayh.agent.rpc.channel;
 
 import com.javayh.agent.rpc.handler.AgentClientHandler;
+import com.javayh.agent.rpc.network.LoggerAgentClient;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
@@ -19,6 +20,11 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
  */
 public class AgentChannelInitializer extends ChannelInitializer<SocketChannel> {
 
+    private final LoggerAgentClient loggerAgentClient;
+
+    public AgentChannelInitializer(LoggerAgentClient loggerAgentClient) {
+        this.loggerAgentClient = loggerAgentClient;
+    }
 
     /**
      * This method will be called once the {@link Channel} was registered. After the method returns this instance
@@ -39,6 +45,6 @@ public class AgentChannelInitializer extends ChannelInitializer<SocketChannel> {
                 .addLast(new ObjectEncoder())
                 // 添加对象解码器
                 .addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)))
-                .addLast(new AgentClientHandler());
+                .addLast(new AgentClientHandler(loggerAgentClient));
     }
 }

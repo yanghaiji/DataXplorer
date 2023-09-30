@@ -19,6 +19,7 @@ public class AgentClientRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        agentClient.start();
+        agentClient.init();
+        agentClient.connect();
     }
 }

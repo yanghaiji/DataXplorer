@@ -2,6 +2,7 @@ package com.javayh.agent.rpc.handler;
 
 import com.javayh.agent.common.bean.LoggerCollector;
 import com.javayh.agent.rpc.listener.ChannelListener;
+import com.javayh.agent.rpc.network.LoggerAgentClient;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class AgentClientHandler extends ChannelInboundHandlerAdapter {
+
+    private final LoggerAgentClient loggerAgentClient;
+
+    public AgentClientHandler(LoggerAgentClient loggerAgentClient) {
+        this.loggerAgentClient = loggerAgentClient;
+    }
 
     /**
      * 当通道就绪就会触发该方法
@@ -36,4 +43,12 @@ public class AgentClientHandler extends ChannelInboundHandlerAdapter {
         cause.printStackTrace();
         ctx.close();
     }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        loggerAgentClient.scheduleReconnect("channel inactive");
+        ctx.fireChannelInactive();
+    }
+
+
 }
