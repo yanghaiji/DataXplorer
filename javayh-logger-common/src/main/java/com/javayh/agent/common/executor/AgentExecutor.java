@@ -27,4 +27,11 @@ public class AgentExecutor {
         return executorService;
     }
 
+    public static void shutdown() {
+        if (executorService != null && !executorService.isShutdown()) {
+            executorService.shutdownNow();
+        }
+        executorService = null;
+    }
+
 }

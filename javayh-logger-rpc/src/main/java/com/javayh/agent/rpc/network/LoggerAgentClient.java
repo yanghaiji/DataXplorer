@@ -40,7 +40,7 @@ public class LoggerAgentClient {
         bootstrap.group(group)
                 .channel(NioSocketChannel.class)
                 .handler(new LoggingHandler(LogLevel.INFO))
-                .handler(new AgentChannelInitializer(LoggerAgentClient.this));
+                .handler(new AgentChannelInitializer(LoggerAgentClient.this,dataXplorerProperties));
 
     }
 
@@ -56,6 +56,8 @@ public class LoggerAgentClient {
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
+            channel.close();
+            channelFuture.channel().closeFuture();
         }
     }
 
