@@ -47,7 +47,6 @@ public class LoggerAgentServer {
                     .option(ChannelOption.SO_RCVBUF, 1024 * 1024)
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childOption(ChannelOption.SO_KEEPALIVE, true)
-                    .childOption(ChannelOption.SO_RCVBUF, 1024 * 1024)
                     .childHandler(new AgentServerChannelInitializer());
 
             //绑定一个端口并且同步, 生成了一个 ChannelFuture 对象

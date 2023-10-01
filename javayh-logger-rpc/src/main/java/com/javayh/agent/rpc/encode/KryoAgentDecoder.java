@@ -4,6 +4,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 import com.javayh.agent.common.bean.LoggerCollector;
+import com.javayh.agent.common.bean.MessageBody;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -24,7 +25,7 @@ import java.util.List;
  */
 public class KryoAgentDecoder extends ByteToMessageDecoder {
 
-    private final Kryo kryo = new Kryo();
+    private Kryo kryo = new Kryo();
 
     @Override
     protected void decode(ChannelHandlerContext handlerContext, ByteBuf byteBuf,
@@ -59,10 +60,10 @@ public class KryoAgentDecoder extends ByteToMessageDecoder {
             bais = new ByteArrayInputStream(body);
             input = new Input(bais);
 
-            return kryo.readObject(input, LoggerCollector.class);
+            return kryo.readObject(input, MessageBody.class);
         } catch (KryoException e) {
             e.printStackTrace();
-        } finally {
+        }finally{
             IOUtils.closeQuietly(input);
             IOUtils.closeQuietly(bais);
         }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.lang.NonNull;
 
 /**
  * <p>
@@ -25,7 +26,16 @@ public class DataXplorerProperties {
      */
     private String host = "127.0.0.1";
 
+    /**
+     * 端口号
+     */
     private Integer port = 9090;
+
+    /**
+     * 服务名
+     */
+    @NonNull
+    private String appName;
 
 
 }

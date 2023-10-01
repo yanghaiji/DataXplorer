@@ -12,3 +12,4 @@ data:
   xplorer:
     host: 127.0.0.1
     port: 9098
+    app-name: ${spring.application.name}

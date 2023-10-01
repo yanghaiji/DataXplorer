@@ -1,6 +1,8 @@
 package com.javayh.agent.rpc.channel;
 
+import com.javayh.agent.rpc.encode.KryoAgentDecoder;
 import com.javayh.agent.rpc.handler.AgentServerHandler;
+import com.javayh.agent.rpc.handler.HeartBeatServerHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
@@ -9,6 +11,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
+import io.netty.handler.timeout.IdleStateHandler;
 
 /**
  * <p>
@@ -34,8 +37,15 @@ public class AgentServerChannelInitializer extends ChannelInitializer<SocketChan
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch.pipeline()
+                /*
+                 * IdleStateHandler  空闲状态的处理器
+                 * long readerIdleTime, 多长时间没有读出数据，就会发送心跳检测，检测是否链接
+                 * long writerIdleTime, 多长时间没有写出数据，就会发送心跳检测
+                 * long allIdleTime     多长时间没有读写出数据，就会发送心跳检测
+                 */
                 // 五秒没有收到消息 将IdleStateHandler 添加到 ChannelPipeline 中
-//                .addLast(new IdleStateHandler(5, 10, 15))
+                .addLast(new IdleStateHandler(5, 10, 15))
+//                .addLast(new HeartBeatServerHandler())
                 // 添加对象编码器
                 .addLast(new ObjectEncoder())
                 // 添加对象解码器
