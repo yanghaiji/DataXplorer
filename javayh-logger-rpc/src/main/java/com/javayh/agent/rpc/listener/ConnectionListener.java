@@ -30,7 +30,7 @@ public class ConnectionListener implements ChannelFutureListener {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }, 3000, TimeUnit.MILLISECONDS);
+            }, 15, TimeUnit.SECONDS);
         }
     }
 

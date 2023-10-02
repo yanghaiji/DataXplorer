@@ -1,6 +1,8 @@
 package com.javayh.agent.rpc.handler;
 
 import com.javayh.agent.common.bean.LoggerCollector;
+import com.javayh.agent.common.cache.LoggerSendCache;
+import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.context.SpringBeanContext;
 import com.javayh.agent.common.repository.LoggerRepository;
 import io.netty.channel.ChannelFutureListener;
@@ -25,6 +27,12 @@ import java.util.Date;
 public class AgentServerHandler extends ChannelInboundHandlerAdapter {
 
     private static final String YMS = "yyyy-MM-dd HH:mm:ss";
+
+    private final String appName;
+
+    public AgentServerHandler(DataXplorerProperties dataXplorerProperties) {
+        this.appName = dataXplorerProperties.getAppName();
+    }
 
     /**
      * 1. ChannelHandlerContext ctx:上下文对象, 含有 管道pipeline , 通道channel, 地址
@@ -52,8 +60,7 @@ public class AgentServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        LoggerCollector sedData = LoggerCollector.builder().appName("内部消息传递，请忽略").ignore(true).build();
-        ctx.writeAndFlush(sedData);
+        ctx.writeAndFlush(LoggerSendCache.build());
     }
 
     /**
@@ -61,7 +68,7 @@ public class AgentServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        cause.printStackTrace();
+        log.error("exceptionCaught {}", cause.getMessage(),cause);
         ctx.close();
     }
 
@@ -69,13 +76,12 @@ public class AgentServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt)
             throws Exception {
-        LoggerCollector sedData = LoggerCollector.builder().appName("内部消息传递，请忽略").ignore(true).build();
         if (evt instanceof IdleStateEvent) {
             IdleStateEvent idleStateEvent = (IdleStateEvent) evt;
             if (idleStateEvent.state() == IdleState.READER_IDLE) {
-                log.info("已经5秒没有收到信息！");
+                log.info("It's been 30 seconds without receiving any messages.");
                 // 向客户端发送消息
-                ctx.writeAndFlush(sedData)
+                ctx.writeAndFlush(LoggerSendCache.build())
                         .addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
             }
         }

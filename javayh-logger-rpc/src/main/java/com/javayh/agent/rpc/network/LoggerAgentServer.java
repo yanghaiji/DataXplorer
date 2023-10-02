@@ -12,10 +12,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PreDestroy;
 
 /**
  * 参考
@@ -47,7 +43,7 @@ public class LoggerAgentServer {
                     .option(ChannelOption.SO_RCVBUF, 1024 * 1024)
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childOption(ChannelOption.SO_KEEPALIVE, true)
-                    .childHandler(new AgentServerChannelInitializer());
+                    .childHandler(new AgentServerChannelInitializer(dataXplorerProperties));
 
             //绑定一个端口并且同步, 生成了一个 ChannelFuture 对象
             //启动服务器(并绑定端口)
