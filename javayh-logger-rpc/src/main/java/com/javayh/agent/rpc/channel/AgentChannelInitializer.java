@@ -1,9 +1,7 @@
 package com.javayh.agent.rpc.channel;
 
 import com.javayh.agent.common.configuration.DataXplorerProperties;
-import com.javayh.agent.rpc.encode.KryoAgentEncoder;
 import com.javayh.agent.rpc.handler.AgentClientHandler;
-import com.javayh.agent.rpc.handler.HeartBeatClientHandler;
 import com.javayh.agent.rpc.network.LoggerAgentClient;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -26,9 +24,10 @@ public class AgentChannelInitializer extends ChannelInitializer<SocketChannel> {
 
     private final LoggerAgentClient loggerAgentClient;
     private final DataXplorerProperties dataXplorerProperties;
+
     public AgentChannelInitializer(LoggerAgentClient loggerAgentClient, DataXplorerProperties dataXplorerProperties) {
         this.loggerAgentClient = loggerAgentClient;
-        this.dataXplorerProperties =dataXplorerProperties;
+        this.dataXplorerProperties = dataXplorerProperties;
     }
 
     /**
@@ -45,12 +44,11 @@ public class AgentChannelInitializer extends ChannelInitializer<SocketChannel> {
         //加入自己的处理器
         ch.pipeline()
                 // 10 秒没发送消息 将IdleStateHandler 添加到 ChannelPipeline 中
-                .addLast(new IdleStateHandler(0, 10, 0))
-//                .addLast(new HeartBeatClientHandler())
+                .addLast(new IdleStateHandler(0, 30, 0))
                 // 添加对象编码器
                 .addLast(new ObjectEncoder())
                 // 添加对象解码器
                 .addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)))
-                .addLast(new AgentClientHandler(loggerAgentClient,dataXplorerProperties));
+                .addLast(new AgentClientHandler(loggerAgentClient, dataXplorerProperties));
     }
 }

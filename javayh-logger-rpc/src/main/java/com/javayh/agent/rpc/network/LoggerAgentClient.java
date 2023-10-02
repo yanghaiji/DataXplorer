@@ -40,7 +40,7 @@ public class LoggerAgentClient {
         bootstrap.group(group)
                 .channel(NioSocketChannel.class)
                 .handler(new LoggingHandler(LogLevel.INFO))
-                .handler(new AgentChannelInitializer(LoggerAgentClient.this,dataXplorerProperties));
+                .handler(new AgentChannelInitializer(LoggerAgentClient.this, dataXplorerProperties));
 
     }
 
@@ -69,7 +69,7 @@ public class LoggerAgentClient {
         }
         log.error(msg);
         // 重连逻辑
-        group.schedule(this::connect, 1, TimeUnit.SECONDS);
+        group.schedule(this::connect, 10, TimeUnit.SECONDS);
     }
 
 

@@ -1,6 +1,7 @@
 package com.javayh.agent.server.api.web;
 
 import com.javayh.agent.common.utils.Result;
+import com.javayh.agent.rpc.OnlineServiceHolder;
 import com.javayh.agent.server.api.entity.DataGrowthDTO;
 import com.javayh.agent.server.api.entity.MicroservicesDataDTO;
 import com.javayh.agent.server.api.entity.UrlDataDTO;
@@ -69,5 +70,15 @@ public class DataXplorerController {
     public Result dataGrowth() {
         DataGrowthDTO dataDTOS = dataXplorerService.dataGrowth();
         return Result.ok(dataDTOS);
+    }
+
+
+
+    /**
+     * 服务的进7日增长
+     */
+    @GetMapping("/online-service")
+    public Result onlineGrowth() {
+        return Result.ok(OnlineServiceHolder.getOnlineService());
     }
 }
