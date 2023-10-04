@@ -1,10 +1,12 @@
 package com.javayh.agent.rpc.handler;
 
 import com.javayh.agent.common.bean.LoggerCollector;
+import com.javayh.agent.common.bean.MessageBody;
 import com.javayh.agent.common.cache.LoggerSendCache;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.context.SpringBeanContext;
 import com.javayh.agent.common.repository.LoggerRepository;
+import com.javayh.agent.rpc.OnlineServiceHolder;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -46,6 +48,9 @@ public class AgentServerHandler extends ChannelInboundHandlerAdapter {
                 // 在这里处理 LoggerCollector 对象
                 LoggerRepository loggerRepository = SpringBeanContext.getBean(LoggerRepository.class);
                 loggerRepository.save(msg);
+            } else if (msg instanceof MessageBody) {
+                String name = ((MessageBody) msg).getAppName();
+                OnlineServiceHolder.put(name);
             } else if (log.isInfoEnabled()) {
                 log.info("客户端发送消息是: {}", msg);
             }
@@ -68,7 +73,7 @@ public class AgentServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        log.error("exceptionCaught {}", cause.getMessage(),cause);
+        log.error("exceptionCaught {}", cause.getMessage(), cause);
         ctx.close();
     }
 
