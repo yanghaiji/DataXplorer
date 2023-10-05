@@ -10,18 +10,24 @@
 
 #
 
-`DataXplorer` 并不是一个常见的英语单词，而是由`Data` 和`Explorer`组合而成，可以被理解为一个探索数据或发现数据中的信息的概念。
+`DataXplorer`是一个非常有价值的工具，它的核心任务是解决分布式系统中日志收集和分析的挑战。该工具的设计理念基于"数据"和"探索"，旨在提供一种高度可定制且不侵入应用代码的方式来实现对日志数据的采集和分析。
 
-`DataXplorer`一款基于`javassist`无侵入的日志收集工具，主要用于日志的收集，通过`javassist`与`spring`的联动实现对web请求的记录，实现真正的可扩展与可自定开发的框架。
+`DataXplorer`基于Java技术，借助`javassist`和`Spring`框架的集成，能够在不干扰应用程序正常运行的前提下，捕获和记录关键的日志信息，特别是Web请求。这使得它成为了一种非常灵活和可扩展的框架，能够适应各种复杂的系统架构和业务需求。
 
-致力于解决多个服务没有统一的日志收集工具，替代原有AOP的方式，可扩展性极强，开箱即用，对于项目代码无任何侵入。
+这个工具的出现解决了多个服务之间缺乏一致性日志收集方法的问题，摒弃了传统AOP方法的限制。它的优点在于其即插即用的特性，不需要对现有项目代码进行任何修改，从而降低了集成和维护的复杂性。
 
-支持将收集的日志发送给`javayh-logger-agent-server`进行最终的数据处理与持久化，方便统一的日志分析，进行用户画像。
+此外，`DataXplorer`还支持将收集到的日志数据发送至`data-xplorer-server`，进行高级的数据处理和持久化。这一特性为日志数据的集中化分析和用户行为建模提供了便利，
+有助于实现更深入的业务洞察和决策支持。综合而言，`DataXplorer`在分布式系统中的日志管理方面提供了一种先进且高度可定制的解决方案，为数据驱动的决策提供了强大支持。
+
+
 
 
 # Dashboard
 
 > 由于本人是前端小白，只做了一个简单的页面，提供了几个简单的报表， 启动项目后访问 http://ip:9090/admin/api/index
+>
+>用户名密码都是 DataXplorer
+>
 
 <h1 align="center">
   <a href="https://github.com/yanghaiji/DataXplorer.git"><img src="https://github.com/yanghaiji/logger-agent/blob/main/doc/img/Dashboard.png" alt="Dashboard" width="800"></a>
@@ -45,8 +51,8 @@ mvn clean package install
 
 # Agent 配置
 
-- 将上一步骤编译好的`javayh-agent-1.0-SNAPSHOT.jar`放在指定的位置，如`\usr\local\agent`
-- 在启动脚本上加入`-javaagent:\usr\local\agent\javayh-agent-1.0-SNAPSHOT.jar`的命令参数
+- 将上一步骤编译好的`jdata-xplorer-agent-1.0-SNAPSHOT.jar`放在指定的位置，如`\usr\local\agent`
+- 在启动脚本上加入`-javaagent:\usr\local\agent\data-xplorer-agent-1.0-SNAPSHOT.jar`的命令参数
 
 # 日志
 
