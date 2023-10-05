@@ -5,16 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.javayh.agent</groupId>
-    <artifactId>javayh-logger-agent</artifactId>
+    <artifactId>data-xplorer</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>javayh-agent</module>
+        <module>data-xplorer-agent</module>
         <module>agent-example</module>
-        <module>javayh-logger-common</module>
-        <module>javayh-logger-agent-server</module>
-        <module>javayh-logger-rpc</module>
-        <module>javayh-logger-boot-starter</module>
+        <module>data-xplorer-common</module>
+        <module>data-xplorer-server</module>
+        <module>data-xplorer-rpc</module>
+        <module>data-xplorer-boot-starter</module>
     </modules>
 
     <properties>
@@ -88,17 +88,17 @@
             </dependency>
             <dependency>
                 <groupId>com.javayh.agent</groupId>
-                <artifactId>javayh-logger-common</artifactId>
+                <artifactId>data-xplorer-common</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.javayh.agent</groupId>
-                <artifactId>javayh-logger-rpc</artifactId>
+                <artifactId>data-xplorer-rpc</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.javayh.agent</groupId>
-                <artifactId>javayh-logger-boot-starter</artifactId>
+                <artifactId>data-xplorer-boot-starter</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
         </dependencies>

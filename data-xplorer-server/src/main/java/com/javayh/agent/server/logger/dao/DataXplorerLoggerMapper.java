@@ -38,6 +38,7 @@ public interface DataXplorerLoggerMapper extends BaseMapper<DataXplorerLoggerEnt
                     "JOIN   (SELECT b.app_name ,count(b.app_name) total FROM data_xplorer_logger b WHERE b.error_msg is not null GROUP BY b.app_name )  bb ON bb.app_name= aa.app_name")
     List<MicroservicesDataDTO> serviceErrorRate();
 
-    @Select("SELECT a.app_name ,count(a.app_name) total ,date_format(a.create_time,'%Y-%m-%d') date  FROM data_xplorer_logger a GROUP BY a.app_name,date  HAVING date <= date_format(now(),'%Y-%m-%d')")
+    @Select("SELECT a.app_name ,count(a.app_name) total ,date_format(a.create_time,'%Y-%m-%d') date " +
+            " FROM data_xplorer_logger a GROUP BY a.app_name,date  HAVING date <= CURDATE() and date > DATE_SUB(CURDATE(), INTERVAL 7 DAY) ")
     List<MicroservicesDataDTO> dataGrowth();
 }

@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>javayh-logger-agent</artifactId>
+        <artifactId>data-xplorer</artifactId>
         <groupId>com.javayh.agent</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>javayh-agent</artifactId>
+    <artifactId>data-xplorer-agent</artifactId>
 
     <properties>
         <javayh.agent.start>com.javayh.agent.core.LogAgent</javayh.agent.start>
@@ -33,15 +33,15 @@
         </dependency>
         <dependency>
             <groupId>com.javayh.agent</groupId>
-            <artifactId>javayh-logger-common</artifactId>
+            <artifactId>data-xplorer-common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.javayh.agent</groupId>
-            <artifactId>javayh-logger-rpc</artifactId>
+            <artifactId>data-xplorer-rpc</artifactId>
         </dependency>
         <dependency>
             <groupId>com.javayh.agent</groupId>
-            <artifactId>javayh-logger-boot-starter</artifactId>
+            <artifactId>data-xplorer-boot-starter</artifactId>
         </dependency>
     </dependencies>
 
