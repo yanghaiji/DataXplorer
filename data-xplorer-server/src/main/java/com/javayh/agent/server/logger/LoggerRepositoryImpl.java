@@ -1,6 +1,6 @@
 package com.javayh.agent.server.logger;
 
-import com.javayh.agent.common.bean.LoggerCollector;
+import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.repository.LoggerRepository;
 import com.javayh.agent.server.logger.dao.DataXplorerLoggerMapper;
 import com.javayh.agent.server.logger.entity.DataXplorerLoggerEntity;
@@ -23,7 +23,7 @@ import java.util.List;
 @Slf4j
 @Primary
 @Service
-public class LoggerRepositoryImpl implements LoggerRepository<LoggerCollector> {
+public class LoggerRepositoryImpl implements LoggerRepository<LoggerCollectorProto.LoggerCollector> {
 
     @Autowired
     private DataXplorerLoggerMapper dataXplorerLoggerMapper;
@@ -34,8 +34,8 @@ public class LoggerRepositoryImpl implements LoggerRepository<LoggerCollector> {
      * @param data 原始数据
      */
     @Override
-    public void save(LoggerCollector data) {
-        if (!data.isIgnore()) {
+    public void save(LoggerCollectorProto.LoggerCollector data) {
+        if (!data.getIgnore()) {
             DataXplorerLoggerEntity dataXplorerLoggerEntity = new DataXplorerLoggerEntity();
             dataXplorerLoggerEntity.copy(data);
             dataXplorerLoggerMapper.insert(dataXplorerLoggerEntity);
@@ -48,7 +48,7 @@ public class LoggerRepositoryImpl implements LoggerRepository<LoggerCollector> {
      * @param data 原始数据集
      */
     @Override
-    public void batchSave(List<LoggerCollector> data) {
+    public void batchSave(List<LoggerCollectorProto.LoggerCollector> data) {
 
     }
 }

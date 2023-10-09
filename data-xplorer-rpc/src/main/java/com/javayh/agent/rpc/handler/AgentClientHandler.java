@@ -1,6 +1,7 @@
 package com.javayh.agent.rpc.handler;
 
-import com.javayh.agent.common.bean.MessageBody;
+import com.google.protobuf.util.Timestamps;
+import com.javayh.agent.common.bean.proto.MessageBodyProto;
 import com.javayh.agent.common.cache.LoggerSendCache;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.executor.AgentExecutor;
@@ -12,8 +13,6 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Date;
 
 /**
  * @author haiji
@@ -39,7 +38,9 @@ public class AgentClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush(MessageBody.builder().appName(appName).createDate(new Date()).build());
+//        ctx.writeAndFlush(MessageBodyProto.MessageBody.newBuilder().setAppName(appName)
+//                .setCreateDate(Timestamps.fromMillis(System.currentTimeMillis())).build());
+        ctx.writeAndFlush(LoggerSendCache.build());
         AgentExecutor.shutdown();
         new ChannelListener().listener(ctx);
     }

@@ -1,6 +1,6 @@
 package com.javayh.agent.rpc.listener;
 
-import com.javayh.agent.common.bean.LoggerCollector;
+import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.cache.AgentCacheQueue;
 import com.javayh.agent.common.exception.ChannelListenerException;
 import com.javayh.agent.common.executor.AgentExecutor;
@@ -47,7 +47,7 @@ public class ChannelListener {
      * @param ctx  channel 上下文
      * @param data 数据
      */
-    private void sendData(ChannelHandlerContext ctx, LoggerCollector data) {
+    private void sendData(ChannelHandlerContext ctx, LoggerCollectorProto.LoggerCollector data) {
         try {
             ctx.channel().eventLoop().execute(() -> {
                 try {

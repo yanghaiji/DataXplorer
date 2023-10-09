@@ -1,6 +1,7 @@
 package com.javayh.agent.common.cache;
 
-import com.javayh.agent.common.bean.LoggerCollector;
+
+import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 
 import java.util.Objects;
 
@@ -15,11 +16,11 @@ import java.util.Objects;
  */
 public class LoggerSendCache {
 
-    private static LoggerCollector sedData;
+    private static LoggerCollectorProto.LoggerCollector sedData;
 
-    public static LoggerCollector build() {
+    public static LoggerCollectorProto.LoggerCollector build() {
         if (Objects.isNull(sedData)) {
-            sedData = LoggerCollector.builder().appName("Internal message transmission, please ignore.").ignore(true).build();
+            sedData = LoggerCollectorProto.LoggerCollector.newBuilder().setAppName("Internal message transmission, please ignore.").setIgnore(true).build();
         }
         return sedData;
     }

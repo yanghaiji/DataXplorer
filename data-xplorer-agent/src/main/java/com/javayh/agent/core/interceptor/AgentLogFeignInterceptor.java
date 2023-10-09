@@ -25,6 +25,7 @@ import java.util.Date;
  * @since 2022-07-05
  */
 @Slf4j
+@Deprecated
 public class AgentLogFeignInterceptor implements RequestInterceptor {
 
     @Override

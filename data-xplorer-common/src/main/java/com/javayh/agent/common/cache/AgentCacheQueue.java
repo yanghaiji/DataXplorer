@@ -1,6 +1,6 @@
 package com.javayh.agent.common.cache;
 
-import com.javayh.agent.common.bean.LoggerCollector;
+import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -16,6 +16,6 @@ import java.util.concurrent.LinkedBlockingDeque;
  */
 public class AgentCacheQueue {
 
-    public static BlockingQueue<LoggerCollector> MSG_CACHE_DE = new LinkedBlockingDeque<>();
+    public static BlockingQueue<LoggerCollectorProto.LoggerCollector> MSG_CACHE_DE = new LinkedBlockingDeque<>();
 
 }

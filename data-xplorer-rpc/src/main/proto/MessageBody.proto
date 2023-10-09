@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package com.javayh.agent.rpc;
+
+import "google/protobuf/timestamp.proto";
+
+message MessageBody {
+    /**服务标识*/
+    int64 msgId = 1;
+    /**发送的消息*/
+    string msg = 2;
+    /**服务名*/
+    string appName = 3;
+    /**接受消息的时间*/
+    google.protobuf.Timestamp createDate = 4;
+}
