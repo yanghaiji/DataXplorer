@@ -1,8 +1,8 @@
 package com.javayh.agent.core.interceptor;
 
 
-import com.alibaba.fastjson.JSON;
-import com.javayh.agent.common.bean.LoggerCollector;
+import com.google.protobuf.util.Timestamps;
+import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.cache.AgentCacheQueue;
 import com.javayh.agent.common.constant.LoggerSourceType;
 import com.javayh.agent.common.constant.LoggerType;
@@ -10,6 +10,7 @@ import com.javayh.agent.common.context.AppNamingContext;
 import com.javayh.agent.common.context.TraceContext;
 import com.javayh.agent.common.servlet.AgentHttpServletRequestWrapper;
 import com.javayh.agent.common.utils.IpUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
@@ -19,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 import java.util.Objects;
 
 
@@ -66,29 +66,37 @@ public class AgentLogInterception implements HandlerInterceptor {
         String method = request.getMethod();
         String ip = IpUtil.getIpAddr(request);
         String body = BODY.get();
-        LoggerCollector collector = LoggerCollector.builder().url(url).query(query).body(body).ip(ip)
-                .appName(appNamingContext.getAppNaming())
-                .actionTime(stopWatch.getTime())
-                .type(LoggerType.INTERCEPTOR.value()).method(method)
-                .createTime(new Date()).traceId(TraceContext.getTraceId())
-                .sourceType(LoggerSourceType.AUTOMATIC.value())
+        LoggerCollectorProto.LoggerCollector collector = LoggerCollectorProto.LoggerCollector.newBuilder()
+                .setUrl(url)
+                .setQuery(reset(query))
+                .setBody(reset(body))
+                .setIp(ip)
+                .setAppName(appNamingContext.getAppNaming())
+                .setActionTime(stopWatch.getTime())
+                .setType(LoggerType.INTERCEPTOR.value())
+                .setMethod(method)
+                .setCreateTime(Timestamps.fromMillis(System.currentTimeMillis())).setTraceId(TraceContext.getTraceId())
+                .setSourceType(LoggerSourceType.AUTOMATIC.value())
                 // TODO: 2023/9/19 根据实际的项目进行集成
-                .createBy("javayh-agent")
+                .setCreateBy("javayh-agent")
                 .build();
-        String msg = JSON.toJSONString(collector);
+        if (Objects.nonNull(ex)) {
+            collector.toBuilder().setErrorMsg(ExceptionUtils.getStackTrace(ex));
+        }
         if (log.isDebugEnabled()) {
-            log.debug("agent 拦截日志 : {}", msg);
+            log.debug("agent 拦截日志 : {}", collector);
         }
         if (log.isInfoEnabled()) {
-            log.info("agent 拦截日志 : {}", msg);
-        }
-        if (Objects.nonNull(ex)) {
-            collector.setErrorMsg(ExceptionUtils.getStackTrace(ex));
+            log.info("agent 拦截日志 : {}", collector);
         }
         STOP_WATCH_THREAD_LOCAL.remove();
         BODY.remove();
         TraceContext.remove();
         AgentCacheQueue.MSG_CACHE_DE.offer(collector);
+    }
+
+    private String reset(String value) {
+        return StringUtils.isEmpty(value) ? "" : value;
     }
 
 

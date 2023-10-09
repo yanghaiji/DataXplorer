@@ -1,0 +1,72 @@
+syntax = "proto3";
+package com.javayh.agent.rpc;
+
+import "google/protobuf/timestamp.proto";
+
+message LoggerCollector {
+    int64 id = 1;
+    /**
+     * 请求的trace id
+     */
+    string traceId = 2;
+    /**
+     * 操作的方法类型 GET | POST
+     */
+    string method = 3;
+
+    /**
+     * 请求路径
+     */
+    string url = 4;
+    /**
+     * 请求的参数
+     */
+    string query = 5;
+    /**
+     * 请求的参数
+     */
+    string body = 6;
+    /**
+     * 操作耗时
+     */
+    int64 actionTime = 7;
+    /**
+     * 操作人的ip
+     */
+    string ip = 8;
+    /**
+     * 服务的名字
+     */
+    string appName = 9;
+    /**
+     * 请求访问的类型，{@link com.javayh.agent.common.constant.LoggerType;}
+     */
+    int32 type = 10;
+    /**
+     * 创建的时间
+     */
+    google.protobuf.Timestamp createTime = 11;
+
+    /**
+     * 创建人
+     * <p>
+     * 这里需要结合自己的开发脚手架进行创建人
+     */
+    string createBy = 12;
+
+    /**
+     * 异常信息
+     */
+    string errorMsg = 13;
+
+    /**
+     * 数据来源，自动拦截或者自定义埋点
+     * {@link com.javayh.agent.common.constant.LoggerSourceType}
+     */
+    int32 sourceType = 14;
+
+    /**
+     * 是否忽略此消息，消息传递时判断是否需要继续向下传递
+     */
+    bool ignore = 15;
+}

@@ -1,7 +1,8 @@
 package com.javayh.agent.server.logger.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.javayh.agent.common.bean.LoggerCollector;
+import com.google.protobuf.Timestamp;
+import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -95,8 +96,10 @@ public class DataXplorerLoggerEntity implements Serializable {
      */
     private Date insertTime;
 
-    public void copy(LoggerCollector source) {
+    public void copy(LoggerCollectorProto.LoggerCollector source) {
         BeanUtils.copyProperties(source, this);
+        Timestamp date = source.getCreateTime();
+        this.setCreateTime(new Date(date.getSeconds() * 1000L + date.getNanos() / 1000000));
         this.setInsertTime(new Date());
         this.setRequestType(source.getType());
     }

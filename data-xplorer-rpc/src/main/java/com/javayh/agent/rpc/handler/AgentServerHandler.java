@@ -1,7 +1,7 @@
 package com.javayh.agent.rpc.handler;
 
-import com.javayh.agent.common.bean.LoggerCollector;
-import com.javayh.agent.common.bean.MessageBody;
+import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
+import com.javayh.agent.common.bean.proto.MessageBodyProto;
 import com.javayh.agent.common.cache.LoggerSendCache;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.context.SpringBeanContext;
@@ -44,12 +44,12 @@ public class AgentServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         try {
 
-            if (msg instanceof LoggerCollector && !((LoggerCollector) msg).isIgnore()) {
+            if (msg instanceof LoggerCollectorProto.LoggerCollector && !((LoggerCollectorProto.LoggerCollector) msg).getIgnore()) {
                 // 在这里处理 LoggerCollector 对象
                 LoggerRepository loggerRepository = SpringBeanContext.getBean(LoggerRepository.class);
                 loggerRepository.save(msg);
-            } else if (msg instanceof MessageBody) {
-                String name = ((MessageBody) msg).getAppName();
+            } else if (msg instanceof MessageBodyProto.MessageBody) {
+                String name = ((MessageBodyProto.MessageBody) msg).getAppName();
                 OnlineServiceHolder.put(name);
             } else if (log.isInfoEnabled()) {
                 log.info("客户端发送消息是: {}", msg);

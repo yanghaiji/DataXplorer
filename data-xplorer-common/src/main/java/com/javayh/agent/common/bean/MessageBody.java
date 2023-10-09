@@ -17,6 +17,7 @@ import java.util.Date;
  * @version 1.0.0
  * @since 2021/4/13
  */
+@Deprecated
 @Data
 @Builder
 @AllArgsConstructor
