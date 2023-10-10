@@ -52,7 +52,7 @@ public class AgentServerHandler extends ChannelInboundHandlerAdapter {
                 String name = ((MessageBodyProto.MessageBody) msg).getAppName();
                 OnlineServiceHolder.put(name);
             } else if (log.isInfoEnabled()) {
-                log.info("客户端发送消息是: {}", msg);
+                log.info("{}", msg);
             }
         } catch (Exception e) {
             log.error("channelRead {}", ExceptionUtils.getStackTrace(e));
