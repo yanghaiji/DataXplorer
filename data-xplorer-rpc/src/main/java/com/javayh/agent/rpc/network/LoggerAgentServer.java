@@ -48,22 +48,23 @@ public class LoggerAgentServer {
             //绑定一个端口并且同步, 生成了一个 ChannelFuture 对象
             //启动服务器(并绑定端口)
             Integer port = dataXplorerProperties.getPort();
-            ChannelFuture cf = bootstrap.bind(port).sync();
+            String host = dataXplorerProperties.getHost();
+            ChannelFuture cf = bootstrap.bind(host, port).sync();
             //给cf 注册监听器，监控我们关心的事件
             cf.addListener((ChannelFutureListener) future -> {
                 if (cf.isSuccess()) {
-                    log.info("监听端口 {} 成功", port);
+                    log.info("服务监听成功 host : {} , port : {}", host, port);
                 } else {
-                    log.info("监听端口 {} 失败", port);
+                    log.info("服务监听失败 host : {} , port : {}", host, port);
                 }
             });
             //对关闭通道进行监听
             cf.channel().closeFuture().sync();
-            log.info(".....javayh logger agent server is ready...");
+            log.info("DataXplorer server is ready...");
         } finally {
             bossGroup.shutdownGracefully().syncUninterruptibly();
             workerGroup.shutdownGracefully().syncUninterruptibly();
-            log.info("关闭 javayh logger agent server 成功");
+            log.info("关闭 DataXplorer server 成功");
         }
 
     }
