@@ -1,6 +1,6 @@
 package com.javayh.agent.common;
 
-import com.javayh.agent.common.bean.LoggerCollector;
+import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.factory.LoggerFactory;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,13 +28,13 @@ public class LoggerReceived {
      * @param ex        异常
      */
     public static void received(String parameter, Integer type, String createBy, Throwable ex) {
-        LoggerCollector collector = new LoggerFactory().createBean(parameter, type, createBy, ex);
+        LoggerCollectorProto.LoggerCollector  collector = new LoggerFactory().createBean(parameter, type, createBy, ex);
         if (Objects.nonNull(collector)) {
             if (log.isDebugEnabled()) {
                 log.debug("自定义拦截日志 : {}", collector);
             }
             if (log.isInfoEnabled()) {
-                log.debug("自定义拦截日志 : {}", collector);
+                log.info("自定义拦截日志 : {}", collector);
             }
         }
     }
