@@ -20,7 +20,7 @@ public class LoggerSendCache {
 
     public static LoggerCollectorProto.LoggerCollector build() {
         if (Objects.isNull(sedData)) {
-            sedData = LoggerCollectorProto.LoggerCollector.newBuilder().setAppName("Internal message transmission, please ignore.").setIgnore(true).build();
+            sedData = LoggerCollectorProto.LoggerCollector.newBuilder().setErrorMsg("Internal message transmission, please ignore.").setIgnore(true).build();
         }
         return sedData;
     }

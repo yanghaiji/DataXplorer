@@ -1,9 +1,7 @@
 package com.javayh.agent.rpc.channel;
 
 import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
-import com.javayh.agent.common.bean.proto.MessageBodyProto;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
-import com.javayh.agent.rpc.MessageBodyOuterClass;
 import com.javayh.agent.rpc.handler.AgentClientHandler;
 import com.javayh.agent.rpc.network.LoggerAgentClient;
 import io.netty.channel.Channel;
