@@ -38,8 +38,6 @@ public class AgentClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-//        ctx.writeAndFlush(MessageBodyProto.MessageBody.newBuilder().setAppName(appName)
-//                .setCreateDate(Timestamps.fromMillis(System.currentTimeMillis())).build());
         ctx.writeAndFlush(LoggerSendCache.build());
         AgentExecutor.shutdown();
         new ChannelListener().listener(ctx);
