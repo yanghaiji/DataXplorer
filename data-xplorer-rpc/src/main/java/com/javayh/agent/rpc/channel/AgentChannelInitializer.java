@@ -1,8 +1,10 @@
 package com.javayh.agent.rpc.channel;
 
 import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
+import com.javayh.agent.common.bean.proto.MessageBodyProto;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.rpc.handler.AgentClientHandler;
+import com.javayh.agent.rpc.handler.AgentRegistryClientHandler;
 import com.javayh.agent.rpc.network.LoggerAgentClient;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -43,12 +45,16 @@ public class AgentChannelInitializer extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel ch) throws Exception {
         //加入自己的处理器
         ch.pipeline()
-                // 10 秒没发送消息 将IdleStateHandler 添加到 ChannelPipeline 中
-                .addLast(new IdleStateHandler(0, 30, 0))
-                // 添加对象编码器
+                // 添加解码器和编码器
+                .addLast(new ProtobufDecoder(MessageBodyProto.MessageBody.getDefaultInstance()))
                 .addLast(new ProtobufEncoder())
-                // 添加对象解码器
+                .addLast(new AgentRegistryClientHandler(loggerAgentClient, dataXplorerProperties))
+
+                // 添加解码器和编码器
                 .addLast(new ProtobufDecoder(LoggerCollectorProto.LoggerCollector.getDefaultInstance()))
-                .addLast(new AgentClientHandler(loggerAgentClient, dataXplorerProperties));
+                .addLast(new ProtobufEncoder())
+                .addLast(new AgentClientHandler(loggerAgentClient, dataXplorerProperties))
+                // 10 秒没发送消息 将IdleStateHandler 添加到 ChannelPipeline 中
+                .addLast(new IdleStateHandler(0, 30, 0));
     }
 }

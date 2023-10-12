@@ -3,6 +3,7 @@ package com.javayh.agent.rpc.channel;
 import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.bean.proto.MessageBodyProto;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
+import com.javayh.agent.rpc.handler.AgentRegistryServerHandler;
 import com.javayh.agent.rpc.handler.AgentServerHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -43,6 +44,15 @@ public class AgentServerChannelInitializer extends ChannelInitializer<SocketChan
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch.pipeline()
+                // 添加解码器和编码器
+                .addLast(new ProtobufDecoder(MessageBodyProto.MessageBody.getDefaultInstance()))
+                .addLast(new ProtobufEncoder())
+                .addLast(new AgentRegistryServerHandler(dataXplorerProperties))
+
+                // 添加解码器和编码器
+                .addLast(new ProtobufDecoder(LoggerCollectorProto.LoggerCollector.getDefaultInstance()))
+                .addLast(new ProtobufEncoder())
+                .addLast(new AgentServerHandler(dataXplorerProperties))
                 /*
                  * IdleStateHandler  空闲状态的处理器
                  * long readerIdleTime, 多长时间没有读出数据，就会发送心跳检测，检测是否链接
@@ -50,10 +60,6 @@ public class AgentServerChannelInitializer extends ChannelInitializer<SocketChan
                  * long allIdleTime     多长时间没有读写出数据，就会发送心跳检测
                  */
                 // 五秒没有收到消息 将IdleStateHandler 添加到 ChannelPipeline 中
-                .addLast(new IdleStateHandler(30, 30, 35))
-                .addLast(new ProtobufEncoder())
-                // 添加对象解码器
-                .addLast(new ProtobufDecoder(LoggerCollectorProto.LoggerCollector.getDefaultInstance()))
-                .addLast(new AgentServerHandler(dataXplorerProperties));
+                .addLast(new IdleStateHandler(30, 30, 35));
     }
 }

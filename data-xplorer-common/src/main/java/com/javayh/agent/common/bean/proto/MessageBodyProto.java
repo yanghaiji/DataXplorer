@@ -108,6 +108,17 @@ public final class MessageBodyProto {
          * <code>.google.protobuf.Timestamp createDate = 4;</code>
          */
         com.google.protobuf.TimestampOrBuilder getCreateDateOrBuilder();
+
+        /**
+         * <pre>
+         * *是否在线
+         * </pre>
+         *
+         * <code>bool isActive = 5;</code>
+         *
+         * @return The isActive.
+         */
+        boolean getIsActive();
     }
 
     /**
@@ -188,6 +199,11 @@ public final class MessageBodyProto {
                                 createDate_ = subBuilder.buildPartial();
                             }
 
+                            break;
+                        }
+                        case 40: {
+
+                            isActive_ = input.readBool();
                             break;
                         }
                         default: {
@@ -383,6 +399,23 @@ public final class MessageBodyProto {
             return getCreateDate();
         }
 
+        public static final int ISACTIVE_FIELD_NUMBER = 5;
+        private boolean isActive_;
+
+        /**
+         * <pre>
+         * *是否在线
+         * </pre>
+         *
+         * <code>bool isActive = 5;</code>
+         *
+         * @return The isActive.
+         */
+        @Override
+        public boolean getIsActive() {
+            return isActive_;
+        }
+
         private byte memoizedIsInitialized = -1;
 
         @Override
@@ -410,6 +443,9 @@ public final class MessageBodyProto {
             if (createDate_ != null) {
                 output.writeMessage(4, getCreateDate());
             }
+            if (isActive_ != false) {
+                output.writeBool(5, isActive_);
+            }
             unknownFields.writeTo(output);
         }
 
@@ -432,6 +468,10 @@ public final class MessageBodyProto {
             if (createDate_ != null) {
                 size += com.google.protobuf.CodedOutputStream
                         .computeMessageSize(4, getCreateDate());
+            }
+            if (isActive_ != false) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeBoolSize(5, isActive_);
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
@@ -459,6 +499,8 @@ public final class MessageBodyProto {
                 if (!getCreateDate()
                         .equals(other.getCreateDate())) return false;
             }
+            if (getIsActive()
+                    != other.getIsActive()) return false;
             if (!unknownFields.equals(other.unknownFields)) return false;
             return true;
         }
@@ -481,6 +523,9 @@ public final class MessageBodyProto {
                 hash = (37 * hash) + CREATEDATE_FIELD_NUMBER;
                 hash = (53 * hash) + getCreateDate().hashCode();
             }
+            hash = (37 * hash) + ISACTIVE_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+                    getIsActive());
             hash = (29 * hash) + unknownFields.hashCode();
             memoizedHashCode = hash;
             return hash;
@@ -613,7 +658,7 @@ public final class MessageBodyProto {
                                 MessageBody.class, Builder.class);
             }
 
-            // Construct using com.javayh.agent.rpc.MessageBodyOuterClass.MessageBody.newBuilder()
+            // Construct using com.javayh.agent.common.bean.proto.MessageBodyProto.MessageBody.newBuilder()
             private Builder() {
                 maybeForceBuilderInitialization();
             }
@@ -645,6 +690,8 @@ public final class MessageBodyProto {
                     createDate_ = null;
                     createDateBuilder_ = null;
                 }
+                isActive_ = false;
+
                 return this;
             }
 
@@ -679,6 +726,7 @@ public final class MessageBodyProto {
                 } else {
                     result.createDate_ = createDateBuilder_.build();
                 }
+                result.isActive_ = isActive_;
                 onBuilt();
                 return result;
             }
@@ -746,6 +794,9 @@ public final class MessageBodyProto {
                 }
                 if (other.hasCreateDate()) {
                     mergeCreateDate(other.getCreateDate());
+                }
+                if (other.getIsActive() != false) {
+                    setIsActive(other.getIsActive());
                 }
                 this.mergeUnknownFields(other.unknownFields);
                 onChanged();
@@ -1203,6 +1254,55 @@ public final class MessageBodyProto {
                 return createDateBuilder_;
             }
 
+            private boolean isActive_;
+
+            /**
+             * <pre>
+             * *是否在线
+             * </pre>
+             *
+             * <code>bool isActive = 5;</code>
+             *
+             * @return The isActive.
+             */
+            @Override
+            public boolean getIsActive() {
+                return isActive_;
+            }
+
+            /**
+             * <pre>
+             * *是否在线
+             * </pre>
+             *
+             * <code>bool isActive = 5;</code>
+             *
+             * @param value The isActive to set.
+             * @return This builder for chaining.
+             */
+            public Builder setIsActive(boolean value) {
+
+                isActive_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * *是否在线
+             * </pre>
+             *
+             * <code>bool isActive = 5;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearIsActive() {
+
+                isActive_ = false;
+                onChanged();
+                return this;
+            }
+
             @Override
             public final Builder setUnknownFields(
                     final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1274,10 +1374,11 @@ public final class MessageBodyProto {
     static {
         String[] descriptorData = {
                 "\n\021MessageBody.proto\022\024com.javayh.agent.rp" +
-                        "c\032\037google/protobuf/timestamp.proto\"j\n\013Me" +
+                        "c\032\037google/protobuf/timestamp.proto\"|\n\013Me" +
                         "ssageBody\022\r\n\005msgId\030\001 \001(\003\022\013\n\003msg\030\002 \001(\t\022\017\n" +
                         "\007appName\030\003 \001(\t\022.\n\ncreateDate\030\004 \001(\0132\032.goo" +
-                        "gle.protobuf.Timestampb\006proto3"
+                        "gle.protobuf.Timestamp\022\020\n\010isActive\030\005 \001(\010" +
+                        "B\022B\020MessageBodyProtob\006proto3"
         };
         descriptor = com.google.protobuf.Descriptors.FileDescriptor
                 .internalBuildGeneratedFileFrom(descriptorData,
@@ -1289,7 +1390,7 @@ public final class MessageBodyProto {
         internal_static_com_javayh_agent_rpc_MessageBody_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_com_javayh_agent_rpc_MessageBody_descriptor,
-                new String[]{"MsgId", "Msg", "AppName", "CreateDate",});
+                new String[]{"MsgId", "Msg", "AppName", "CreateDate", "IsActive",});
         com.google.protobuf.TimestampProto.getDescriptor();
     }
 

@@ -1,12 +1,10 @@
 package com.javayh.agent.rpc.handler;
 
 import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
-import com.javayh.agent.common.bean.proto.MessageBodyProto;
 import com.javayh.agent.common.cache.LoggerSendCache;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.context.SpringBeanContext;
 import com.javayh.agent.common.repository.LoggerRepository;
-import com.javayh.agent.rpc.OnlineServiceHolder;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -36,21 +34,13 @@ public class AgentServerHandler extends ChannelInboundHandlerAdapter {
         this.appName = dataXplorerProperties.getAppName();
     }
 
-    /**
-     * 1. ChannelHandlerContext ctx:上下文对象, 含有 管道pipeline , 通道channel, 地址
-     * 2. Object msg: 就是客户端发送的数据 默认Object
-     */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         try {
-
-            if (msg instanceof LoggerCollectorProto.LoggerCollector && !((LoggerCollectorProto.LoggerCollector) msg).getIgnore()) {
+            if (msg instanceof LoggerCollectorProto.LoggerCollector && ((LoggerCollectorProto.LoggerCollector) msg).getIgnore()) {
                 // 在这里处理 LoggerCollector 对象
                 LoggerRepository loggerRepository = SpringBeanContext.getBean(LoggerRepository.class);
                 loggerRepository.save(msg);
-            } else if (msg instanceof MessageBodyProto.MessageBody) {
-                String name = ((MessageBodyProto.MessageBody) msg).getAppName();
-                OnlineServiceHolder.put(name);
             } else if (log.isInfoEnabled()) {
                 log.info("{}", msg);
             }

@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package com.javayh.agent.rpc;
 
+option java_outer_classname = "MessageBodyProto";
+
 import "google/protobuf/timestamp.proto";
 
 message MessageBody {
@@ -13,4 +15,6 @@ message MessageBody {
     string appName = 3;
     /**接受消息的时间*/
     google.protobuf.Timestamp createDate = 4;
+    /**是否上线*/
+    bool isActive = 5;
 }
