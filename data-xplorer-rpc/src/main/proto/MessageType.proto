@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package com.javayh.agent.rpc;
+
+option java_outer_classname = "MessageTypeProto";
+
+enum MessageType {
+
+    LOGGER_COLLECTOR = 0;
+    MESSAGE_BODY = 1;
+
+}

@@ -5,16 +5,19 @@ package com.javayh.agent.rpc;
 option java_outer_classname = "MessageBodyProto";
 
 import "google/protobuf/timestamp.proto";
+import "MessageType.proto";
 
 message MessageBody {
+    // 消息类型字段
+    MessageType type = 2;
     /**服务标识*/
-    int64 msgId = 1;
+    int64 msgId = 3;
     /**发送的消息*/
-    string msg = 2;
+    string msg = 4;
     /**服务名*/
-    string appName = 3;
+    string onlineAppName = 5;
     /**接受消息的时间*/
-    google.protobuf.Timestamp createDate = 4;
+    google.protobuf.Timestamp onlineDate = 6;
     /**是否上线*/
-    bool isActive = 5;
+    bool isActive = 7;
 }

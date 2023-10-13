@@ -19,7 +19,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 @ChannelHandler.Sharable
 public class AgentRegistryServerHandler extends SimpleChannelInboundHandler<MessageBodyProto.MessageBody> {
 
-    private static final String YMS = "yyyy-MM-dd HH:mm:ss";
 
     private final String appName;
 
@@ -39,15 +38,13 @@ public class AgentRegistryServerHandler extends SimpleChannelInboundHandler<Mess
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MessageBodyProto.MessageBody message) throws Exception {
         try {
-            String name = message.getAppName();
+            String name = message.getOnlineAppName();
             if (StringUtils.isNoneBlank(name)) {
                 if (message.getIsActive()) {
                     OnlineServiceHolder.put(name);
                 } else {
                     OnlineServiceHolder.remove(name);
                 }
-            } else {
-                ctx.fireChannelRead(message);
             }
         } catch (Exception e) {
             log.error("channelRead {}", ExceptionUtils.getStackTrace(e));

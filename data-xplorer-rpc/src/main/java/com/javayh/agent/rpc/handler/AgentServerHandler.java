@@ -8,7 +8,7 @@ import com.javayh.agent.common.repository.LoggerRepository;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ import java.util.Date;
  */
 @Slf4j
 @ChannelHandler.Sharable
-public class AgentServerHandler extends ChannelInboundHandlerAdapter {
+public class AgentServerHandler extends SimpleChannelInboundHandler<LoggerCollectorProto.LoggerCollector> {
 
     private static final String YMS = "yyyy-MM-dd HH:mm:ss";
 
@@ -34,14 +34,19 @@ public class AgentServerHandler extends ChannelInboundHandlerAdapter {
         this.appName = dataXplorerProperties.getAppName();
     }
 
+    /**
+     * @param ctx the {@link ChannelHandlerContext} which this {@link SimpleChannelInboundHandler}
+     *            belongs to
+     * @param msg the message to handle
+     * @throws Exception is thrown if an error occurred
+     */
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, LoggerCollectorProto.LoggerCollector msg) throws Exception {
         try {
-            if (msg instanceof LoggerCollectorProto.LoggerCollector && ((LoggerCollectorProto.LoggerCollector) msg).getIgnore()) {
-                // 在这里处理 LoggerCollector 对象
-                LoggerRepository loggerRepository = SpringBeanContext.getBean(LoggerRepository.class);
-                loggerRepository.save(msg);
-            } else if (log.isInfoEnabled()) {
+            // 在这里处理 LoggerCollector 对象
+            LoggerRepository loggerRepository = SpringBeanContext.getBean(LoggerRepository.class);
+            loggerRepository.save(msg);
+            if (log.isInfoEnabled()) {
                 log.info("{}", msg);
             }
         } catch (Exception e) {
