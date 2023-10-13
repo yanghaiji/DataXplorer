@@ -22,7 +22,21 @@ public final class LoggerCollectorProto {
             com.google.protobuf.MessageOrBuilder {
 
         /**
-         * <code>int64 id = 1;</code>
+         * <code>.com.javayh.agent.rpc.MessageType messageType = 1;</code>
+         *
+         * @return The enum numeric value on the wire for messageType.
+         */
+        int getMessageTypeValue();
+
+        /**
+         * <code>.com.javayh.agent.rpc.MessageType messageType = 1;</code>
+         *
+         * @return The messageType.
+         */
+        MessageTypeProto.MessageType getMessageType();
+
+        /**
+         * <code>int64 id = 2;</code>
          *
          * @return The id.
          */
@@ -34,11 +48,11 @@ public final class LoggerCollectorProto {
          * 请求的trace id
          * </pre>
          *
-         * <code>string traceId = 2;</code>
+         * <code>string traceId = 3;</code>
          *
          * @return The traceId.
          */
-        String getTraceId();
+        java.lang.String getTraceId();
 
         /**
          * <pre>
@@ -46,7 +60,7 @@ public final class LoggerCollectorProto {
          * 请求的trace id
          * </pre>
          *
-         * <code>string traceId = 2;</code>
+         * <code>string traceId = 3;</code>
          *
          * @return The bytes for traceId.
          */
@@ -59,11 +73,11 @@ public final class LoggerCollectorProto {
          * 操作的方法类型 GET | POST
          * </pre>
          *
-         * <code>string method = 3;</code>
+         * <code>string method = 4;</code>
          *
          * @return The method.
          */
-        String getMethod();
+        java.lang.String getMethod();
 
         /**
          * <pre>
@@ -71,7 +85,7 @@ public final class LoggerCollectorProto {
          * 操作的方法类型 GET | POST
          * </pre>
          *
-         * <code>string method = 3;</code>
+         * <code>string method = 4;</code>
          *
          * @return The bytes for method.
          */
@@ -84,11 +98,11 @@ public final class LoggerCollectorProto {
          * 请求路径
          * </pre>
          *
-         * <code>string url = 4;</code>
+         * <code>string url = 5;</code>
          *
          * @return The url.
          */
-        String getUrl();
+        java.lang.String getUrl();
 
         /**
          * <pre>
@@ -96,7 +110,7 @@ public final class LoggerCollectorProto {
          * 请求路径
          * </pre>
          *
-         * <code>string url = 4;</code>
+         * <code>string url = 5;</code>
          *
          * @return The bytes for url.
          */
@@ -109,11 +123,11 @@ public final class LoggerCollectorProto {
          * 请求的参数
          * </pre>
          *
-         * <code>string query = 5;</code>
+         * <code>string query = 6;</code>
          *
          * @return The query.
          */
-        String getQuery();
+        java.lang.String getQuery();
 
         /**
          * <pre>
@@ -121,7 +135,7 @@ public final class LoggerCollectorProto {
          * 请求的参数
          * </pre>
          *
-         * <code>string query = 5;</code>
+         * <code>string query = 6;</code>
          *
          * @return The bytes for query.
          */
@@ -134,11 +148,11 @@ public final class LoggerCollectorProto {
          * 请求的参数
          * </pre>
          *
-         * <code>string body = 6;</code>
+         * <code>string body = 7;</code>
          *
          * @return The body.
          */
-        String getBody();
+        java.lang.String getBody();
 
         /**
          * <pre>
@@ -146,7 +160,7 @@ public final class LoggerCollectorProto {
          * 请求的参数
          * </pre>
          *
-         * <code>string body = 6;</code>
+         * <code>string body = 7;</code>
          *
          * @return The bytes for body.
          */
@@ -159,7 +173,7 @@ public final class LoggerCollectorProto {
          * 操作耗时
          * </pre>
          *
-         * <code>int64 actionTime = 7;</code>
+         * <code>int64 actionTime = 8;</code>
          *
          * @return The actionTime.
          */
@@ -171,11 +185,11 @@ public final class LoggerCollectorProto {
          * 操作人的ip
          * </pre>
          *
-         * <code>string ip = 8;</code>
+         * <code>string ip = 9;</code>
          *
          * @return The ip.
          */
-        String getIp();
+        java.lang.String getIp();
 
         /**
          * <pre>
@@ -183,7 +197,7 @@ public final class LoggerCollectorProto {
          * 操作人的ip
          * </pre>
          *
-         * <code>string ip = 8;</code>
+         * <code>string ip = 9;</code>
          *
          * @return The bytes for ip.
          */
@@ -196,11 +210,11 @@ public final class LoggerCollectorProto {
          * 服务的名字
          * </pre>
          *
-         * <code>string appName = 9;</code>
+         * <code>string appName = 10;</code>
          *
          * @return The appName.
          */
-        String getAppName();
+        java.lang.String getAppName();
 
         /**
          * <pre>
@@ -208,7 +222,7 @@ public final class LoggerCollectorProto {
          * 服务的名字
          * </pre>
          *
-         * <code>string appName = 9;</code>
+         * <code>string appName = 10;</code>
          *
          * @return The bytes for appName.
          */
@@ -221,7 +235,7 @@ public final class LoggerCollectorProto {
          * 请求访问的类型，{&#64;link com.javayh.agent.common.constant.LoggerType;}
          * </pre>
          *
-         * <code>int32 type = 10;</code>
+         * <code>int32 type = 11;</code>
          *
          * @return The type.
          */
@@ -233,7 +247,7 @@ public final class LoggerCollectorProto {
          * 创建的时间
          * </pre>
          *
-         * <code>.google.protobuf.Timestamp createTime = 11;</code>
+         * <code>.google.protobuf.Timestamp createTime = 12;</code>
          *
          * @return Whether the createTime field is set.
          */
@@ -245,7 +259,7 @@ public final class LoggerCollectorProto {
          * 创建的时间
          * </pre>
          *
-         * <code>.google.protobuf.Timestamp createTime = 11;</code>
+         * <code>.google.protobuf.Timestamp createTime = 12;</code>
          *
          * @return The createTime.
          */
@@ -257,7 +271,7 @@ public final class LoggerCollectorProto {
          * 创建的时间
          * </pre>
          *
-         * <code>.google.protobuf.Timestamp createTime = 11;</code>
+         * <code>.google.protobuf.Timestamp createTime = 12;</code>
          */
         com.google.protobuf.TimestampOrBuilder getCreateTimeOrBuilder();
 
@@ -269,11 +283,11 @@ public final class LoggerCollectorProto {
          * 这里需要结合自己的开发脚手架进行创建人
          * </pre>
          *
-         * <code>string createBy = 12;</code>
+         * <code>string createBy = 13;</code>
          *
          * @return The createBy.
          */
-        String getCreateBy();
+        java.lang.String getCreateBy();
 
         /**
          * <pre>
@@ -283,7 +297,7 @@ public final class LoggerCollectorProto {
          * 这里需要结合自己的开发脚手架进行创建人
          * </pre>
          *
-         * <code>string createBy = 12;</code>
+         * <code>string createBy = 13;</code>
          *
          * @return The bytes for createBy.
          */
@@ -296,11 +310,11 @@ public final class LoggerCollectorProto {
          * 异常信息
          * </pre>
          *
-         * <code>string errorMsg = 13;</code>
+         * <code>string errorMsg = 14;</code>
          *
          * @return The errorMsg.
          */
-        String getErrorMsg();
+        java.lang.String getErrorMsg();
 
         /**
          * <pre>
@@ -308,7 +322,7 @@ public final class LoggerCollectorProto {
          * 异常信息
          * </pre>
          *
-         * <code>string errorMsg = 13;</code>
+         * <code>string errorMsg = 14;</code>
          *
          * @return The bytes for errorMsg.
          */
@@ -322,7 +336,7 @@ public final class LoggerCollectorProto {
          * {&#64;link com.javayh.agent.common.constant.LoggerSourceType}
          * </pre>
          *
-         * <code>int32 sourceType = 14;</code>
+         * <code>int32 sourceType = 15;</code>
          *
          * @return The sourceType.
          */
@@ -334,7 +348,7 @@ public final class LoggerCollectorProto {
          * 是否忽略此消息，消息传递时判断是否需要继续向下传递
          * </pre>
          *
-         * <code>bool ignore = 15;</code>
+         * <code>bool ignore = 16;</code>
          *
          * @return The ignore.
          */
@@ -356,6 +370,7 @@ public final class LoggerCollectorProto {
         }
 
         private LoggerCollector() {
+            messageType_ = 0;
             traceId_ = "";
             method_ = "";
             url_ = "";
@@ -367,14 +382,14 @@ public final class LoggerCollectorProto {
             errorMsg_ = "";
         }
 
-        @Override
+        @java.lang.Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected java.lang.Object newInstance(
                 UnusedPrivateParameter unused) {
             return new LoggerCollector();
         }
 
-        @Override
+        @java.lang.Override
         public final com.google.protobuf.UnknownFieldSet
         getUnknownFields() {
             return this.unknownFields;
@@ -386,7 +401,7 @@ public final class LoggerCollectorProto {
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
-                throw new NullPointerException();
+                throw new java.lang.NullPointerException();
             }
             com.google.protobuf.UnknownFieldSet.Builder unknownFields =
                     com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -399,63 +414,69 @@ public final class LoggerCollectorProto {
                             done = true;
                             break;
                         case 8: {
+                            int rawValue = input.readEnum();
+
+                            messageType_ = rawValue;
+                            break;
+                        }
+                        case 16: {
 
                             id_ = input.readInt64();
                             break;
                         }
-                        case 18: {
-                            String s = input.readStringRequireUtf8();
+                        case 26: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
                             traceId_ = s;
                             break;
                         }
-                        case 26: {
-                            String s = input.readStringRequireUtf8();
+                        case 34: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
                             method_ = s;
                             break;
                         }
-                        case 34: {
-                            String s = input.readStringRequireUtf8();
+                        case 42: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
                             url_ = s;
                             break;
                         }
-                        case 42: {
-                            String s = input.readStringRequireUtf8();
+                        case 50: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
                             query_ = s;
                             break;
                         }
-                        case 50: {
-                            String s = input.readStringRequireUtf8();
+                        case 58: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
                             body_ = s;
                             break;
                         }
-                        case 56: {
+                        case 64: {
 
                             actionTime_ = input.readInt64();
                             break;
                         }
-                        case 66: {
-                            String s = input.readStringRequireUtf8();
+                        case 74: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
                             ip_ = s;
                             break;
                         }
-                        case 74: {
-                            String s = input.readStringRequireUtf8();
+                        case 82: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
                             appName_ = s;
                             break;
                         }
-                        case 80: {
+                        case 88: {
 
                             type_ = input.readInt32();
                             break;
                         }
-                        case 90: {
+                        case 98: {
                             com.google.protobuf.Timestamp.Builder subBuilder = null;
                             if (createTime_ != null) {
                                 subBuilder = createTime_.toBuilder();
@@ -468,24 +489,24 @@ public final class LoggerCollectorProto {
 
                             break;
                         }
-                        case 98: {
-                            String s = input.readStringRequireUtf8();
+                        case 106: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
                             createBy_ = s;
                             break;
                         }
-                        case 106: {
-                            String s = input.readStringRequireUtf8();
+                        case 114: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
                             errorMsg_ = s;
                             break;
                         }
-                        case 112: {
+                        case 120: {
 
                             sourceType_ = input.readInt32();
                             break;
                         }
-                        case 120: {
+                        case 128: {
 
                             ignore_ = input.readBool();
                             break;
@@ -515,29 +536,54 @@ public final class LoggerCollectorProto {
             return LoggerCollectorProto.internal_static_com_javayh_agent_rpc_LoggerCollector_descriptor;
         }
 
-        @Override
-        protected FieldAccessorTable
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
             return LoggerCollectorProto.internal_static_com_javayh_agent_rpc_LoggerCollector_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
                             LoggerCollectorProto.LoggerCollector.class, LoggerCollectorProto.LoggerCollector.Builder.class);
         }
 
-        public static final int ID_FIELD_NUMBER = 1;
+        public static final int MESSAGETYPE_FIELD_NUMBER = 1;
+        private int messageType_;
+
+        /**
+         * <code>.com.javayh.agent.rpc.MessageType messageType = 1;</code>
+         *
+         * @return The enum numeric value on the wire for messageType.
+         */
+        @java.lang.Override
+        public int getMessageTypeValue() {
+            return messageType_;
+        }
+
+        /**
+         * <code>.com.javayh.agent.rpc.MessageType messageType = 1;</code>
+         *
+         * @return The messageType.
+         */
+        @java.lang.Override
+        public MessageTypeProto.MessageType getMessageType() {
+            @SuppressWarnings("deprecation")
+            MessageTypeProto.MessageType result = MessageTypeProto.MessageType.valueOf(messageType_);
+            return result == null ? MessageTypeProto.MessageType.UNRECOGNIZED : result;
+        }
+
+        public static final int ID_FIELD_NUMBER = 2;
         private long id_;
 
         /**
-         * <code>int64 id = 1;</code>
+         * <code>int64 id = 2;</code>
          *
          * @return The id.
          */
-        @Override
+        @java.lang.Override
         public long getId() {
             return id_;
         }
 
-        public static final int TRACEID_FIELD_NUMBER = 2;
-        private volatile Object traceId_;
+        public static final int TRACEID_FIELD_NUMBER = 3;
+        private volatile java.lang.Object traceId_;
 
         /**
          * <pre>
@@ -545,19 +591,19 @@ public final class LoggerCollectorProto {
          * 请求的trace id
          * </pre>
          *
-         * <code>string traceId = 2;</code>
+         * <code>string traceId = 3;</code>
          *
          * @return The traceId.
          */
-        @Override
-        public String getTraceId() {
-            Object ref = traceId_;
-            if (ref instanceof String) {
-                return (String) ref;
+        @java.lang.Override
+        public java.lang.String getTraceId() {
+            java.lang.Object ref = traceId_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
             } else {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
-                String s = bs.toStringUtf8();
+                java.lang.String s = bs.toStringUtf8();
                 traceId_ = s;
                 return s;
             }
@@ -569,18 +615,18 @@ public final class LoggerCollectorProto {
          * 请求的trace id
          * </pre>
          *
-         * <code>string traceId = 2;</code>
+         * <code>string traceId = 3;</code>
          *
          * @return The bytes for traceId.
          */
-        @Override
+        @java.lang.Override
         public com.google.protobuf.ByteString
         getTraceIdBytes() {
-            Object ref = traceId_;
-            if (ref instanceof String) {
+            java.lang.Object ref = traceId_;
+            if (ref instanceof java.lang.String) {
                 com.google.protobuf.ByteString b =
                         com.google.protobuf.ByteString.copyFromUtf8(
-                                (String) ref);
+                                (java.lang.String) ref);
                 traceId_ = b;
                 return b;
             } else {
@@ -588,8 +634,8 @@ public final class LoggerCollectorProto {
             }
         }
 
-        public static final int METHOD_FIELD_NUMBER = 3;
-        private volatile Object method_;
+        public static final int METHOD_FIELD_NUMBER = 4;
+        private volatile java.lang.Object method_;
 
         /**
          * <pre>
@@ -597,19 +643,19 @@ public final class LoggerCollectorProto {
          * 操作的方法类型 GET | POST
          * </pre>
          *
-         * <code>string method = 3;</code>
+         * <code>string method = 4;</code>
          *
          * @return The method.
          */
-        @Override
-        public String getMethod() {
-            Object ref = method_;
-            if (ref instanceof String) {
-                return (String) ref;
+        @java.lang.Override
+        public java.lang.String getMethod() {
+            java.lang.Object ref = method_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
             } else {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
-                String s = bs.toStringUtf8();
+                java.lang.String s = bs.toStringUtf8();
                 method_ = s;
                 return s;
             }
@@ -621,18 +667,18 @@ public final class LoggerCollectorProto {
          * 操作的方法类型 GET | POST
          * </pre>
          *
-         * <code>string method = 3;</code>
+         * <code>string method = 4;</code>
          *
          * @return The bytes for method.
          */
-        @Override
+        @java.lang.Override
         public com.google.protobuf.ByteString
         getMethodBytes() {
-            Object ref = method_;
-            if (ref instanceof String) {
+            java.lang.Object ref = method_;
+            if (ref instanceof java.lang.String) {
                 com.google.protobuf.ByteString b =
                         com.google.protobuf.ByteString.copyFromUtf8(
-                                (String) ref);
+                                (java.lang.String) ref);
                 method_ = b;
                 return b;
             } else {
@@ -640,8 +686,8 @@ public final class LoggerCollectorProto {
             }
         }
 
-        public static final int URL_FIELD_NUMBER = 4;
-        private volatile Object url_;
+        public static final int URL_FIELD_NUMBER = 5;
+        private volatile java.lang.Object url_;
 
         /**
          * <pre>
@@ -649,19 +695,19 @@ public final class LoggerCollectorProto {
          * 请求路径
          * </pre>
          *
-         * <code>string url = 4;</code>
+         * <code>string url = 5;</code>
          *
          * @return The url.
          */
-        @Override
-        public String getUrl() {
-            Object ref = url_;
-            if (ref instanceof String) {
-                return (String) ref;
+        @java.lang.Override
+        public java.lang.String getUrl() {
+            java.lang.Object ref = url_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
             } else {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
-                String s = bs.toStringUtf8();
+                java.lang.String s = bs.toStringUtf8();
                 url_ = s;
                 return s;
             }
@@ -673,18 +719,18 @@ public final class LoggerCollectorProto {
          * 请求路径
          * </pre>
          *
-         * <code>string url = 4;</code>
+         * <code>string url = 5;</code>
          *
          * @return The bytes for url.
          */
-        @Override
+        @java.lang.Override
         public com.google.protobuf.ByteString
         getUrlBytes() {
-            Object ref = url_;
-            if (ref instanceof String) {
+            java.lang.Object ref = url_;
+            if (ref instanceof java.lang.String) {
                 com.google.protobuf.ByteString b =
                         com.google.protobuf.ByteString.copyFromUtf8(
-                                (String) ref);
+                                (java.lang.String) ref);
                 url_ = b;
                 return b;
             } else {
@@ -692,8 +738,8 @@ public final class LoggerCollectorProto {
             }
         }
 
-        public static final int QUERY_FIELD_NUMBER = 5;
-        private volatile Object query_;
+        public static final int QUERY_FIELD_NUMBER = 6;
+        private volatile java.lang.Object query_;
 
         /**
          * <pre>
@@ -701,19 +747,19 @@ public final class LoggerCollectorProto {
          * 请求的参数
          * </pre>
          *
-         * <code>string query = 5;</code>
+         * <code>string query = 6;</code>
          *
          * @return The query.
          */
-        @Override
-        public String getQuery() {
-            Object ref = query_;
-            if (ref instanceof String) {
-                return (String) ref;
+        @java.lang.Override
+        public java.lang.String getQuery() {
+            java.lang.Object ref = query_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
             } else {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
-                String s = bs.toStringUtf8();
+                java.lang.String s = bs.toStringUtf8();
                 query_ = s;
                 return s;
             }
@@ -725,18 +771,18 @@ public final class LoggerCollectorProto {
          * 请求的参数
          * </pre>
          *
-         * <code>string query = 5;</code>
+         * <code>string query = 6;</code>
          *
          * @return The bytes for query.
          */
-        @Override
+        @java.lang.Override
         public com.google.protobuf.ByteString
         getQueryBytes() {
-            Object ref = query_;
-            if (ref instanceof String) {
+            java.lang.Object ref = query_;
+            if (ref instanceof java.lang.String) {
                 com.google.protobuf.ByteString b =
                         com.google.protobuf.ByteString.copyFromUtf8(
-                                (String) ref);
+                                (java.lang.String) ref);
                 query_ = b;
                 return b;
             } else {
@@ -744,8 +790,8 @@ public final class LoggerCollectorProto {
             }
         }
 
-        public static final int BODY_FIELD_NUMBER = 6;
-        private volatile Object body_;
+        public static final int BODY_FIELD_NUMBER = 7;
+        private volatile java.lang.Object body_;
 
         /**
          * <pre>
@@ -753,19 +799,19 @@ public final class LoggerCollectorProto {
          * 请求的参数
          * </pre>
          *
-         * <code>string body = 6;</code>
+         * <code>string body = 7;</code>
          *
          * @return The body.
          */
-        @Override
-        public String getBody() {
-            Object ref = body_;
-            if (ref instanceof String) {
-                return (String) ref;
+        @java.lang.Override
+        public java.lang.String getBody() {
+            java.lang.Object ref = body_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
             } else {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
-                String s = bs.toStringUtf8();
+                java.lang.String s = bs.toStringUtf8();
                 body_ = s;
                 return s;
             }
@@ -777,18 +823,18 @@ public final class LoggerCollectorProto {
          * 请求的参数
          * </pre>
          *
-         * <code>string body = 6;</code>
+         * <code>string body = 7;</code>
          *
          * @return The bytes for body.
          */
-        @Override
+        @java.lang.Override
         public com.google.protobuf.ByteString
         getBodyBytes() {
-            Object ref = body_;
-            if (ref instanceof String) {
+            java.lang.Object ref = body_;
+            if (ref instanceof java.lang.String) {
                 com.google.protobuf.ByteString b =
                         com.google.protobuf.ByteString.copyFromUtf8(
-                                (String) ref);
+                                (java.lang.String) ref);
                 body_ = b;
                 return b;
             } else {
@@ -796,7 +842,7 @@ public final class LoggerCollectorProto {
             }
         }
 
-        public static final int ACTIONTIME_FIELD_NUMBER = 7;
+        public static final int ACTIONTIME_FIELD_NUMBER = 8;
         private long actionTime_;
 
         /**
@@ -805,17 +851,17 @@ public final class LoggerCollectorProto {
          * 操作耗时
          * </pre>
          *
-         * <code>int64 actionTime = 7;</code>
+         * <code>int64 actionTime = 8;</code>
          *
          * @return The actionTime.
          */
-        @Override
+        @java.lang.Override
         public long getActionTime() {
             return actionTime_;
         }
 
-        public static final int IP_FIELD_NUMBER = 8;
-        private volatile Object ip_;
+        public static final int IP_FIELD_NUMBER = 9;
+        private volatile java.lang.Object ip_;
 
         /**
          * <pre>
@@ -823,19 +869,19 @@ public final class LoggerCollectorProto {
          * 操作人的ip
          * </pre>
          *
-         * <code>string ip = 8;</code>
+         * <code>string ip = 9;</code>
          *
          * @return The ip.
          */
-        @Override
-        public String getIp() {
-            Object ref = ip_;
-            if (ref instanceof String) {
-                return (String) ref;
+        @java.lang.Override
+        public java.lang.String getIp() {
+            java.lang.Object ref = ip_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
             } else {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
-                String s = bs.toStringUtf8();
+                java.lang.String s = bs.toStringUtf8();
                 ip_ = s;
                 return s;
             }
@@ -847,18 +893,18 @@ public final class LoggerCollectorProto {
          * 操作人的ip
          * </pre>
          *
-         * <code>string ip = 8;</code>
+         * <code>string ip = 9;</code>
          *
          * @return The bytes for ip.
          */
-        @Override
+        @java.lang.Override
         public com.google.protobuf.ByteString
         getIpBytes() {
-            Object ref = ip_;
-            if (ref instanceof String) {
+            java.lang.Object ref = ip_;
+            if (ref instanceof java.lang.String) {
                 com.google.protobuf.ByteString b =
                         com.google.protobuf.ByteString.copyFromUtf8(
-                                (String) ref);
+                                (java.lang.String) ref);
                 ip_ = b;
                 return b;
             } else {
@@ -866,8 +912,8 @@ public final class LoggerCollectorProto {
             }
         }
 
-        public static final int APPNAME_FIELD_NUMBER = 9;
-        private volatile Object appName_;
+        public static final int APPNAME_FIELD_NUMBER = 10;
+        private volatile java.lang.Object appName_;
 
         /**
          * <pre>
@@ -875,19 +921,19 @@ public final class LoggerCollectorProto {
          * 服务的名字
          * </pre>
          *
-         * <code>string appName = 9;</code>
+         * <code>string appName = 10;</code>
          *
          * @return The appName.
          */
-        @Override
-        public String getAppName() {
-            Object ref = appName_;
-            if (ref instanceof String) {
-                return (String) ref;
+        @java.lang.Override
+        public java.lang.String getAppName() {
+            java.lang.Object ref = appName_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
             } else {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
-                String s = bs.toStringUtf8();
+                java.lang.String s = bs.toStringUtf8();
                 appName_ = s;
                 return s;
             }
@@ -899,18 +945,18 @@ public final class LoggerCollectorProto {
          * 服务的名字
          * </pre>
          *
-         * <code>string appName = 9;</code>
+         * <code>string appName = 10;</code>
          *
          * @return The bytes for appName.
          */
-        @Override
+        @java.lang.Override
         public com.google.protobuf.ByteString
         getAppNameBytes() {
-            Object ref = appName_;
-            if (ref instanceof String) {
+            java.lang.Object ref = appName_;
+            if (ref instanceof java.lang.String) {
                 com.google.protobuf.ByteString b =
                         com.google.protobuf.ByteString.copyFromUtf8(
-                                (String) ref);
+                                (java.lang.String) ref);
                 appName_ = b;
                 return b;
             } else {
@@ -918,7 +964,7 @@ public final class LoggerCollectorProto {
             }
         }
 
-        public static final int TYPE_FIELD_NUMBER = 10;
+        public static final int TYPE_FIELD_NUMBER = 11;
         private int type_;
 
         /**
@@ -927,16 +973,16 @@ public final class LoggerCollectorProto {
          * 请求访问的类型，{&#64;link com.javayh.agent.common.constant.LoggerType;}
          * </pre>
          *
-         * <code>int32 type = 10;</code>
+         * <code>int32 type = 11;</code>
          *
          * @return The type.
          */
-        @Override
+        @java.lang.Override
         public int getType() {
             return type_;
         }
 
-        public static final int CREATETIME_FIELD_NUMBER = 11;
+        public static final int CREATETIME_FIELD_NUMBER = 12;
         private com.google.protobuf.Timestamp createTime_;
 
         /**
@@ -945,11 +991,11 @@ public final class LoggerCollectorProto {
          * 创建的时间
          * </pre>
          *
-         * <code>.google.protobuf.Timestamp createTime = 11;</code>
+         * <code>.google.protobuf.Timestamp createTime = 12;</code>
          *
          * @return Whether the createTime field is set.
          */
-        @Override
+        @java.lang.Override
         public boolean hasCreateTime() {
             return createTime_ != null;
         }
@@ -960,11 +1006,11 @@ public final class LoggerCollectorProto {
          * 创建的时间
          * </pre>
          *
-         * <code>.google.protobuf.Timestamp createTime = 11;</code>
+         * <code>.google.protobuf.Timestamp createTime = 12;</code>
          *
          * @return The createTime.
          */
-        @Override
+        @java.lang.Override
         public com.google.protobuf.Timestamp getCreateTime() {
             return createTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : createTime_;
         }
@@ -975,15 +1021,15 @@ public final class LoggerCollectorProto {
          * 创建的时间
          * </pre>
          *
-         * <code>.google.protobuf.Timestamp createTime = 11;</code>
+         * <code>.google.protobuf.Timestamp createTime = 12;</code>
          */
-        @Override
+        @java.lang.Override
         public com.google.protobuf.TimestampOrBuilder getCreateTimeOrBuilder() {
             return getCreateTime();
         }
 
-        public static final int CREATEBY_FIELD_NUMBER = 12;
-        private volatile Object createBy_;
+        public static final int CREATEBY_FIELD_NUMBER = 13;
+        private volatile java.lang.Object createBy_;
 
         /**
          * <pre>
@@ -993,19 +1039,19 @@ public final class LoggerCollectorProto {
          * 这里需要结合自己的开发脚手架进行创建人
          * </pre>
          *
-         * <code>string createBy = 12;</code>
+         * <code>string createBy = 13;</code>
          *
          * @return The createBy.
          */
-        @Override
-        public String getCreateBy() {
-            Object ref = createBy_;
-            if (ref instanceof String) {
-                return (String) ref;
+        @java.lang.Override
+        public java.lang.String getCreateBy() {
+            java.lang.Object ref = createBy_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
             } else {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
-                String s = bs.toStringUtf8();
+                java.lang.String s = bs.toStringUtf8();
                 createBy_ = s;
                 return s;
             }
@@ -1019,18 +1065,18 @@ public final class LoggerCollectorProto {
          * 这里需要结合自己的开发脚手架进行创建人
          * </pre>
          *
-         * <code>string createBy = 12;</code>
+         * <code>string createBy = 13;</code>
          *
          * @return The bytes for createBy.
          */
-        @Override
+        @java.lang.Override
         public com.google.protobuf.ByteString
         getCreateByBytes() {
-            Object ref = createBy_;
-            if (ref instanceof String) {
+            java.lang.Object ref = createBy_;
+            if (ref instanceof java.lang.String) {
                 com.google.protobuf.ByteString b =
                         com.google.protobuf.ByteString.copyFromUtf8(
-                                (String) ref);
+                                (java.lang.String) ref);
                 createBy_ = b;
                 return b;
             } else {
@@ -1038,8 +1084,8 @@ public final class LoggerCollectorProto {
             }
         }
 
-        public static final int ERRORMSG_FIELD_NUMBER = 13;
-        private volatile Object errorMsg_;
+        public static final int ERRORMSG_FIELD_NUMBER = 14;
+        private volatile java.lang.Object errorMsg_;
 
         /**
          * <pre>
@@ -1047,19 +1093,19 @@ public final class LoggerCollectorProto {
          * 异常信息
          * </pre>
          *
-         * <code>string errorMsg = 13;</code>
+         * <code>string errorMsg = 14;</code>
          *
          * @return The errorMsg.
          */
-        @Override
-        public String getErrorMsg() {
-            Object ref = errorMsg_;
-            if (ref instanceof String) {
-                return (String) ref;
+        @java.lang.Override
+        public java.lang.String getErrorMsg() {
+            java.lang.Object ref = errorMsg_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
             } else {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
-                String s = bs.toStringUtf8();
+                java.lang.String s = bs.toStringUtf8();
                 errorMsg_ = s;
                 return s;
             }
@@ -1071,18 +1117,18 @@ public final class LoggerCollectorProto {
          * 异常信息
          * </pre>
          *
-         * <code>string errorMsg = 13;</code>
+         * <code>string errorMsg = 14;</code>
          *
          * @return The bytes for errorMsg.
          */
-        @Override
+        @java.lang.Override
         public com.google.protobuf.ByteString
         getErrorMsgBytes() {
-            Object ref = errorMsg_;
-            if (ref instanceof String) {
+            java.lang.Object ref = errorMsg_;
+            if (ref instanceof java.lang.String) {
                 com.google.protobuf.ByteString b =
                         com.google.protobuf.ByteString.copyFromUtf8(
-                                (String) ref);
+                                (java.lang.String) ref);
                 errorMsg_ = b;
                 return b;
             } else {
@@ -1090,7 +1136,7 @@ public final class LoggerCollectorProto {
             }
         }
 
-        public static final int SOURCETYPE_FIELD_NUMBER = 14;
+        public static final int SOURCETYPE_FIELD_NUMBER = 15;
         private int sourceType_;
 
         /**
@@ -1100,16 +1146,16 @@ public final class LoggerCollectorProto {
          * {&#64;link com.javayh.agent.common.constant.LoggerSourceType}
          * </pre>
          *
-         * <code>int32 sourceType = 14;</code>
+         * <code>int32 sourceType = 15;</code>
          *
          * @return The sourceType.
          */
-        @Override
+        @java.lang.Override
         public int getSourceType() {
             return sourceType_;
         }
 
-        public static final int IGNORE_FIELD_NUMBER = 15;
+        public static final int IGNORE_FIELD_NUMBER = 16;
         private boolean ignore_;
 
         /**
@@ -1118,18 +1164,18 @@ public final class LoggerCollectorProto {
          * 是否忽略此消息，消息传递时判断是否需要继续向下传递
          * </pre>
          *
-         * <code>bool ignore = 15;</code>
+         * <code>bool ignore = 16;</code>
          *
          * @return The ignore.
          */
-        @Override
+        @java.lang.Override
         public boolean getIgnore() {
             return ignore_;
         }
 
         private byte memoizedIsInitialized = -1;
 
-        @Override
+        @java.lang.Override
         public final boolean isInitialized() {
             byte isInitialized = memoizedIsInitialized;
             if (isInitialized == 1) return true;
@@ -1139,121 +1185,128 @@ public final class LoggerCollectorProto {
             return true;
         }
 
-        @Override
+        @java.lang.Override
         public void writeTo(com.google.protobuf.CodedOutputStream output)
                 throws java.io.IOException {
+            if (messageType_ != MessageTypeProto.MessageType.LOGGER_COLLECTOR.getNumber()) {
+                output.writeEnum(1, messageType_);
+            }
             if (id_ != 0L) {
-                output.writeInt64(1, id_);
+                output.writeInt64(2, id_);
             }
             if (!getTraceIdBytes().isEmpty()) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 2, traceId_);
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 3, traceId_);
             }
             if (!getMethodBytes().isEmpty()) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 3, method_);
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 4, method_);
             }
             if (!getUrlBytes().isEmpty()) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 4, url_);
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 5, url_);
             }
             if (!getQueryBytes().isEmpty()) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 5, query_);
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 6, query_);
             }
             if (!getBodyBytes().isEmpty()) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 6, body_);
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 7, body_);
             }
             if (actionTime_ != 0L) {
-                output.writeInt64(7, actionTime_);
+                output.writeInt64(8, actionTime_);
             }
             if (!getIpBytes().isEmpty()) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 8, ip_);
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 9, ip_);
             }
             if (!getAppNameBytes().isEmpty()) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 9, appName_);
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 10, appName_);
             }
             if (type_ != 0) {
-                output.writeInt32(10, type_);
+                output.writeInt32(11, type_);
             }
             if (createTime_ != null) {
-                output.writeMessage(11, getCreateTime());
+                output.writeMessage(12, getCreateTime());
             }
             if (!getCreateByBytes().isEmpty()) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 12, createBy_);
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 13, createBy_);
             }
             if (!getErrorMsgBytes().isEmpty()) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 13, errorMsg_);
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 14, errorMsg_);
             }
             if (sourceType_ != 0) {
-                output.writeInt32(14, sourceType_);
+                output.writeInt32(15, sourceType_);
             }
             if (ignore_ != false) {
-                output.writeBool(15, ignore_);
+                output.writeBool(16, ignore_);
             }
             unknownFields.writeTo(output);
         }
 
-        @Override
+        @java.lang.Override
         public int getSerializedSize() {
             int size = memoizedSize;
             if (size != -1) return size;
 
             size = 0;
+            if (messageType_ != MessageTypeProto.MessageType.LOGGER_COLLECTOR.getNumber()) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeEnumSize(1, messageType_);
+            }
             if (id_ != 0L) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeInt64Size(1, id_);
+                        .computeInt64Size(2, id_);
             }
             if (!getTraceIdBytes().isEmpty()) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, traceId_);
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, traceId_);
             }
             if (!getMethodBytes().isEmpty()) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, method_);
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, method_);
             }
             if (!getUrlBytes().isEmpty()) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, url_);
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, url_);
             }
             if (!getQueryBytes().isEmpty()) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, query_);
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, query_);
             }
             if (!getBodyBytes().isEmpty()) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, body_);
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, body_);
             }
             if (actionTime_ != 0L) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeInt64Size(7, actionTime_);
+                        .computeInt64Size(8, actionTime_);
             }
             if (!getIpBytes().isEmpty()) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, ip_);
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, ip_);
             }
             if (!getAppNameBytes().isEmpty()) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, appName_);
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, appName_);
             }
             if (type_ != 0) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeInt32Size(10, type_);
+                        .computeInt32Size(11, type_);
             }
             if (createTime_ != null) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(11, getCreateTime());
+                        .computeMessageSize(12, getCreateTime());
             }
             if (!getCreateByBytes().isEmpty()) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, createBy_);
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, createBy_);
             }
             if (!getErrorMsgBytes().isEmpty()) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, errorMsg_);
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, errorMsg_);
             }
             if (sourceType_ != 0) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeInt32Size(14, sourceType_);
+                        .computeInt32Size(15, sourceType_);
             }
             if (ignore_ != false) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeBoolSize(15, ignore_);
+                        .computeBoolSize(16, ignore_);
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
             return size;
         }
 
-        @Override
-        public boolean equals(final Object obj) {
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
             if (obj == this) {
                 return true;
             }
@@ -1262,6 +1315,7 @@ public final class LoggerCollectorProto {
             }
             LoggerCollectorProto.LoggerCollector other = (LoggerCollectorProto.LoggerCollector) obj;
 
+            if (messageType_ != other.messageType_) return false;
             if (getId()
                     != other.getId()) return false;
             if (!getTraceId()
@@ -1299,13 +1353,15 @@ public final class LoggerCollectorProto {
             return true;
         }
 
-        @Override
+        @java.lang.Override
         public int hashCode() {
             if (memoizedHashCode != 0) {
                 return memoizedHashCode;
             }
             int hash = 41;
             hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + MESSAGETYPE_FIELD_NUMBER;
+            hash = (53 * hash) + messageType_;
             hash = (37 * hash) + ID_FIELD_NUMBER;
             hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
                     getId());
@@ -1427,7 +1483,7 @@ public final class LoggerCollectorProto {
                     .parseWithIOException(PARSER, input, extensionRegistry);
         }
 
-        @Override
+        @java.lang.Override
         public Builder newBuilderForType() {
             return newBuilder();
         }
@@ -1440,15 +1496,15 @@ public final class LoggerCollectorProto {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
-        @Override
+        @java.lang.Override
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
-        @Override
+        @java.lang.Override
         protected Builder newBuilderForType(
-                BuilderParent parent) {
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
         }
@@ -1465,21 +1521,21 @@ public final class LoggerCollectorProto {
                 return LoggerCollectorProto.internal_static_com_javayh_agent_rpc_LoggerCollector_descriptor;
             }
 
-            @Override
-            protected FieldAccessorTable
+            @java.lang.Override
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return LoggerCollectorProto.internal_static_com_javayh_agent_rpc_LoggerCollector_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
                                 LoggerCollectorProto.LoggerCollector.class, LoggerCollectorProto.LoggerCollector.Builder.class);
             }
 
-            // Construct using com.javayh.agent.rpc.LoggerCollectorOuterClass.LoggerCollector.newBuilder()
+            // Construct using com.javayh.agent.common.bean.proto.LoggerCollectorProto.LoggerCollector.newBuilder()
             private Builder() {
                 maybeForceBuilderInitialization();
             }
 
             private Builder(
-                    BuilderParent parent) {
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
                 super(parent);
                 maybeForceBuilderInitialization();
             }
@@ -1490,9 +1546,11 @@ public final class LoggerCollectorProto {
                 }
             }
 
-            @Override
+            @java.lang.Override
             public Builder clear() {
                 super.clear();
+                messageType_ = 0;
+
                 id_ = 0L;
 
                 traceId_ = "";
@@ -1530,18 +1588,18 @@ public final class LoggerCollectorProto {
                 return this;
             }
 
-            @Override
+            @java.lang.Override
             public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
                 return LoggerCollectorProto.internal_static_com_javayh_agent_rpc_LoggerCollector_descriptor;
             }
 
-            @Override
+            @java.lang.Override
             public LoggerCollectorProto.LoggerCollector getDefaultInstanceForType() {
                 return LoggerCollectorProto.LoggerCollector.getDefaultInstance();
             }
 
-            @Override
+            @java.lang.Override
             public LoggerCollectorProto.LoggerCollector build() {
                 LoggerCollectorProto.LoggerCollector result = buildPartial();
                 if (!result.isInitialized()) {
@@ -1550,9 +1608,10 @@ public final class LoggerCollectorProto {
                 return result;
             }
 
-            @Override
+            @java.lang.Override
             public LoggerCollectorProto.LoggerCollector buildPartial() {
                 LoggerCollectorProto.LoggerCollector result = new LoggerCollectorProto.LoggerCollector(this);
+                result.messageType_ = messageType_;
                 result.id_ = id_;
                 result.traceId_ = traceId_;
                 result.method_ = method_;
@@ -1576,45 +1635,45 @@ public final class LoggerCollectorProto {
                 return result;
             }
 
-            @Override
+            @java.lang.Override
             public Builder clone() {
                 return super.clone();
             }
 
-            @Override
+            @java.lang.Override
             public Builder setField(
                     com.google.protobuf.Descriptors.FieldDescriptor field,
-                    Object value) {
+                    java.lang.Object value) {
                 return super.setField(field, value);
             }
 
-            @Override
+            @java.lang.Override
             public Builder clearField(
                     com.google.protobuf.Descriptors.FieldDescriptor field) {
                 return super.clearField(field);
             }
 
-            @Override
+            @java.lang.Override
             public Builder clearOneof(
                     com.google.protobuf.Descriptors.OneofDescriptor oneof) {
                 return super.clearOneof(oneof);
             }
 
-            @Override
+            @java.lang.Override
             public Builder setRepeatedField(
                     com.google.protobuf.Descriptors.FieldDescriptor field,
-                    int index, Object value) {
+                    int index, java.lang.Object value) {
                 return super.setRepeatedField(field, index, value);
             }
 
-            @Override
+            @java.lang.Override
             public Builder addRepeatedField(
                     com.google.protobuf.Descriptors.FieldDescriptor field,
-                    Object value) {
+                    java.lang.Object value) {
                 return super.addRepeatedField(field, value);
             }
 
-            @Override
+            @java.lang.Override
             public Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof LoggerCollectorProto.LoggerCollector) {
                     return mergeFrom((LoggerCollectorProto.LoggerCollector) other);
@@ -1626,6 +1685,9 @@ public final class LoggerCollectorProto {
 
             public Builder mergeFrom(LoggerCollectorProto.LoggerCollector other) {
                 if (other == LoggerCollectorProto.LoggerCollector.getDefaultInstance()) return this;
+                if (other.messageType_ != 0) {
+                    setMessageTypeValue(other.getMessageTypeValue());
+                }
                 if (other.getId() != 0L) {
                     setId(other.getId());
                 }
@@ -1685,12 +1747,12 @@ public final class LoggerCollectorProto {
                 return this;
             }
 
-            @Override
+            @java.lang.Override
             public final boolean isInitialized() {
                 return true;
             }
 
-            @Override
+            @java.lang.Override
             public Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1709,20 +1771,85 @@ public final class LoggerCollectorProto {
                 return this;
             }
 
+            private int messageType_ = 0;
+
+            /**
+             * <code>.com.javayh.agent.rpc.MessageType messageType = 1;</code>
+             *
+             * @return The enum numeric value on the wire for messageType.
+             */
+            @java.lang.Override
+            public int getMessageTypeValue() {
+                return messageType_;
+            }
+
+            /**
+             * <code>.com.javayh.agent.rpc.MessageType messageType = 1;</code>
+             *
+             * @param value The enum numeric value on the wire for messageType to set.
+             * @return This builder for chaining.
+             */
+            public Builder setMessageTypeValue(int value) {
+
+                messageType_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>.com.javayh.agent.rpc.MessageType messageType = 1;</code>
+             *
+             * @return The messageType.
+             */
+            @java.lang.Override
+            public MessageTypeProto.MessageType getMessageType() {
+                @SuppressWarnings("deprecation")
+                MessageTypeProto.MessageType result = MessageTypeProto.MessageType.valueOf(messageType_);
+                return result == null ? MessageTypeProto.MessageType.UNRECOGNIZED : result;
+            }
+
+            /**
+             * <code>.com.javayh.agent.rpc.MessageType messageType = 1;</code>
+             *
+             * @param value The messageType to set.
+             * @return This builder for chaining.
+             */
+            public Builder setMessageType(MessageTypeProto.MessageType value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                messageType_ = value.getNumber();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>.com.javayh.agent.rpc.MessageType messageType = 1;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearMessageType() {
+
+                messageType_ = 0;
+                onChanged();
+                return this;
+            }
+
             private long id_;
 
             /**
-             * <code>int64 id = 1;</code>
+             * <code>int64 id = 2;</code>
              *
              * @return The id.
              */
-            @Override
+            @java.lang.Override
             public long getId() {
                 return id_;
             }
 
             /**
-             * <code>int64 id = 1;</code>
+             * <code>int64 id = 2;</code>
              *
              * @param value The id to set.
              * @return This builder for chaining.
@@ -1735,7 +1862,7 @@ public final class LoggerCollectorProto {
             }
 
             /**
-             * <code>int64 id = 1;</code>
+             * <code>int64 id = 2;</code>
              *
              * @return This builder for chaining.
              */
@@ -1746,7 +1873,7 @@ public final class LoggerCollectorProto {
                 return this;
             }
 
-            private Object traceId_ = "";
+            private java.lang.Object traceId_ = "";
 
             /**
              * <pre>
@@ -1754,20 +1881,20 @@ public final class LoggerCollectorProto {
              * 请求的trace id
              * </pre>
              *
-             * <code>string traceId = 2;</code>
+             * <code>string traceId = 3;</code>
              *
              * @return The traceId.
              */
-            public String getTraceId() {
-                Object ref = traceId_;
-                if (!(ref instanceof String)) {
+            public java.lang.String getTraceId() {
+                java.lang.Object ref = traceId_;
+                if (!(ref instanceof java.lang.String)) {
                     com.google.protobuf.ByteString bs =
                             (com.google.protobuf.ByteString) ref;
-                    String s = bs.toStringUtf8();
+                    java.lang.String s = bs.toStringUtf8();
                     traceId_ = s;
                     return s;
                 } else {
-                    return (String) ref;
+                    return (java.lang.String) ref;
                 }
             }
 
@@ -1777,17 +1904,17 @@ public final class LoggerCollectorProto {
              * 请求的trace id
              * </pre>
              *
-             * <code>string traceId = 2;</code>
+             * <code>string traceId = 3;</code>
              *
              * @return The bytes for traceId.
              */
             public com.google.protobuf.ByteString
             getTraceIdBytes() {
-                Object ref = traceId_;
+                java.lang.Object ref = traceId_;
                 if (ref instanceof String) {
                     com.google.protobuf.ByteString b =
                             com.google.protobuf.ByteString.copyFromUtf8(
-                                    (String) ref);
+                                    (java.lang.String) ref);
                     traceId_ = b;
                     return b;
                 } else {
@@ -1801,13 +1928,13 @@ public final class LoggerCollectorProto {
              * 请求的trace id
              * </pre>
              *
-             * <code>string traceId = 2;</code>
+             * <code>string traceId = 3;</code>
              *
              * @param value The traceId to set.
              * @return This builder for chaining.
              */
             public Builder setTraceId(
-                    String value) {
+                    java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -1823,7 +1950,7 @@ public final class LoggerCollectorProto {
              * 请求的trace id
              * </pre>
              *
-             * <code>string traceId = 2;</code>
+             * <code>string traceId = 3;</code>
              *
              * @return This builder for chaining.
              */
@@ -1840,7 +1967,7 @@ public final class LoggerCollectorProto {
              * 请求的trace id
              * </pre>
              *
-             * <code>string traceId = 2;</code>
+             * <code>string traceId = 3;</code>
              *
              * @param value The bytes for traceId to set.
              * @return This builder for chaining.
@@ -1857,7 +1984,7 @@ public final class LoggerCollectorProto {
                 return this;
             }
 
-            private Object method_ = "";
+            private java.lang.Object method_ = "";
 
             /**
              * <pre>
@@ -1865,20 +1992,20 @@ public final class LoggerCollectorProto {
              * 操作的方法类型 GET | POST
              * </pre>
              *
-             * <code>string method = 3;</code>
+             * <code>string method = 4;</code>
              *
              * @return The method.
              */
-            public String getMethod() {
-                Object ref = method_;
-                if (!(ref instanceof String)) {
+            public java.lang.String getMethod() {
+                java.lang.Object ref = method_;
+                if (!(ref instanceof java.lang.String)) {
                     com.google.protobuf.ByteString bs =
                             (com.google.protobuf.ByteString) ref;
-                    String s = bs.toStringUtf8();
+                    java.lang.String s = bs.toStringUtf8();
                     method_ = s;
                     return s;
                 } else {
-                    return (String) ref;
+                    return (java.lang.String) ref;
                 }
             }
 
@@ -1888,17 +2015,17 @@ public final class LoggerCollectorProto {
              * 操作的方法类型 GET | POST
              * </pre>
              *
-             * <code>string method = 3;</code>
+             * <code>string method = 4;</code>
              *
              * @return The bytes for method.
              */
             public com.google.protobuf.ByteString
             getMethodBytes() {
-                Object ref = method_;
+                java.lang.Object ref = method_;
                 if (ref instanceof String) {
                     com.google.protobuf.ByteString b =
                             com.google.protobuf.ByteString.copyFromUtf8(
-                                    (String) ref);
+                                    (java.lang.String) ref);
                     method_ = b;
                     return b;
                 } else {
@@ -1912,13 +2039,13 @@ public final class LoggerCollectorProto {
              * 操作的方法类型 GET | POST
              * </pre>
              *
-             * <code>string method = 3;</code>
+             * <code>string method = 4;</code>
              *
              * @param value The method to set.
              * @return This builder for chaining.
              */
             public Builder setMethod(
-                    String value) {
+                    java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -1934,7 +2061,7 @@ public final class LoggerCollectorProto {
              * 操作的方法类型 GET | POST
              * </pre>
              *
-             * <code>string method = 3;</code>
+             * <code>string method = 4;</code>
              *
              * @return This builder for chaining.
              */
@@ -1951,7 +2078,7 @@ public final class LoggerCollectorProto {
              * 操作的方法类型 GET | POST
              * </pre>
              *
-             * <code>string method = 3;</code>
+             * <code>string method = 4;</code>
              *
              * @param value The bytes for method to set.
              * @return This builder for chaining.
@@ -1968,7 +2095,7 @@ public final class LoggerCollectorProto {
                 return this;
             }
 
-            private Object url_ = "";
+            private java.lang.Object url_ = "";
 
             /**
              * <pre>
@@ -1976,20 +2103,20 @@ public final class LoggerCollectorProto {
              * 请求路径
              * </pre>
              *
-             * <code>string url = 4;</code>
+             * <code>string url = 5;</code>
              *
              * @return The url.
              */
-            public String getUrl() {
-                Object ref = url_;
-                if (!(ref instanceof String)) {
+            public java.lang.String getUrl() {
+                java.lang.Object ref = url_;
+                if (!(ref instanceof java.lang.String)) {
                     com.google.protobuf.ByteString bs =
                             (com.google.protobuf.ByteString) ref;
-                    String s = bs.toStringUtf8();
+                    java.lang.String s = bs.toStringUtf8();
                     url_ = s;
                     return s;
                 } else {
-                    return (String) ref;
+                    return (java.lang.String) ref;
                 }
             }
 
@@ -1999,17 +2126,17 @@ public final class LoggerCollectorProto {
              * 请求路径
              * </pre>
              *
-             * <code>string url = 4;</code>
+             * <code>string url = 5;</code>
              *
              * @return The bytes for url.
              */
             public com.google.protobuf.ByteString
             getUrlBytes() {
-                Object ref = url_;
+                java.lang.Object ref = url_;
                 if (ref instanceof String) {
                     com.google.protobuf.ByteString b =
                             com.google.protobuf.ByteString.copyFromUtf8(
-                                    (String) ref);
+                                    (java.lang.String) ref);
                     url_ = b;
                     return b;
                 } else {
@@ -2023,13 +2150,13 @@ public final class LoggerCollectorProto {
              * 请求路径
              * </pre>
              *
-             * <code>string url = 4;</code>
+             * <code>string url = 5;</code>
              *
              * @param value The url to set.
              * @return This builder for chaining.
              */
             public Builder setUrl(
-                    String value) {
+                    java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -2045,7 +2172,7 @@ public final class LoggerCollectorProto {
              * 请求路径
              * </pre>
              *
-             * <code>string url = 4;</code>
+             * <code>string url = 5;</code>
              *
              * @return This builder for chaining.
              */
@@ -2062,7 +2189,7 @@ public final class LoggerCollectorProto {
              * 请求路径
              * </pre>
              *
-             * <code>string url = 4;</code>
+             * <code>string url = 5;</code>
              *
              * @param value The bytes for url to set.
              * @return This builder for chaining.
@@ -2079,7 +2206,7 @@ public final class LoggerCollectorProto {
                 return this;
             }
 
-            private Object query_ = "";
+            private java.lang.Object query_ = "";
 
             /**
              * <pre>
@@ -2087,20 +2214,20 @@ public final class LoggerCollectorProto {
              * 请求的参数
              * </pre>
              *
-             * <code>string query = 5;</code>
+             * <code>string query = 6;</code>
              *
              * @return The query.
              */
-            public String getQuery() {
-                Object ref = query_;
-                if (!(ref instanceof String)) {
+            public java.lang.String getQuery() {
+                java.lang.Object ref = query_;
+                if (!(ref instanceof java.lang.String)) {
                     com.google.protobuf.ByteString bs =
                             (com.google.protobuf.ByteString) ref;
-                    String s = bs.toStringUtf8();
+                    java.lang.String s = bs.toStringUtf8();
                     query_ = s;
                     return s;
                 } else {
-                    return (String) ref;
+                    return (java.lang.String) ref;
                 }
             }
 
@@ -2110,17 +2237,17 @@ public final class LoggerCollectorProto {
              * 请求的参数
              * </pre>
              *
-             * <code>string query = 5;</code>
+             * <code>string query = 6;</code>
              *
              * @return The bytes for query.
              */
             public com.google.protobuf.ByteString
             getQueryBytes() {
-                Object ref = query_;
+                java.lang.Object ref = query_;
                 if (ref instanceof String) {
                     com.google.protobuf.ByteString b =
                             com.google.protobuf.ByteString.copyFromUtf8(
-                                    (String) ref);
+                                    (java.lang.String) ref);
                     query_ = b;
                     return b;
                 } else {
@@ -2134,13 +2261,13 @@ public final class LoggerCollectorProto {
              * 请求的参数
              * </pre>
              *
-             * <code>string query = 5;</code>
+             * <code>string query = 6;</code>
              *
              * @param value The query to set.
              * @return This builder for chaining.
              */
             public Builder setQuery(
-                    String value) {
+                    java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -2156,7 +2283,7 @@ public final class LoggerCollectorProto {
              * 请求的参数
              * </pre>
              *
-             * <code>string query = 5;</code>
+             * <code>string query = 6;</code>
              *
              * @return This builder for chaining.
              */
@@ -2173,7 +2300,7 @@ public final class LoggerCollectorProto {
              * 请求的参数
              * </pre>
              *
-             * <code>string query = 5;</code>
+             * <code>string query = 6;</code>
              *
              * @param value The bytes for query to set.
              * @return This builder for chaining.
@@ -2190,7 +2317,7 @@ public final class LoggerCollectorProto {
                 return this;
             }
 
-            private Object body_ = "";
+            private java.lang.Object body_ = "";
 
             /**
              * <pre>
@@ -2198,20 +2325,20 @@ public final class LoggerCollectorProto {
              * 请求的参数
              * </pre>
              *
-             * <code>string body = 6;</code>
+             * <code>string body = 7;</code>
              *
              * @return The body.
              */
-            public String getBody() {
-                Object ref = body_;
-                if (!(ref instanceof String)) {
+            public java.lang.String getBody() {
+                java.lang.Object ref = body_;
+                if (!(ref instanceof java.lang.String)) {
                     com.google.protobuf.ByteString bs =
                             (com.google.protobuf.ByteString) ref;
-                    String s = bs.toStringUtf8();
+                    java.lang.String s = bs.toStringUtf8();
                     body_ = s;
                     return s;
                 } else {
-                    return (String) ref;
+                    return (java.lang.String) ref;
                 }
             }
 
@@ -2221,17 +2348,17 @@ public final class LoggerCollectorProto {
              * 请求的参数
              * </pre>
              *
-             * <code>string body = 6;</code>
+             * <code>string body = 7;</code>
              *
              * @return The bytes for body.
              */
             public com.google.protobuf.ByteString
             getBodyBytes() {
-                Object ref = body_;
+                java.lang.Object ref = body_;
                 if (ref instanceof String) {
                     com.google.protobuf.ByteString b =
                             com.google.protobuf.ByteString.copyFromUtf8(
-                                    (String) ref);
+                                    (java.lang.String) ref);
                     body_ = b;
                     return b;
                 } else {
@@ -2245,13 +2372,13 @@ public final class LoggerCollectorProto {
              * 请求的参数
              * </pre>
              *
-             * <code>string body = 6;</code>
+             * <code>string body = 7;</code>
              *
              * @param value The body to set.
              * @return This builder for chaining.
              */
             public Builder setBody(
-                    String value) {
+                    java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -2267,7 +2394,7 @@ public final class LoggerCollectorProto {
              * 请求的参数
              * </pre>
              *
-             * <code>string body = 6;</code>
+             * <code>string body = 7;</code>
              *
              * @return This builder for chaining.
              */
@@ -2284,7 +2411,7 @@ public final class LoggerCollectorProto {
              * 请求的参数
              * </pre>
              *
-             * <code>string body = 6;</code>
+             * <code>string body = 7;</code>
              *
              * @param value The bytes for body to set.
              * @return This builder for chaining.
@@ -2309,11 +2436,11 @@ public final class LoggerCollectorProto {
              * 操作耗时
              * </pre>
              *
-             * <code>int64 actionTime = 7;</code>
+             * <code>int64 actionTime = 8;</code>
              *
              * @return The actionTime.
              */
-            @Override
+            @java.lang.Override
             public long getActionTime() {
                 return actionTime_;
             }
@@ -2324,7 +2451,7 @@ public final class LoggerCollectorProto {
              * 操作耗时
              * </pre>
              *
-             * <code>int64 actionTime = 7;</code>
+             * <code>int64 actionTime = 8;</code>
              *
              * @param value The actionTime to set.
              * @return This builder for chaining.
@@ -2342,7 +2469,7 @@ public final class LoggerCollectorProto {
              * 操作耗时
              * </pre>
              *
-             * <code>int64 actionTime = 7;</code>
+             * <code>int64 actionTime = 8;</code>
              *
              * @return This builder for chaining.
              */
@@ -2353,7 +2480,7 @@ public final class LoggerCollectorProto {
                 return this;
             }
 
-            private Object ip_ = "";
+            private java.lang.Object ip_ = "";
 
             /**
              * <pre>
@@ -2361,20 +2488,20 @@ public final class LoggerCollectorProto {
              * 操作人的ip
              * </pre>
              *
-             * <code>string ip = 8;</code>
+             * <code>string ip = 9;</code>
              *
              * @return The ip.
              */
-            public String getIp() {
-                Object ref = ip_;
-                if (!(ref instanceof String)) {
+            public java.lang.String getIp() {
+                java.lang.Object ref = ip_;
+                if (!(ref instanceof java.lang.String)) {
                     com.google.protobuf.ByteString bs =
                             (com.google.protobuf.ByteString) ref;
-                    String s = bs.toStringUtf8();
+                    java.lang.String s = bs.toStringUtf8();
                     ip_ = s;
                     return s;
                 } else {
-                    return (String) ref;
+                    return (java.lang.String) ref;
                 }
             }
 
@@ -2384,17 +2511,17 @@ public final class LoggerCollectorProto {
              * 操作人的ip
              * </pre>
              *
-             * <code>string ip = 8;</code>
+             * <code>string ip = 9;</code>
              *
              * @return The bytes for ip.
              */
             public com.google.protobuf.ByteString
             getIpBytes() {
-                Object ref = ip_;
+                java.lang.Object ref = ip_;
                 if (ref instanceof String) {
                     com.google.protobuf.ByteString b =
                             com.google.protobuf.ByteString.copyFromUtf8(
-                                    (String) ref);
+                                    (java.lang.String) ref);
                     ip_ = b;
                     return b;
                 } else {
@@ -2408,13 +2535,13 @@ public final class LoggerCollectorProto {
              * 操作人的ip
              * </pre>
              *
-             * <code>string ip = 8;</code>
+             * <code>string ip = 9;</code>
              *
              * @param value The ip to set.
              * @return This builder for chaining.
              */
             public Builder setIp(
-                    String value) {
+                    java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -2430,7 +2557,7 @@ public final class LoggerCollectorProto {
              * 操作人的ip
              * </pre>
              *
-             * <code>string ip = 8;</code>
+             * <code>string ip = 9;</code>
              *
              * @return This builder for chaining.
              */
@@ -2447,7 +2574,7 @@ public final class LoggerCollectorProto {
              * 操作人的ip
              * </pre>
              *
-             * <code>string ip = 8;</code>
+             * <code>string ip = 9;</code>
              *
              * @param value The bytes for ip to set.
              * @return This builder for chaining.
@@ -2464,7 +2591,7 @@ public final class LoggerCollectorProto {
                 return this;
             }
 
-            private Object appName_ = "";
+            private java.lang.Object appName_ = "";
 
             /**
              * <pre>
@@ -2472,20 +2599,20 @@ public final class LoggerCollectorProto {
              * 服务的名字
              * </pre>
              *
-             * <code>string appName = 9;</code>
+             * <code>string appName = 10;</code>
              *
              * @return The appName.
              */
-            public String getAppName() {
-                Object ref = appName_;
-                if (!(ref instanceof String)) {
+            public java.lang.String getAppName() {
+                java.lang.Object ref = appName_;
+                if (!(ref instanceof java.lang.String)) {
                     com.google.protobuf.ByteString bs =
                             (com.google.protobuf.ByteString) ref;
-                    String s = bs.toStringUtf8();
+                    java.lang.String s = bs.toStringUtf8();
                     appName_ = s;
                     return s;
                 } else {
-                    return (String) ref;
+                    return (java.lang.String) ref;
                 }
             }
 
@@ -2495,17 +2622,17 @@ public final class LoggerCollectorProto {
              * 服务的名字
              * </pre>
              *
-             * <code>string appName = 9;</code>
+             * <code>string appName = 10;</code>
              *
              * @return The bytes for appName.
              */
             public com.google.protobuf.ByteString
             getAppNameBytes() {
-                Object ref = appName_;
+                java.lang.Object ref = appName_;
                 if (ref instanceof String) {
                     com.google.protobuf.ByteString b =
                             com.google.protobuf.ByteString.copyFromUtf8(
-                                    (String) ref);
+                                    (java.lang.String) ref);
                     appName_ = b;
                     return b;
                 } else {
@@ -2519,13 +2646,13 @@ public final class LoggerCollectorProto {
              * 服务的名字
              * </pre>
              *
-             * <code>string appName = 9;</code>
+             * <code>string appName = 10;</code>
              *
              * @param value The appName to set.
              * @return This builder for chaining.
              */
             public Builder setAppName(
-                    String value) {
+                    java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -2541,7 +2668,7 @@ public final class LoggerCollectorProto {
              * 服务的名字
              * </pre>
              *
-             * <code>string appName = 9;</code>
+             * <code>string appName = 10;</code>
              *
              * @return This builder for chaining.
              */
@@ -2558,7 +2685,7 @@ public final class LoggerCollectorProto {
              * 服务的名字
              * </pre>
              *
-             * <code>string appName = 9;</code>
+             * <code>string appName = 10;</code>
              *
              * @param value The bytes for appName to set.
              * @return This builder for chaining.
@@ -2583,11 +2710,11 @@ public final class LoggerCollectorProto {
              * 请求访问的类型，{&#64;link com.javayh.agent.common.constant.LoggerType;}
              * </pre>
              *
-             * <code>int32 type = 10;</code>
+             * <code>int32 type = 11;</code>
              *
              * @return The type.
              */
-            @Override
+            @java.lang.Override
             public int getType() {
                 return type_;
             }
@@ -2598,7 +2725,7 @@ public final class LoggerCollectorProto {
              * 请求访问的类型，{&#64;link com.javayh.agent.common.constant.LoggerType;}
              * </pre>
              *
-             * <code>int32 type = 10;</code>
+             * <code>int32 type = 11;</code>
              *
              * @param value The type to set.
              * @return This builder for chaining.
@@ -2616,7 +2743,7 @@ public final class LoggerCollectorProto {
              * 请求访问的类型，{&#64;link com.javayh.agent.common.constant.LoggerType;}
              * </pre>
              *
-             * <code>int32 type = 10;</code>
+             * <code>int32 type = 11;</code>
              *
              * @return This builder for chaining.
              */
@@ -2637,7 +2764,7 @@ public final class LoggerCollectorProto {
              * 创建的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createTime = 11;</code>
+             * <code>.google.protobuf.Timestamp createTime = 12;</code>
              *
              * @return Whether the createTime field is set.
              */
@@ -2651,7 +2778,7 @@ public final class LoggerCollectorProto {
              * 创建的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createTime = 11;</code>
+             * <code>.google.protobuf.Timestamp createTime = 12;</code>
              *
              * @return The createTime.
              */
@@ -2669,7 +2796,7 @@ public final class LoggerCollectorProto {
              * 创建的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createTime = 11;</code>
+             * <code>.google.protobuf.Timestamp createTime = 12;</code>
              */
             public Builder setCreateTime(com.google.protobuf.Timestamp value) {
                 if (createTimeBuilder_ == null) {
@@ -2691,7 +2818,7 @@ public final class LoggerCollectorProto {
              * 创建的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createTime = 11;</code>
+             * <code>.google.protobuf.Timestamp createTime = 12;</code>
              */
             public Builder setCreateTime(
                     com.google.protobuf.Timestamp.Builder builderForValue) {
@@ -2711,7 +2838,7 @@ public final class LoggerCollectorProto {
              * 创建的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createTime = 11;</code>
+             * <code>.google.protobuf.Timestamp createTime = 12;</code>
              */
             public Builder mergeCreateTime(com.google.protobuf.Timestamp value) {
                 if (createTimeBuilder_ == null) {
@@ -2735,7 +2862,7 @@ public final class LoggerCollectorProto {
              * 创建的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createTime = 11;</code>
+             * <code>.google.protobuf.Timestamp createTime = 12;</code>
              */
             public Builder clearCreateTime() {
                 if (createTimeBuilder_ == null) {
@@ -2755,7 +2882,7 @@ public final class LoggerCollectorProto {
              * 创建的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createTime = 11;</code>
+             * <code>.google.protobuf.Timestamp createTime = 12;</code>
              */
             public com.google.protobuf.Timestamp.Builder getCreateTimeBuilder() {
 
@@ -2769,7 +2896,7 @@ public final class LoggerCollectorProto {
              * 创建的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createTime = 11;</code>
+             * <code>.google.protobuf.Timestamp createTime = 12;</code>
              */
             public com.google.protobuf.TimestampOrBuilder getCreateTimeOrBuilder() {
                 if (createTimeBuilder_ != null) {
@@ -2786,7 +2913,7 @@ public final class LoggerCollectorProto {
              * 创建的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createTime = 11;</code>
+             * <code>.google.protobuf.Timestamp createTime = 12;</code>
              */
             private com.google.protobuf.SingleFieldBuilderV3<
                     com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>
@@ -2802,7 +2929,7 @@ public final class LoggerCollectorProto {
                 return createTimeBuilder_;
             }
 
-            private Object createBy_ = "";
+            private java.lang.Object createBy_ = "";
 
             /**
              * <pre>
@@ -2812,20 +2939,20 @@ public final class LoggerCollectorProto {
              * 这里需要结合自己的开发脚手架进行创建人
              * </pre>
              *
-             * <code>string createBy = 12;</code>
+             * <code>string createBy = 13;</code>
              *
              * @return The createBy.
              */
-            public String getCreateBy() {
-                Object ref = createBy_;
-                if (!(ref instanceof String)) {
+            public java.lang.String getCreateBy() {
+                java.lang.Object ref = createBy_;
+                if (!(ref instanceof java.lang.String)) {
                     com.google.protobuf.ByteString bs =
                             (com.google.protobuf.ByteString) ref;
-                    String s = bs.toStringUtf8();
+                    java.lang.String s = bs.toStringUtf8();
                     createBy_ = s;
                     return s;
                 } else {
-                    return (String) ref;
+                    return (java.lang.String) ref;
                 }
             }
 
@@ -2837,17 +2964,17 @@ public final class LoggerCollectorProto {
              * 这里需要结合自己的开发脚手架进行创建人
              * </pre>
              *
-             * <code>string createBy = 12;</code>
+             * <code>string createBy = 13;</code>
              *
              * @return The bytes for createBy.
              */
             public com.google.protobuf.ByteString
             getCreateByBytes() {
-                Object ref = createBy_;
+                java.lang.Object ref = createBy_;
                 if (ref instanceof String) {
                     com.google.protobuf.ByteString b =
                             com.google.protobuf.ByteString.copyFromUtf8(
-                                    (String) ref);
+                                    (java.lang.String) ref);
                     createBy_ = b;
                     return b;
                 } else {
@@ -2863,13 +2990,13 @@ public final class LoggerCollectorProto {
              * 这里需要结合自己的开发脚手架进行创建人
              * </pre>
              *
-             * <code>string createBy = 12;</code>
+             * <code>string createBy = 13;</code>
              *
              * @param value The createBy to set.
              * @return This builder for chaining.
              */
             public Builder setCreateBy(
-                    String value) {
+                    java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -2887,7 +3014,7 @@ public final class LoggerCollectorProto {
              * 这里需要结合自己的开发脚手架进行创建人
              * </pre>
              *
-             * <code>string createBy = 12;</code>
+             * <code>string createBy = 13;</code>
              *
              * @return This builder for chaining.
              */
@@ -2906,7 +3033,7 @@ public final class LoggerCollectorProto {
              * 这里需要结合自己的开发脚手架进行创建人
              * </pre>
              *
-             * <code>string createBy = 12;</code>
+             * <code>string createBy = 13;</code>
              *
              * @param value The bytes for createBy to set.
              * @return This builder for chaining.
@@ -2923,7 +3050,7 @@ public final class LoggerCollectorProto {
                 return this;
             }
 
-            private Object errorMsg_ = "";
+            private java.lang.Object errorMsg_ = "";
 
             /**
              * <pre>
@@ -2931,20 +3058,20 @@ public final class LoggerCollectorProto {
              * 异常信息
              * </pre>
              *
-             * <code>string errorMsg = 13;</code>
+             * <code>string errorMsg = 14;</code>
              *
              * @return The errorMsg.
              */
-            public String getErrorMsg() {
-                Object ref = errorMsg_;
-                if (!(ref instanceof String)) {
+            public java.lang.String getErrorMsg() {
+                java.lang.Object ref = errorMsg_;
+                if (!(ref instanceof java.lang.String)) {
                     com.google.protobuf.ByteString bs =
                             (com.google.protobuf.ByteString) ref;
-                    String s = bs.toStringUtf8();
+                    java.lang.String s = bs.toStringUtf8();
                     errorMsg_ = s;
                     return s;
                 } else {
-                    return (String) ref;
+                    return (java.lang.String) ref;
                 }
             }
 
@@ -2954,17 +3081,17 @@ public final class LoggerCollectorProto {
              * 异常信息
              * </pre>
              *
-             * <code>string errorMsg = 13;</code>
+             * <code>string errorMsg = 14;</code>
              *
              * @return The bytes for errorMsg.
              */
             public com.google.protobuf.ByteString
             getErrorMsgBytes() {
-                Object ref = errorMsg_;
+                java.lang.Object ref = errorMsg_;
                 if (ref instanceof String) {
                     com.google.protobuf.ByteString b =
                             com.google.protobuf.ByteString.copyFromUtf8(
-                                    (String) ref);
+                                    (java.lang.String) ref);
                     errorMsg_ = b;
                     return b;
                 } else {
@@ -2978,13 +3105,13 @@ public final class LoggerCollectorProto {
              * 异常信息
              * </pre>
              *
-             * <code>string errorMsg = 13;</code>
+             * <code>string errorMsg = 14;</code>
              *
              * @param value The errorMsg to set.
              * @return This builder for chaining.
              */
             public Builder setErrorMsg(
-                    String value) {
+                    java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -3000,7 +3127,7 @@ public final class LoggerCollectorProto {
              * 异常信息
              * </pre>
              *
-             * <code>string errorMsg = 13;</code>
+             * <code>string errorMsg = 14;</code>
              *
              * @return This builder for chaining.
              */
@@ -3017,7 +3144,7 @@ public final class LoggerCollectorProto {
              * 异常信息
              * </pre>
              *
-             * <code>string errorMsg = 13;</code>
+             * <code>string errorMsg = 14;</code>
              *
              * @param value The bytes for errorMsg to set.
              * @return This builder for chaining.
@@ -3043,11 +3170,11 @@ public final class LoggerCollectorProto {
              * {&#64;link com.javayh.agent.common.constant.LoggerSourceType}
              * </pre>
              *
-             * <code>int32 sourceType = 14;</code>
+             * <code>int32 sourceType = 15;</code>
              *
              * @return The sourceType.
              */
-            @Override
+            @java.lang.Override
             public int getSourceType() {
                 return sourceType_;
             }
@@ -3059,7 +3186,7 @@ public final class LoggerCollectorProto {
              * {&#64;link com.javayh.agent.common.constant.LoggerSourceType}
              * </pre>
              *
-             * <code>int32 sourceType = 14;</code>
+             * <code>int32 sourceType = 15;</code>
              *
              * @param value The sourceType to set.
              * @return This builder for chaining.
@@ -3078,7 +3205,7 @@ public final class LoggerCollectorProto {
              * {&#64;link com.javayh.agent.common.constant.LoggerSourceType}
              * </pre>
              *
-             * <code>int32 sourceType = 14;</code>
+             * <code>int32 sourceType = 15;</code>
              *
              * @return This builder for chaining.
              */
@@ -3097,11 +3224,11 @@ public final class LoggerCollectorProto {
              * 是否忽略此消息，消息传递时判断是否需要继续向下传递
              * </pre>
              *
-             * <code>bool ignore = 15;</code>
+             * <code>bool ignore = 16;</code>
              *
              * @return The ignore.
              */
-            @Override
+            @java.lang.Override
             public boolean getIgnore() {
                 return ignore_;
             }
@@ -3112,7 +3239,7 @@ public final class LoggerCollectorProto {
              * 是否忽略此消息，消息传递时判断是否需要继续向下传递
              * </pre>
              *
-             * <code>bool ignore = 15;</code>
+             * <code>bool ignore = 16;</code>
              *
              * @param value The ignore to set.
              * @return This builder for chaining.
@@ -3130,7 +3257,7 @@ public final class LoggerCollectorProto {
              * 是否忽略此消息，消息传递时判断是否需要继续向下传递
              * </pre>
              *
-             * <code>bool ignore = 15;</code>
+             * <code>bool ignore = 16;</code>
              *
              * @return This builder for chaining.
              */
@@ -3141,13 +3268,13 @@ public final class LoggerCollectorProto {
                 return this;
             }
 
-            @Override
+            @java.lang.Override
             public final Builder setUnknownFields(
                     final com.google.protobuf.UnknownFieldSet unknownFields) {
                 return super.setUnknownFields(unknownFields);
             }
 
-            @Override
+            @java.lang.Override
             public final Builder mergeUnknownFields(
                     final com.google.protobuf.UnknownFieldSet unknownFields) {
                 return super.mergeUnknownFields(unknownFields);
@@ -3170,7 +3297,7 @@ public final class LoggerCollectorProto {
 
         private static final com.google.protobuf.Parser<LoggerCollector>
                 PARSER = new com.google.protobuf.AbstractParser<LoggerCollector>() {
-            @Override
+            @java.lang.Override
             public LoggerCollector parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3183,12 +3310,12 @@ public final class LoggerCollectorProto {
             return PARSER;
         }
 
-        @Override
+        @java.lang.Override
         public com.google.protobuf.Parser<LoggerCollector> getParserForType() {
             return PARSER;
         }
 
-        @Override
+        @java.lang.Override
         public LoggerCollectorProto.LoggerCollector getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
@@ -3210,30 +3337,34 @@ public final class LoggerCollectorProto {
             descriptor;
 
     static {
-        String[] descriptorData = {
+        java.lang.String[] descriptorData = {
                 "\n\025LoggerCollector.proto\022\024com.javayh.agen" +
-                        "t.rpc\032\037google/protobuf/timestamp.proto\"\237" +
-                        "\002\n\017LoggerCollector\022\n\n\002id\030\001 \001(\003\022\017\n\007traceI" +
-                        "d\030\002 \001(\t\022\016\n\006method\030\003 \001(\t\022\013\n\003url\030\004 \001(\t\022\r\n\005" +
-                        "query\030\005 \001(\t\022\014\n\004body\030\006 \001(\t\022\022\n\nactionTime\030" +
-                        "\007 \001(\003\022\n\n\002ip\030\010 \001(\t\022\017\n\007appName\030\t \001(\t\022\014\n\004ty" +
-                        "pe\030\n \001(\005\022.\n\ncreateTime\030\013 \001(\0132\032.google.pr" +
-                        "otobuf.Timestamp\022\020\n\010createBy\030\014 \001(\t\022\020\n\010er" +
-                        "rorMsg\030\r \001(\t\022\022\n\nsourceType\030\016 \001(\005\022\016\n\006igno" +
-                        "re\030\017 \001(\010b\006proto3"
+                        "t.rpc\032\037google/protobuf/timestamp.proto\032\021" +
+                        "MessageType.proto\"\327\002\n\017LoggerCollector\0226\n" +
+                        "\013messageType\030\001 \001(\0162!.com.javayh.agent.rp" +
+                        "c.MessageType\022\n\n\002id\030\002 \001(\003\022\017\n\007traceId\030\003 \001" +
+                        "(\t\022\016\n\006method\030\004 \001(\t\022\013\n\003url\030\005 \001(\t\022\r\n\005query" +
+                        "\030\006 \001(\t\022\014\n\004body\030\007 \001(\t\022\022\n\nactionTime\030\010 \001(\003" +
+                        "\022\n\n\002ip\030\t \001(\t\022\017\n\007appName\030\n \001(\t\022\014\n\004type\030\013 " +
+                        "\001(\005\022.\n\ncreateTime\030\014 \001(\0132\032.google.protobu" +
+                        "f.Timestamp\022\020\n\010createBy\030\r \001(\t\022\020\n\010errorMs" +
+                        "g\030\016 \001(\t\022\022\n\nsourceType\030\017 \001(\005\022\016\n\006ignore\030\020 " +
+                        "\001(\010B\026B\024LoggerCollectorProtob\006proto3"
         };
         descriptor = com.google.protobuf.Descriptors.FileDescriptor
                 .internalBuildGeneratedFileFrom(descriptorData,
                         new com.google.protobuf.Descriptors.FileDescriptor[]{
                                 com.google.protobuf.TimestampProto.getDescriptor(),
+                                MessageTypeProto.getDescriptor(),
                         });
         internal_static_com_javayh_agent_rpc_LoggerCollector_descriptor =
                 getDescriptor().getMessageTypes().get(0);
         internal_static_com_javayh_agent_rpc_LoggerCollector_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_com_javayh_agent_rpc_LoggerCollector_descriptor,
-                new String[]{"Id", "TraceId", "Method", "Url", "Query", "Body", "ActionTime", "Ip", "AppName", "Type", "CreateTime", "CreateBy", "ErrorMsg", "SourceType", "Ignore",});
+                new java.lang.String[]{"MessageType", "Id", "TraceId", "Method", "Url", "Query", "Body", "ActionTime", "Ip", "AppName", "Type", "CreateTime", "CreateBy", "ErrorMsg", "SourceType", "Ignore",});
         com.google.protobuf.TimestampProto.getDescriptor();
+        MessageTypeProto.getDescriptor();
     }
 
     // @@protoc_insertion_point(outer_class_scope)

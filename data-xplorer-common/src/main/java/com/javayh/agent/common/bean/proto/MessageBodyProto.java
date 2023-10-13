@@ -23,10 +23,32 @@ public final class MessageBodyProto {
 
         /**
          * <pre>
+         * 消息类型字段
+         * </pre>
+         *
+         * <code>.com.javayh.agent.rpc.MessageType type = 2;</code>
+         *
+         * @return The enum numeric value on the wire for type.
+         */
+        int getTypeValue();
+
+        /**
+         * <pre>
+         * 消息类型字段
+         * </pre>
+         *
+         * <code>.com.javayh.agent.rpc.MessageType type = 2;</code>
+         *
+         * @return The type.
+         */
+        MessageTypeProto.MessageType getType();
+
+        /**
+         * <pre>
          * *服务标识
          * </pre>
          *
-         * <code>int64 msgId = 1;</code>
+         * <code>int64 msgId = 3;</code>
          *
          * @return The msgId.
          */
@@ -37,18 +59,18 @@ public final class MessageBodyProto {
          * *发送的消息
          * </pre>
          *
-         * <code>string msg = 2;</code>
+         * <code>string msg = 4;</code>
          *
          * @return The msg.
          */
-        String getMsg();
+        java.lang.String getMsg();
 
         /**
          * <pre>
          * *发送的消息
          * </pre>
          *
-         * <code>string msg = 2;</code>
+         * <code>string msg = 4;</code>
          *
          * @return The bytes for msg.
          */
@@ -60,54 +82,65 @@ public final class MessageBodyProto {
          * *服务名
          * </pre>
          *
-         * <code>string appName = 3;</code>
+         * <code>string onlineAppName = 5;</code>
          *
-         * @return The appName.
+         * @return The onlineAppName.
          */
-        String getAppName();
+        java.lang.String getOnlineAppName();
 
         /**
          * <pre>
          * *服务名
          * </pre>
          *
-         * <code>string appName = 3;</code>
+         * <code>string onlineAppName = 5;</code>
          *
-         * @return The bytes for appName.
+         * @return The bytes for onlineAppName.
          */
         com.google.protobuf.ByteString
-        getAppNameBytes();
+        getOnlineAppNameBytes();
 
         /**
          * <pre>
          * *接受消息的时间
          * </pre>
          *
-         * <code>.google.protobuf.Timestamp createDate = 4;</code>
+         * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
          *
-         * @return Whether the createDate field is set.
+         * @return Whether the onlineDate field is set.
          */
-        boolean hasCreateDate();
+        boolean hasOnlineDate();
 
         /**
          * <pre>
          * *接受消息的时间
          * </pre>
          *
-         * <code>.google.protobuf.Timestamp createDate = 4;</code>
+         * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
          *
-         * @return The createDate.
+         * @return The onlineDate.
          */
-        com.google.protobuf.Timestamp getCreateDate();
+        com.google.protobuf.Timestamp getOnlineDate();
 
         /**
          * <pre>
          * *接受消息的时间
          * </pre>
          *
-         * <code>.google.protobuf.Timestamp createDate = 4;</code>
+         * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
          */
-        com.google.protobuf.TimestampOrBuilder getCreateDateOrBuilder();
+        com.google.protobuf.TimestampOrBuilder getOnlineDateOrBuilder();
+
+        /**
+         * <pre>
+         * *是否上线
+         * </pre>
+         *
+         * <code>bool isActive = 7;</code>
+         *
+         * @return The isActive.
+         */
+        boolean getIsActive();
     }
 
     /**
@@ -125,18 +158,19 @@ public final class MessageBodyProto {
         }
 
         private MessageBody() {
+            type_ = 0;
             msg_ = "";
-            appName_ = "";
+            onlineAppName_ = "";
         }
 
-        @Override
+        @java.lang.Override
         @SuppressWarnings({"unused"})
-        protected Object newInstance(
+        protected java.lang.Object newInstance(
                 UnusedPrivateParameter unused) {
             return new MessageBody();
         }
 
-        @Override
+        @java.lang.Override
         public final com.google.protobuf.UnknownFieldSet
         getUnknownFields() {
             return this.unknownFields;
@@ -148,7 +182,7 @@ public final class MessageBodyProto {
                 throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
-                throw new NullPointerException();
+                throw new java.lang.NullPointerException();
             }
             com.google.protobuf.UnknownFieldSet.Builder unknownFields =
                     com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -160,34 +194,45 @@ public final class MessageBodyProto {
                         case 0:
                             done = true;
                             break;
-                        case 8: {
+                        case 16: {
+                            int rawValue = input.readEnum();
+
+                            type_ = rawValue;
+                            break;
+                        }
+                        case 24: {
 
                             msgId_ = input.readInt64();
                             break;
                         }
-                        case 18: {
-                            String s = input.readStringRequireUtf8();
+                        case 34: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
                             msg_ = s;
                             break;
                         }
-                        case 26: {
-                            String s = input.readStringRequireUtf8();
+                        case 42: {
+                            java.lang.String s = input.readStringRequireUtf8();
 
-                            appName_ = s;
+                            onlineAppName_ = s;
                             break;
                         }
-                        case 34: {
+                        case 50: {
                             com.google.protobuf.Timestamp.Builder subBuilder = null;
-                            if (createDate_ != null) {
-                                subBuilder = createDate_.toBuilder();
+                            if (onlineDate_ != null) {
+                                subBuilder = onlineDate_.toBuilder();
                             }
-                            createDate_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+                            onlineDate_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
                             if (subBuilder != null) {
-                                subBuilder.mergeFrom(createDate_);
-                                createDate_ = subBuilder.buildPartial();
+                                subBuilder.mergeFrom(onlineDate_);
+                                onlineDate_ = subBuilder.buildPartial();
                             }
 
+                            break;
+                        }
+                        case 56: {
+
+                            isActive_ = input.readBool();
                             break;
                         }
                         default: {
@@ -215,15 +260,48 @@ public final class MessageBodyProto {
             return MessageBodyProto.internal_static_com_javayh_agent_rpc_MessageBody_descriptor;
         }
 
-        @Override
-        protected FieldAccessorTable
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
             return MessageBodyProto.internal_static_com_javayh_agent_rpc_MessageBody_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
-                            MessageBody.class, Builder.class);
+                            MessageBodyProto.MessageBody.class, MessageBodyProto.MessageBody.Builder.class);
         }
 
-        public static final int MSGID_FIELD_NUMBER = 1;
+        public static final int TYPE_FIELD_NUMBER = 2;
+        private int type_;
+
+        /**
+         * <pre>
+         * 消息类型字段
+         * </pre>
+         *
+         * <code>.com.javayh.agent.rpc.MessageType type = 2;</code>
+         *
+         * @return The enum numeric value on the wire for type.
+         */
+        @java.lang.Override
+        public int getTypeValue() {
+            return type_;
+        }
+
+        /**
+         * <pre>
+         * 消息类型字段
+         * </pre>
+         *
+         * <code>.com.javayh.agent.rpc.MessageType type = 2;</code>
+         *
+         * @return The type.
+         */
+        @java.lang.Override
+        public MessageTypeProto.MessageType getType() {
+            @SuppressWarnings("deprecation")
+            MessageTypeProto.MessageType result = MessageTypeProto.MessageType.valueOf(type_);
+            return result == null ? MessageTypeProto.MessageType.UNRECOGNIZED : result;
+        }
+
+        public static final int MSGID_FIELD_NUMBER = 3;
         private long msgId_;
 
         /**
@@ -231,36 +309,36 @@ public final class MessageBodyProto {
          * *服务标识
          * </pre>
          *
-         * <code>int64 msgId = 1;</code>
+         * <code>int64 msgId = 3;</code>
          *
          * @return The msgId.
          */
-        @Override
+        @java.lang.Override
         public long getMsgId() {
             return msgId_;
         }
 
-        public static final int MSG_FIELD_NUMBER = 2;
-        private volatile Object msg_;
+        public static final int MSG_FIELD_NUMBER = 4;
+        private volatile java.lang.Object msg_;
 
         /**
          * <pre>
          * *发送的消息
          * </pre>
          *
-         * <code>string msg = 2;</code>
+         * <code>string msg = 4;</code>
          *
          * @return The msg.
          */
-        @Override
-        public String getMsg() {
-            Object ref = msg_;
-            if (ref instanceof String) {
-                return (String) ref;
+        @java.lang.Override
+        public java.lang.String getMsg() {
+            java.lang.Object ref = msg_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
             } else {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
-                String s = bs.toStringUtf8();
+                java.lang.String s = bs.toStringUtf8();
                 msg_ = s;
                 return s;
             }
@@ -271,18 +349,18 @@ public final class MessageBodyProto {
          * *发送的消息
          * </pre>
          *
-         * <code>string msg = 2;</code>
+         * <code>string msg = 4;</code>
          *
          * @return The bytes for msg.
          */
-        @Override
+        @java.lang.Override
         public com.google.protobuf.ByteString
         getMsgBytes() {
-            Object ref = msg_;
-            if (ref instanceof String) {
+            java.lang.Object ref = msg_;
+            if (ref instanceof java.lang.String) {
                 com.google.protobuf.ByteString b =
                         com.google.protobuf.ByteString.copyFromUtf8(
-                                (String) ref);
+                                (java.lang.String) ref);
                 msg_ = b;
                 return b;
             } else {
@@ -290,28 +368,28 @@ public final class MessageBodyProto {
             }
         }
 
-        public static final int APPNAME_FIELD_NUMBER = 3;
-        private volatile Object appName_;
+        public static final int ONLINEAPPNAME_FIELD_NUMBER = 5;
+        private volatile java.lang.Object onlineAppName_;
 
         /**
          * <pre>
          * *服务名
          * </pre>
          *
-         * <code>string appName = 3;</code>
+         * <code>string onlineAppName = 5;</code>
          *
-         * @return The appName.
+         * @return The onlineAppName.
          */
-        @Override
-        public String getAppName() {
-            Object ref = appName_;
-            if (ref instanceof String) {
-                return (String) ref;
+        @java.lang.Override
+        public java.lang.String getOnlineAppName() {
+            java.lang.Object ref = onlineAppName_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
             } else {
                 com.google.protobuf.ByteString bs =
                         (com.google.protobuf.ByteString) ref;
-                String s = bs.toStringUtf8();
-                appName_ = s;
+                java.lang.String s = bs.toStringUtf8();
+                onlineAppName_ = s;
                 return s;
             }
         }
@@ -321,40 +399,40 @@ public final class MessageBodyProto {
          * *服务名
          * </pre>
          *
-         * <code>string appName = 3;</code>
+         * <code>string onlineAppName = 5;</code>
          *
-         * @return The bytes for appName.
+         * @return The bytes for onlineAppName.
          */
-        @Override
+        @java.lang.Override
         public com.google.protobuf.ByteString
-        getAppNameBytes() {
-            Object ref = appName_;
-            if (ref instanceof String) {
+        getOnlineAppNameBytes() {
+            java.lang.Object ref = onlineAppName_;
+            if (ref instanceof java.lang.String) {
                 com.google.protobuf.ByteString b =
                         com.google.protobuf.ByteString.copyFromUtf8(
-                                (String) ref);
-                appName_ = b;
+                                (java.lang.String) ref);
+                onlineAppName_ = b;
                 return b;
             } else {
                 return (com.google.protobuf.ByteString) ref;
             }
         }
 
-        public static final int CREATEDATE_FIELD_NUMBER = 4;
-        private com.google.protobuf.Timestamp createDate_;
+        public static final int ONLINEDATE_FIELD_NUMBER = 6;
+        private com.google.protobuf.Timestamp onlineDate_;
 
         /**
          * <pre>
          * *接受消息的时间
          * </pre>
          *
-         * <code>.google.protobuf.Timestamp createDate = 4;</code>
+         * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
          *
-         * @return Whether the createDate field is set.
+         * @return Whether the onlineDate field is set.
          */
-        @Override
-        public boolean hasCreateDate() {
-            return createDate_ != null;
+        @java.lang.Override
+        public boolean hasOnlineDate() {
+            return onlineDate_ != null;
         }
 
         /**
@@ -362,13 +440,13 @@ public final class MessageBodyProto {
          * *接受消息的时间
          * </pre>
          *
-         * <code>.google.protobuf.Timestamp createDate = 4;</code>
+         * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
          *
-         * @return The createDate.
+         * @return The onlineDate.
          */
-        @Override
-        public com.google.protobuf.Timestamp getCreateDate() {
-            return createDate_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : createDate_;
+        @java.lang.Override
+        public com.google.protobuf.Timestamp getOnlineDate() {
+            return onlineDate_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : onlineDate_;
         }
 
         /**
@@ -376,16 +454,33 @@ public final class MessageBodyProto {
          * *接受消息的时间
          * </pre>
          *
-         * <code>.google.protobuf.Timestamp createDate = 4;</code>
+         * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
          */
-        @Override
-        public com.google.protobuf.TimestampOrBuilder getCreateDateOrBuilder() {
-            return getCreateDate();
+        @java.lang.Override
+        public com.google.protobuf.TimestampOrBuilder getOnlineDateOrBuilder() {
+            return getOnlineDate();
+        }
+
+        public static final int ISACTIVE_FIELD_NUMBER = 7;
+        private boolean isActive_;
+
+        /**
+         * <pre>
+         * *是否上线
+         * </pre>
+         *
+         * <code>bool isActive = 7;</code>
+         *
+         * @return The isActive.
+         */
+        @java.lang.Override
+        public boolean getIsActive() {
+            return isActive_;
         }
 
         private byte memoizedIsInitialized = -1;
 
-        @Override
+        @java.lang.Override
         public final boolean isInitialized() {
             byte isInitialized = memoizedIsInitialized;
             if (isInitialized == 1) return true;
@@ -395,142 +490,164 @@ public final class MessageBodyProto {
             return true;
         }
 
-        @Override
+        @java.lang.Override
         public void writeTo(com.google.protobuf.CodedOutputStream output)
                 throws java.io.IOException {
+            if (type_ != MessageTypeProto.MessageType.LOGGER_COLLECTOR.getNumber()) {
+                output.writeEnum(2, type_);
+            }
             if (msgId_ != 0L) {
-                output.writeInt64(1, msgId_);
+                output.writeInt64(3, msgId_);
             }
             if (!getMsgBytes().isEmpty()) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 2, msg_);
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 4, msg_);
             }
-            if (!getAppNameBytes().isEmpty()) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 3, appName_);
+            if (!getOnlineAppNameBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 5, onlineAppName_);
             }
-            if (createDate_ != null) {
-                output.writeMessage(4, getCreateDate());
+            if (onlineDate_ != null) {
+                output.writeMessage(6, getOnlineDate());
+            }
+            if (isActive_ != false) {
+                output.writeBool(7, isActive_);
             }
             unknownFields.writeTo(output);
         }
 
-        @Override
+        @java.lang.Override
         public int getSerializedSize() {
             int size = memoizedSize;
             if (size != -1) return size;
 
             size = 0;
+            if (type_ != MessageTypeProto.MessageType.LOGGER_COLLECTOR.getNumber()) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeEnumSize(2, type_);
+            }
             if (msgId_ != 0L) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeInt64Size(1, msgId_);
+                        .computeInt64Size(3, msgId_);
             }
             if (!getMsgBytes().isEmpty()) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, msg_);
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, msg_);
             }
-            if (!getAppNameBytes().isEmpty()) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, appName_);
+            if (!getOnlineAppNameBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, onlineAppName_);
             }
-            if (createDate_ != null) {
+            if (onlineDate_ != null) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(4, getCreateDate());
+                        .computeMessageSize(6, getOnlineDate());
+            }
+            if (isActive_ != false) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeBoolSize(7, isActive_);
             }
             size += unknownFields.getSerializedSize();
             memoizedSize = size;
             return size;
         }
 
-        @Override
-        public boolean equals(final Object obj) {
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof MessageBody)) {
+            if (!(obj instanceof MessageBodyProto.MessageBody)) {
                 return super.equals(obj);
             }
-            MessageBody other = (MessageBody) obj;
+            MessageBodyProto.MessageBody other = (MessageBodyProto.MessageBody) obj;
 
+            if (type_ != other.type_) return false;
             if (getMsgId()
                     != other.getMsgId()) return false;
             if (!getMsg()
                     .equals(other.getMsg())) return false;
-            if (!getAppName()
-                    .equals(other.getAppName())) return false;
-            if (hasCreateDate() != other.hasCreateDate()) return false;
-            if (hasCreateDate()) {
-                if (!getCreateDate()
-                        .equals(other.getCreateDate())) return false;
+            if (!getOnlineAppName()
+                    .equals(other.getOnlineAppName())) return false;
+            if (hasOnlineDate() != other.hasOnlineDate()) return false;
+            if (hasOnlineDate()) {
+                if (!getOnlineDate()
+                        .equals(other.getOnlineDate())) return false;
             }
+            if (getIsActive()
+                    != other.getIsActive()) return false;
             if (!unknownFields.equals(other.unknownFields)) return false;
             return true;
         }
 
-        @Override
+        @java.lang.Override
         public int hashCode() {
             if (memoizedHashCode != 0) {
                 return memoizedHashCode;
             }
             int hash = 41;
             hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + TYPE_FIELD_NUMBER;
+            hash = (53 * hash) + type_;
             hash = (37 * hash) + MSGID_FIELD_NUMBER;
             hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
                     getMsgId());
             hash = (37 * hash) + MSG_FIELD_NUMBER;
             hash = (53 * hash) + getMsg().hashCode();
-            hash = (37 * hash) + APPNAME_FIELD_NUMBER;
-            hash = (53 * hash) + getAppName().hashCode();
-            if (hasCreateDate()) {
-                hash = (37 * hash) + CREATEDATE_FIELD_NUMBER;
-                hash = (53 * hash) + getCreateDate().hashCode();
+            hash = (37 * hash) + ONLINEAPPNAME_FIELD_NUMBER;
+            hash = (53 * hash) + getOnlineAppName().hashCode();
+            if (hasOnlineDate()) {
+                hash = (37 * hash) + ONLINEDATE_FIELD_NUMBER;
+                hash = (53 * hash) + getOnlineDate().hashCode();
             }
+            hash = (37 * hash) + ISACTIVE_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+                    getIsActive());
             hash = (29 * hash) + unknownFields.hashCode();
             memoizedHashCode = hash;
             return hash;
         }
 
-        public static MessageBody parseFrom(
+        public static MessageBodyProto.MessageBody parseFrom(
                 java.nio.ByteBuffer data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static MessageBody parseFrom(
+        public static MessageBodyProto.MessageBody parseFrom(
                 java.nio.ByteBuffer data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static MessageBody parseFrom(
+        public static MessageBodyProto.MessageBody parseFrom(
                 com.google.protobuf.ByteString data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static MessageBody parseFrom(
+        public static MessageBodyProto.MessageBody parseFrom(
                 com.google.protobuf.ByteString data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static MessageBody parseFrom(byte[] data)
+        public static MessageBodyProto.MessageBody parseFrom(byte[] data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static MessageBody parseFrom(
+        public static MessageBodyProto.MessageBody parseFrom(
                 byte[] data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static MessageBody parseFrom(java.io.InputStream input)
+        public static MessageBodyProto.MessageBody parseFrom(java.io.InputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseWithIOException(PARSER, input);
         }
 
-        public static MessageBody parseFrom(
+        public static MessageBodyProto.MessageBody parseFrom(
                 java.io.InputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -538,13 +655,13 @@ public final class MessageBodyProto {
                     .parseWithIOException(PARSER, input, extensionRegistry);
         }
 
-        public static MessageBody parseDelimitedFrom(java.io.InputStream input)
+        public static MessageBodyProto.MessageBody parseDelimitedFrom(java.io.InputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseDelimitedWithIOException(PARSER, input);
         }
 
-        public static MessageBody parseDelimitedFrom(
+        public static MessageBodyProto.MessageBody parseDelimitedFrom(
                 java.io.InputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -552,14 +669,14 @@ public final class MessageBodyProto {
                     .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
         }
 
-        public static MessageBody parseFrom(
+        public static MessageBodyProto.MessageBody parseFrom(
                 com.google.protobuf.CodedInputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseWithIOException(PARSER, input);
         }
 
-        public static MessageBody parseFrom(
+        public static MessageBodyProto.MessageBody parseFrom(
                 com.google.protobuf.CodedInputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -567,7 +684,7 @@ public final class MessageBodyProto {
                     .parseWithIOException(PARSER, input, extensionRegistry);
         }
 
-        @Override
+        @java.lang.Override
         public Builder newBuilderForType() {
             return newBuilder();
         }
@@ -576,19 +693,19 @@ public final class MessageBodyProto {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(MessageBody prototype) {
+        public static Builder newBuilder(MessageBodyProto.MessageBody prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
-        @Override
+        @java.lang.Override
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE
                     ? new Builder() : new Builder().mergeFrom(this);
         }
 
-        @Override
+        @java.lang.Override
         protected Builder newBuilderForType(
-                BuilderParent parent) {
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
             Builder builder = new Builder(parent);
             return builder;
         }
@@ -599,27 +716,27 @@ public final class MessageBodyProto {
         public static final class Builder extends
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
                 // @@protoc_insertion_point(builder_implements:com.javayh.agent.rpc.MessageBody)
-                MessageBodyOrBuilder {
+                MessageBodyProto.MessageBodyOrBuilder {
             public static final com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
                 return MessageBodyProto.internal_static_com_javayh_agent_rpc_MessageBody_descriptor;
             }
 
-            @Override
-            protected FieldAccessorTable
+            @java.lang.Override
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internalGetFieldAccessorTable() {
                 return MessageBodyProto.internal_static_com_javayh_agent_rpc_MessageBody_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
-                                MessageBody.class, Builder.class);
+                                MessageBodyProto.MessageBody.class, MessageBodyProto.MessageBody.Builder.class);
             }
 
-            // Construct using com.javayh.agent.rpc.MessageBodyOuterClass.MessageBody.newBuilder()
+            // Construct using com.javayh.agent.common.bean.proto.MessageBodyProto.MessageBody.newBuilder()
             private Builder() {
                 maybeForceBuilderInitialization();
             }
 
             private Builder(
-                    BuilderParent parent) {
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
                 super(parent);
                 maybeForceBuilderInitialization();
             }
@@ -630,109 +747,118 @@ public final class MessageBodyProto {
                 }
             }
 
-            @Override
+            @java.lang.Override
             public Builder clear() {
                 super.clear();
+                type_ = 0;
+
                 msgId_ = 0L;
 
                 msg_ = "";
 
-                appName_ = "";
+                onlineAppName_ = "";
 
-                if (createDateBuilder_ == null) {
-                    createDate_ = null;
+                if (onlineDateBuilder_ == null) {
+                    onlineDate_ = null;
                 } else {
-                    createDate_ = null;
-                    createDateBuilder_ = null;
+                    onlineDate_ = null;
+                    onlineDateBuilder_ = null;
                 }
+                isActive_ = false;
+
                 return this;
             }
 
-            @Override
+            @java.lang.Override
             public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
                 return MessageBodyProto.internal_static_com_javayh_agent_rpc_MessageBody_descriptor;
             }
 
-            @Override
-            public MessageBody getDefaultInstanceForType() {
-                return MessageBody.getDefaultInstance();
+            @java.lang.Override
+            public MessageBodyProto.MessageBody getDefaultInstanceForType() {
+                return MessageBodyProto.MessageBody.getDefaultInstance();
             }
 
-            @Override
-            public MessageBody build() {
-                MessageBody result = buildPartial();
+            @java.lang.Override
+            public MessageBodyProto.MessageBody build() {
+                MessageBodyProto.MessageBody result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
                 }
                 return result;
             }
 
-            @Override
-            public MessageBody buildPartial() {
-                MessageBody result = new MessageBody(this);
+            @java.lang.Override
+            public MessageBodyProto.MessageBody buildPartial() {
+                MessageBodyProto.MessageBody result = new MessageBodyProto.MessageBody(this);
+                result.type_ = type_;
                 result.msgId_ = msgId_;
                 result.msg_ = msg_;
-                result.appName_ = appName_;
-                if (createDateBuilder_ == null) {
-                    result.createDate_ = createDate_;
+                result.onlineAppName_ = onlineAppName_;
+                if (onlineDateBuilder_ == null) {
+                    result.onlineDate_ = onlineDate_;
                 } else {
-                    result.createDate_ = createDateBuilder_.build();
+                    result.onlineDate_ = onlineDateBuilder_.build();
                 }
+                result.isActive_ = isActive_;
                 onBuilt();
                 return result;
             }
 
-            @Override
+            @java.lang.Override
             public Builder clone() {
                 return super.clone();
             }
 
-            @Override
+            @java.lang.Override
             public Builder setField(
                     com.google.protobuf.Descriptors.FieldDescriptor field,
-                    Object value) {
+                    java.lang.Object value) {
                 return super.setField(field, value);
             }
 
-            @Override
+            @java.lang.Override
             public Builder clearField(
                     com.google.protobuf.Descriptors.FieldDescriptor field) {
                 return super.clearField(field);
             }
 
-            @Override
+            @java.lang.Override
             public Builder clearOneof(
                     com.google.protobuf.Descriptors.OneofDescriptor oneof) {
                 return super.clearOneof(oneof);
             }
 
-            @Override
+            @java.lang.Override
             public Builder setRepeatedField(
                     com.google.protobuf.Descriptors.FieldDescriptor field,
-                    int index, Object value) {
+                    int index, java.lang.Object value) {
                 return super.setRepeatedField(field, index, value);
             }
 
-            @Override
+            @java.lang.Override
             public Builder addRepeatedField(
                     com.google.protobuf.Descriptors.FieldDescriptor field,
-                    Object value) {
+                    java.lang.Object value) {
                 return super.addRepeatedField(field, value);
             }
 
-            @Override
+            @java.lang.Override
             public Builder mergeFrom(com.google.protobuf.Message other) {
-                if (other instanceof MessageBody) {
-                    return mergeFrom((MessageBody) other);
+                if (other instanceof MessageBodyProto.MessageBody) {
+                    return mergeFrom((MessageBodyProto.MessageBody) other);
                 } else {
                     super.mergeFrom(other);
                     return this;
                 }
             }
 
-            public Builder mergeFrom(MessageBody other) {
-                if (other == MessageBody.getDefaultInstance()) return this;
+            public Builder mergeFrom(MessageBodyProto.MessageBody other) {
+                if (other == MessageBodyProto.MessageBody.getDefaultInstance()) return this;
+                if (other.type_ != 0) {
+                    setTypeValue(other.getTypeValue());
+                }
                 if (other.getMsgId() != 0L) {
                     setMsgId(other.getMsgId());
                 }
@@ -740,39 +866,127 @@ public final class MessageBodyProto {
                     msg_ = other.msg_;
                     onChanged();
                 }
-                if (!other.getAppName().isEmpty()) {
-                    appName_ = other.appName_;
+                if (!other.getOnlineAppName().isEmpty()) {
+                    onlineAppName_ = other.onlineAppName_;
                     onChanged();
                 }
-                if (other.hasCreateDate()) {
-                    mergeCreateDate(other.getCreateDate());
+                if (other.hasOnlineDate()) {
+                    mergeOnlineDate(other.getOnlineDate());
+                }
+                if (other.getIsActive() != false) {
+                    setIsActive(other.getIsActive());
                 }
                 this.mergeUnknownFields(other.unknownFields);
                 onChanged();
                 return this;
             }
 
-            @Override
+            @java.lang.Override
             public final boolean isInitialized() {
                 return true;
             }
 
-            @Override
+            @java.lang.Override
             public Builder mergeFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
-                MessageBody parsedMessage = null;
+                MessageBodyProto.MessageBody parsedMessage = null;
                 try {
                     parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
                 } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                    parsedMessage = (MessageBody) e.getUnfinishedMessage();
+                    parsedMessage = (MessageBodyProto.MessageBody) e.getUnfinishedMessage();
                     throw e.unwrapIOException();
                 } finally {
                     if (parsedMessage != null) {
                         mergeFrom(parsedMessage);
                     }
                 }
+                return this;
+            }
+
+            private int type_ = 0;
+
+            /**
+             * <pre>
+             * 消息类型字段
+             * </pre>
+             *
+             * <code>.com.javayh.agent.rpc.MessageType type = 2;</code>
+             *
+             * @return The enum numeric value on the wire for type.
+             */
+            @java.lang.Override
+            public int getTypeValue() {
+                return type_;
+            }
+
+            /**
+             * <pre>
+             * 消息类型字段
+             * </pre>
+             *
+             * <code>.com.javayh.agent.rpc.MessageType type = 2;</code>
+             *
+             * @param value The enum numeric value on the wire for type to set.
+             * @return This builder for chaining.
+             */
+            public Builder setTypeValue(int value) {
+
+                type_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 消息类型字段
+             * </pre>
+             *
+             * <code>.com.javayh.agent.rpc.MessageType type = 2;</code>
+             *
+             * @return The type.
+             */
+            @java.lang.Override
+            public MessageTypeProto.MessageType getType() {
+                @SuppressWarnings("deprecation")
+                MessageTypeProto.MessageType result = MessageTypeProto.MessageType.valueOf(type_);
+                return result == null ? MessageTypeProto.MessageType.UNRECOGNIZED : result;
+            }
+
+            /**
+             * <pre>
+             * 消息类型字段
+             * </pre>
+             *
+             * <code>.com.javayh.agent.rpc.MessageType type = 2;</code>
+             *
+             * @param value The type to set.
+             * @return This builder for chaining.
+             */
+            public Builder setType(MessageTypeProto.MessageType value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                type_ = value.getNumber();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 消息类型字段
+             * </pre>
+             *
+             * <code>.com.javayh.agent.rpc.MessageType type = 2;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearType() {
+
+                type_ = 0;
+                onChanged();
                 return this;
             }
 
@@ -783,11 +997,11 @@ public final class MessageBodyProto {
              * *服务标识
              * </pre>
              *
-             * <code>int64 msgId = 1;</code>
+             * <code>int64 msgId = 3;</code>
              *
              * @return The msgId.
              */
-            @Override
+            @java.lang.Override
             public long getMsgId() {
                 return msgId_;
             }
@@ -797,7 +1011,7 @@ public final class MessageBodyProto {
              * *服务标识
              * </pre>
              *
-             * <code>int64 msgId = 1;</code>
+             * <code>int64 msgId = 3;</code>
              *
              * @param value The msgId to set.
              * @return This builder for chaining.
@@ -814,7 +1028,7 @@ public final class MessageBodyProto {
              * *服务标识
              * </pre>
              *
-             * <code>int64 msgId = 1;</code>
+             * <code>int64 msgId = 3;</code>
              *
              * @return This builder for chaining.
              */
@@ -825,27 +1039,27 @@ public final class MessageBodyProto {
                 return this;
             }
 
-            private Object msg_ = "";
+            private java.lang.Object msg_ = "";
 
             /**
              * <pre>
              * *发送的消息
              * </pre>
              *
-             * <code>string msg = 2;</code>
+             * <code>string msg = 4;</code>
              *
              * @return The msg.
              */
-            public String getMsg() {
-                Object ref = msg_;
-                if (!(ref instanceof String)) {
+            public java.lang.String getMsg() {
+                java.lang.Object ref = msg_;
+                if (!(ref instanceof java.lang.String)) {
                     com.google.protobuf.ByteString bs =
                             (com.google.protobuf.ByteString) ref;
-                    String s = bs.toStringUtf8();
+                    java.lang.String s = bs.toStringUtf8();
                     msg_ = s;
                     return s;
                 } else {
-                    return (String) ref;
+                    return (java.lang.String) ref;
                 }
             }
 
@@ -854,17 +1068,17 @@ public final class MessageBodyProto {
              * *发送的消息
              * </pre>
              *
-             * <code>string msg = 2;</code>
+             * <code>string msg = 4;</code>
              *
              * @return The bytes for msg.
              */
             public com.google.protobuf.ByteString
             getMsgBytes() {
-                Object ref = msg_;
+                java.lang.Object ref = msg_;
                 if (ref instanceof String) {
                     com.google.protobuf.ByteString b =
                             com.google.protobuf.ByteString.copyFromUtf8(
-                                    (String) ref);
+                                    (java.lang.String) ref);
                     msg_ = b;
                     return b;
                 } else {
@@ -877,13 +1091,13 @@ public final class MessageBodyProto {
              * *发送的消息
              * </pre>
              *
-             * <code>string msg = 2;</code>
+             * <code>string msg = 4;</code>
              *
              * @param value The msg to set.
              * @return This builder for chaining.
              */
             public Builder setMsg(
-                    String value) {
+                    java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -898,7 +1112,7 @@ public final class MessageBodyProto {
              * *发送的消息
              * </pre>
              *
-             * <code>string msg = 2;</code>
+             * <code>string msg = 4;</code>
              *
              * @return This builder for chaining.
              */
@@ -914,7 +1128,7 @@ public final class MessageBodyProto {
              * *发送的消息
              * </pre>
              *
-             * <code>string msg = 2;</code>
+             * <code>string msg = 4;</code>
              *
              * @param value The bytes for msg to set.
              * @return This builder for chaining.
@@ -931,27 +1145,27 @@ public final class MessageBodyProto {
                 return this;
             }
 
-            private Object appName_ = "";
+            private java.lang.Object onlineAppName_ = "";
 
             /**
              * <pre>
              * *服务名
              * </pre>
              *
-             * <code>string appName = 3;</code>
+             * <code>string onlineAppName = 5;</code>
              *
-             * @return The appName.
+             * @return The onlineAppName.
              */
-            public String getAppName() {
-                Object ref = appName_;
-                if (!(ref instanceof String)) {
+            public java.lang.String getOnlineAppName() {
+                java.lang.Object ref = onlineAppName_;
+                if (!(ref instanceof java.lang.String)) {
                     com.google.protobuf.ByteString bs =
                             (com.google.protobuf.ByteString) ref;
-                    String s = bs.toStringUtf8();
-                    appName_ = s;
+                    java.lang.String s = bs.toStringUtf8();
+                    onlineAppName_ = s;
                     return s;
                 } else {
-                    return (String) ref;
+                    return (java.lang.String) ref;
                 }
             }
 
@@ -960,18 +1174,18 @@ public final class MessageBodyProto {
              * *服务名
              * </pre>
              *
-             * <code>string appName = 3;</code>
+             * <code>string onlineAppName = 5;</code>
              *
-             * @return The bytes for appName.
+             * @return The bytes for onlineAppName.
              */
             public com.google.protobuf.ByteString
-            getAppNameBytes() {
-                Object ref = appName_;
+            getOnlineAppNameBytes() {
+                java.lang.Object ref = onlineAppName_;
                 if (ref instanceof String) {
                     com.google.protobuf.ByteString b =
                             com.google.protobuf.ByteString.copyFromUtf8(
-                                    (String) ref);
-                    appName_ = b;
+                                    (java.lang.String) ref);
+                    onlineAppName_ = b;
                     return b;
                 } else {
                     return (com.google.protobuf.ByteString) ref;
@@ -983,18 +1197,18 @@ public final class MessageBodyProto {
              * *服务名
              * </pre>
              *
-             * <code>string appName = 3;</code>
+             * <code>string onlineAppName = 5;</code>
              *
-             * @param value The appName to set.
+             * @param value The onlineAppName to set.
              * @return This builder for chaining.
              */
-            public Builder setAppName(
-                    String value) {
+            public Builder setOnlineAppName(
+                    java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
 
-                appName_ = value;
+                onlineAppName_ = value;
                 onChanged();
                 return this;
             }
@@ -1004,13 +1218,13 @@ public final class MessageBodyProto {
              * *服务名
              * </pre>
              *
-             * <code>string appName = 3;</code>
+             * <code>string onlineAppName = 5;</code>
              *
              * @return This builder for chaining.
              */
-            public Builder clearAppName() {
+            public Builder clearOnlineAppName() {
 
-                appName_ = getDefaultInstance().getAppName();
+                onlineAppName_ = getDefaultInstance().getOnlineAppName();
                 onChanged();
                 return this;
             }
@@ -1020,38 +1234,38 @@ public final class MessageBodyProto {
              * *服务名
              * </pre>
              *
-             * <code>string appName = 3;</code>
+             * <code>string onlineAppName = 5;</code>
              *
-             * @param value The bytes for appName to set.
+             * @param value The bytes for onlineAppName to set.
              * @return This builder for chaining.
              */
-            public Builder setAppNameBytes(
+            public Builder setOnlineAppNameBytes(
                     com.google.protobuf.ByteString value) {
                 if (value == null) {
                     throw new NullPointerException();
                 }
                 checkByteStringIsUtf8(value);
 
-                appName_ = value;
+                onlineAppName_ = value;
                 onChanged();
                 return this;
             }
 
-            private com.google.protobuf.Timestamp createDate_;
+            private com.google.protobuf.Timestamp onlineDate_;
             private com.google.protobuf.SingleFieldBuilderV3<
-                    com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> createDateBuilder_;
+                    com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> onlineDateBuilder_;
 
             /**
              * <pre>
              * *接受消息的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createDate = 4;</code>
+             * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
              *
-             * @return Whether the createDate field is set.
+             * @return Whether the onlineDate field is set.
              */
-            public boolean hasCreateDate() {
-                return createDateBuilder_ != null || createDate_ != null;
+            public boolean hasOnlineDate() {
+                return onlineDateBuilder_ != null || onlineDate_ != null;
             }
 
             /**
@@ -1059,15 +1273,15 @@ public final class MessageBodyProto {
              * *接受消息的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createDate = 4;</code>
+             * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
              *
-             * @return The createDate.
+             * @return The onlineDate.
              */
-            public com.google.protobuf.Timestamp getCreateDate() {
-                if (createDateBuilder_ == null) {
-                    return createDate_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : createDate_;
+            public com.google.protobuf.Timestamp getOnlineDate() {
+                if (onlineDateBuilder_ == null) {
+                    return onlineDate_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : onlineDate_;
                 } else {
-                    return createDateBuilder_.getMessage();
+                    return onlineDateBuilder_.getMessage();
                 }
             }
 
@@ -1076,17 +1290,17 @@ public final class MessageBodyProto {
              * *接受消息的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createDate = 4;</code>
+             * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
              */
-            public Builder setCreateDate(com.google.protobuf.Timestamp value) {
-                if (createDateBuilder_ == null) {
+            public Builder setOnlineDate(com.google.protobuf.Timestamp value) {
+                if (onlineDateBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
                     }
-                    createDate_ = value;
+                    onlineDate_ = value;
                     onChanged();
                 } else {
-                    createDateBuilder_.setMessage(value);
+                    onlineDateBuilder_.setMessage(value);
                 }
 
                 return this;
@@ -1097,15 +1311,15 @@ public final class MessageBodyProto {
              * *接受消息的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createDate = 4;</code>
+             * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
              */
-            public Builder setCreateDate(
+            public Builder setOnlineDate(
                     com.google.protobuf.Timestamp.Builder builderForValue) {
-                if (createDateBuilder_ == null) {
-                    createDate_ = builderForValue.build();
+                if (onlineDateBuilder_ == null) {
+                    onlineDate_ = builderForValue.build();
                     onChanged();
                 } else {
-                    createDateBuilder_.setMessage(builderForValue.build());
+                    onlineDateBuilder_.setMessage(builderForValue.build());
                 }
 
                 return this;
@@ -1116,19 +1330,19 @@ public final class MessageBodyProto {
              * *接受消息的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createDate = 4;</code>
+             * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
              */
-            public Builder mergeCreateDate(com.google.protobuf.Timestamp value) {
-                if (createDateBuilder_ == null) {
-                    if (createDate_ != null) {
-                        createDate_ =
-                                com.google.protobuf.Timestamp.newBuilder(createDate_).mergeFrom(value).buildPartial();
+            public Builder mergeOnlineDate(com.google.protobuf.Timestamp value) {
+                if (onlineDateBuilder_ == null) {
+                    if (onlineDate_ != null) {
+                        onlineDate_ =
+                                com.google.protobuf.Timestamp.newBuilder(onlineDate_).mergeFrom(value).buildPartial();
                     } else {
-                        createDate_ = value;
+                        onlineDate_ = value;
                     }
                     onChanged();
                 } else {
-                    createDateBuilder_.mergeFrom(value);
+                    onlineDateBuilder_.mergeFrom(value);
                 }
 
                 return this;
@@ -1139,15 +1353,15 @@ public final class MessageBodyProto {
              * *接受消息的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createDate = 4;</code>
+             * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
              */
-            public Builder clearCreateDate() {
-                if (createDateBuilder_ == null) {
-                    createDate_ = null;
+            public Builder clearOnlineDate() {
+                if (onlineDateBuilder_ == null) {
+                    onlineDate_ = null;
                     onChanged();
                 } else {
-                    createDate_ = null;
-                    createDateBuilder_ = null;
+                    onlineDate_ = null;
+                    onlineDateBuilder_ = null;
                 }
 
                 return this;
@@ -1158,12 +1372,12 @@ public final class MessageBodyProto {
              * *接受消息的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createDate = 4;</code>
+             * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
              */
-            public com.google.protobuf.Timestamp.Builder getCreateDateBuilder() {
+            public com.google.protobuf.Timestamp.Builder getOnlineDateBuilder() {
 
                 onChanged();
-                return getCreateDateFieldBuilder().getBuilder();
+                return getOnlineDateFieldBuilder().getBuilder();
             }
 
             /**
@@ -1171,14 +1385,14 @@ public final class MessageBodyProto {
              * *接受消息的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createDate = 4;</code>
+             * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
              */
-            public com.google.protobuf.TimestampOrBuilder getCreateDateOrBuilder() {
-                if (createDateBuilder_ != null) {
-                    return createDateBuilder_.getMessageOrBuilder();
+            public com.google.protobuf.TimestampOrBuilder getOnlineDateOrBuilder() {
+                if (onlineDateBuilder_ != null) {
+                    return onlineDateBuilder_.getMessageOrBuilder();
                 } else {
-                    return createDate_ == null ?
-                            com.google.protobuf.Timestamp.getDefaultInstance() : createDate_;
+                    return onlineDate_ == null ?
+                            com.google.protobuf.Timestamp.getDefaultInstance() : onlineDate_;
                 }
             }
 
@@ -1187,29 +1401,78 @@ public final class MessageBodyProto {
              * *接受消息的时间
              * </pre>
              *
-             * <code>.google.protobuf.Timestamp createDate = 4;</code>
+             * <code>.google.protobuf.Timestamp onlineDate = 6;</code>
              */
             private com.google.protobuf.SingleFieldBuilderV3<
                     com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>
-            getCreateDateFieldBuilder() {
-                if (createDateBuilder_ == null) {
-                    createDateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            getOnlineDateFieldBuilder() {
+                if (onlineDateBuilder_ == null) {
+                    onlineDateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
                             com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
-                            getCreateDate(),
+                            getOnlineDate(),
                             getParentForChildren(),
                             isClean());
-                    createDate_ = null;
+                    onlineDate_ = null;
                 }
-                return createDateBuilder_;
+                return onlineDateBuilder_;
             }
 
-            @Override
+            private boolean isActive_;
+
+            /**
+             * <pre>
+             * *是否上线
+             * </pre>
+             *
+             * <code>bool isActive = 7;</code>
+             *
+             * @return The isActive.
+             */
+            @java.lang.Override
+            public boolean getIsActive() {
+                return isActive_;
+            }
+
+            /**
+             * <pre>
+             * *是否上线
+             * </pre>
+             *
+             * <code>bool isActive = 7;</code>
+             *
+             * @param value The isActive to set.
+             * @return This builder for chaining.
+             */
+            public Builder setIsActive(boolean value) {
+
+                isActive_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * *是否上线
+             * </pre>
+             *
+             * <code>bool isActive = 7;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearIsActive() {
+
+                isActive_ = false;
+                onChanged();
+                return this;
+            }
+
+            @java.lang.Override
             public final Builder setUnknownFields(
                     final com.google.protobuf.UnknownFieldSet unknownFields) {
                 return super.setUnknownFields(unknownFields);
             }
 
-            @Override
+            @java.lang.Override
             public final Builder mergeUnknownFields(
                     final com.google.protobuf.UnknownFieldSet unknownFields) {
                 return super.mergeUnknownFields(unknownFields);
@@ -1220,19 +1483,19 @@ public final class MessageBodyProto {
         }
 
         // @@protoc_insertion_point(class_scope:com.javayh.agent.rpc.MessageBody)
-        private static final MessageBody DEFAULT_INSTANCE;
+        private static final MessageBodyProto.MessageBody DEFAULT_INSTANCE;
 
         static {
-            DEFAULT_INSTANCE = new MessageBody();
+            DEFAULT_INSTANCE = new MessageBodyProto.MessageBody();
         }
 
-        public static MessageBody getDefaultInstance() {
+        public static MessageBodyProto.MessageBody getDefaultInstance() {
             return DEFAULT_INSTANCE;
         }
 
         private static final com.google.protobuf.Parser<MessageBody>
                 PARSER = new com.google.protobuf.AbstractParser<MessageBody>() {
-            @Override
+            @java.lang.Override
             public MessageBody parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1245,13 +1508,13 @@ public final class MessageBodyProto {
             return PARSER;
         }
 
-        @Override
+        @java.lang.Override
         public com.google.protobuf.Parser<MessageBody> getParserForType() {
             return PARSER;
         }
 
-        @Override
-        public MessageBody getDefaultInstanceForType() {
+        @java.lang.Override
+        public MessageBodyProto.MessageBody getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
 
@@ -1272,25 +1535,30 @@ public final class MessageBodyProto {
             descriptor;
 
     static {
-        String[] descriptorData = {
+        java.lang.String[] descriptorData = {
                 "\n\021MessageBody.proto\022\024com.javayh.agent.rp" +
-                        "c\032\037google/protobuf/timestamp.proto\"j\n\013Me" +
-                        "ssageBody\022\r\n\005msgId\030\001 \001(\003\022\013\n\003msg\030\002 \001(\t\022\017\n" +
-                        "\007appName\030\003 \001(\t\022.\n\ncreateDate\030\004 \001(\0132\032.goo" +
-                        "gle.protobuf.Timestampb\006proto3"
+                        "c\032\037google/protobuf/timestamp.proto\032\021Mess" +
+                        "ageType.proto\"\263\001\n\013MessageBody\022/\n\004type\030\002 " +
+                        "\001(\0162!.com.javayh.agent.rpc.MessageType\022\r" +
+                        "\n\005msgId\030\003 \001(\003\022\013\n\003msg\030\004 \001(\t\022\025\n\ronlineAppN" +
+                        "ame\030\005 \001(\t\022.\n\nonlineDate\030\006 \001(\0132\032.google.p" +
+                        "rotobuf.Timestamp\022\020\n\010isActive\030\007 \001(\010B\022B\020M" +
+                        "essageBodyProtob\006proto3"
         };
         descriptor = com.google.protobuf.Descriptors.FileDescriptor
                 .internalBuildGeneratedFileFrom(descriptorData,
                         new com.google.protobuf.Descriptors.FileDescriptor[]{
                                 com.google.protobuf.TimestampProto.getDescriptor(),
+                                MessageTypeProto.getDescriptor(),
                         });
         internal_static_com_javayh_agent_rpc_MessageBody_descriptor =
                 getDescriptor().getMessageTypes().get(0);
         internal_static_com_javayh_agent_rpc_MessageBody_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_com_javayh_agent_rpc_MessageBody_descriptor,
-                new String[]{"MsgId", "Msg", "AppName", "CreateDate",});
+                new java.lang.String[]{"Type", "MsgId", "Msg", "OnlineAppName", "OnlineDate", "IsActive",});
         com.google.protobuf.TimestampProto.getDescriptor();
+        MessageTypeProto.getDescriptor();
     }
 
     // @@protoc_insertion_point(outer_class_scope)

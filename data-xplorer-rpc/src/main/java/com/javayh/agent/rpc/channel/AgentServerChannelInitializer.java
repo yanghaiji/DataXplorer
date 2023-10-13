@@ -1,17 +1,16 @@
 package com.javayh.agent.rpc.channel;
 
-import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
-import com.javayh.agent.common.bean.proto.MessageBodyProto;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
+import com.javayh.agent.rpc.encode.MessageDecoder;
+import com.javayh.agent.rpc.handler.AgentRegistryServerHandler;
 import com.javayh.agent.rpc.handler.AgentServerHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.handler.codec.protobuf.ProtobufDecoder;
-import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
+
 
 /**
  * <p>
@@ -43,17 +42,18 @@ public class AgentServerChannelInitializer extends ChannelInitializer<SocketChan
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch.pipeline()
-                /*
-                 * IdleStateHandler  空闲状态的处理器
-                 * long readerIdleTime, 多长时间没有读出数据，就会发送心跳检测，检测是否链接
-                 * long writerIdleTime, 多长时间没有写出数据，就会发送心跳检测
-                 * long allIdleTime     多长时间没有读写出数据，就会发送心跳检测
-                 */
-                // 五秒没有收到消息 将IdleStateHandler 添加到 ChannelPipeline 中
-                .addLast(new IdleStateHandler(30, 30, 35))
-                .addLast(new ProtobufEncoder())
-                // 添加对象解码器
-                .addLast(new ProtobufDecoder(LoggerCollectorProto.LoggerCollector.getDefaultInstance()))
-                .addLast(new AgentServerHandler(dataXplorerProperties));
+                .addLast(new MessageDecoder())
+//                .addLast(new MessageBodyEncoder())
+                .addLast(new AgentRegistryServerHandler(dataXplorerProperties))
+//                .addLast(new ProtobufVarint32FrameDecoder())
+//                .addLast(new ProtobufDecoder(MessageBodyProto.MessageBody.getDefaultInstance()))
+//                .addLast(new ProtobufVarint32LengthFieldPrepender())
+//                .addLast(new ProtobufEncoder())
+//                .addLast(new AgentRegistryServerHandler(dataXplorerProperties))
+
+//                .addLast(new LoggerCollectorDecoder())
+//                .addLast(new LoggerCollectorEncoder())
+                .addLast(new AgentServerHandler(dataXplorerProperties))
+                .addLast(new IdleStateHandler(30, 30, 35));
     }
 }

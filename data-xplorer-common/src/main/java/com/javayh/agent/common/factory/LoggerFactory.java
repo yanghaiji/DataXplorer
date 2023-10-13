@@ -1,6 +1,7 @@
 package com.javayh.agent.common.factory;
 
 import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
+import com.javayh.agent.common.bean.proto.MessageTypeProto;
 import com.javayh.agent.common.cache.AgentCacheQueue;
 import com.javayh.agent.common.constant.LoggerSourceType;
 import com.javayh.agent.common.context.AppNamingContext;
@@ -38,6 +39,7 @@ public class LoggerFactory {
                 .setType(type)
                 .setCreateBy(createBy)
                 .setAppName(namingContext.getAppNaming())
+                .setMessageType(MessageTypeProto.MessageType.LOGGER_COLLECTOR)
                 .setTraceId(TraceContext.getTraceId())
                 .setSourceType(LoggerSourceType.AUTOMATIC.value())
                 .build();

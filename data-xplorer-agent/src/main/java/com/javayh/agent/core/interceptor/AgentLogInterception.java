@@ -3,6 +3,7 @@ package com.javayh.agent.core.interceptor;
 
 import com.google.protobuf.util.Timestamps;
 import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
+import com.javayh.agent.common.bean.proto.MessageTypeProto;
 import com.javayh.agent.common.cache.AgentCacheQueue;
 import com.javayh.agent.common.constant.LoggerSourceType;
 import com.javayh.agent.common.constant.LoggerType;
@@ -77,6 +78,7 @@ public class AgentLogInterception implements HandlerInterceptor {
                 .setMethod(method)
                 .setCreateTime(Timestamps.fromMillis(System.currentTimeMillis())).setTraceId(TraceContext.getTraceId())
                 .setSourceType(LoggerSourceType.AUTOMATIC.value())
+                .setMessageType(MessageTypeProto.MessageType.LOGGER_COLLECTOR)
                 // TODO: 2023/9/19 根据实际的项目进行集成
                 .setCreateBy("javayh-agent")
                 .build();

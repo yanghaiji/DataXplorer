@@ -1,16 +1,14 @@
 package com.javayh.agent.rpc.handler;
 
 import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
-import com.javayh.agent.common.bean.proto.MessageBodyProto;
 import com.javayh.agent.common.cache.LoggerSendCache;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.context.SpringBeanContext;
 import com.javayh.agent.common.repository.LoggerRepository;
-import com.javayh.agent.rpc.OnlineServiceHolder;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +24,7 @@ import java.util.Date;
  */
 @Slf4j
 @ChannelHandler.Sharable
-public class AgentServerHandler extends ChannelInboundHandlerAdapter {
+public class AgentServerHandler extends SimpleChannelInboundHandler<LoggerCollectorProto.LoggerCollector> {
 
     private static final String YMS = "yyyy-MM-dd HH:mm:ss";
 
@@ -37,21 +35,18 @@ public class AgentServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     /**
-     * 1. ChannelHandlerContext ctx:上下文对象, 含有 管道pipeline , 通道channel, 地址
-     * 2. Object msg: 就是客户端发送的数据 默认Object
+     * @param ctx the {@link ChannelHandlerContext} which this {@link SimpleChannelInboundHandler}
+     *            belongs to
+     * @param msg the message to handle
+     * @throws Exception is thrown if an error occurred
      */
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, LoggerCollectorProto.LoggerCollector msg) throws Exception {
         try {
-
-            if (msg instanceof LoggerCollectorProto.LoggerCollector && !((LoggerCollectorProto.LoggerCollector) msg).getIgnore()) {
-                // 在这里处理 LoggerCollector 对象
-                LoggerRepository loggerRepository = SpringBeanContext.getBean(LoggerRepository.class);
-                loggerRepository.save(msg);
-            } else if (msg instanceof MessageBodyProto.MessageBody) {
-                String name = ((MessageBodyProto.MessageBody) msg).getAppName();
-                OnlineServiceHolder.put(name);
-            } else if (log.isInfoEnabled()) {
+            // 在这里处理 LoggerCollector 对象
+            LoggerRepository loggerRepository = SpringBeanContext.getBean(LoggerRepository.class);
+            loggerRepository.save(msg);
+            if (log.isInfoEnabled()) {
                 log.info("{}", msg);
             }
         } catch (Exception e) {

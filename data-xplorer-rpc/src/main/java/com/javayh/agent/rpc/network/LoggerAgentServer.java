@@ -13,6 +13,8 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
 
+import java.nio.ByteOrder;
+
 /**
  * 参考
  * <url>https://github.com/yanghaiji/health-monitor/blob/main/javayh-health-monitor-server/src/main/java/com/javayh/health/monitor/server/server/HeartBeatServer.java</url>
