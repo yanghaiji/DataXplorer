@@ -1,5 +1,6 @@
 package com.javayh.agent.common.factory;
 
+import com.google.protobuf.util.Timestamps;
 import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.bean.proto.MessageTypeProto;
 import com.javayh.agent.common.cache.AgentCacheQueue;
@@ -41,6 +42,7 @@ public class LoggerFactory {
                 .setAppName(namingContext.getAppNaming())
                 .setMessageType(MessageTypeProto.MessageType.LOGGER_COLLECTOR)
                 .setTraceId(TraceContext.getTraceId())
+                .setCreateTime(Timestamps.fromMillis(System.currentTimeMillis()))
                 .setSourceType(LoggerSourceType.AUTOMATIC.value())
                 .build();
 

@@ -43,16 +43,12 @@ public class AgentServerChannelInitializer extends ChannelInitializer<SocketChan
     protected void initChannel(SocketChannel ch) throws Exception {
         ch.pipeline()
                 .addLast(new MessageDecoder())
-//                .addLast(new MessageBodyEncoder())
                 .addLast(new AgentRegistryServerHandler(dataXplorerProperties))
 //                .addLast(new ProtobufVarint32FrameDecoder())
 //                .addLast(new ProtobufDecoder(MessageBodyProto.MessageBody.getDefaultInstance()))
 //                .addLast(new ProtobufVarint32LengthFieldPrepender())
 //                .addLast(new ProtobufEncoder())
 //                .addLast(new AgentRegistryServerHandler(dataXplorerProperties))
-
-//                .addLast(new LoggerCollectorDecoder())
-//                .addLast(new LoggerCollectorEncoder())
                 .addLast(new AgentServerHandler(dataXplorerProperties))
                 .addLast(new IdleStateHandler(30, 30, 35));
     }

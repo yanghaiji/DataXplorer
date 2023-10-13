@@ -3,7 +3,7 @@ package com.javayh.agent.rpc.handler;
 import com.javayh.agent.common.bean.proto.MessageBodyProto;
 import com.javayh.agent.common.bean.proto.MessageTypeProto;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
-import com.javayh.agent.rpc.network.LoggerAgentClient;
+import com.javayh.agent.rpc.network.DataXplorerClient;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
@@ -14,13 +14,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AgentRegistryClientHandler extends ChannelInboundHandlerAdapter {
 
-    private final LoggerAgentClient loggerAgentClient;
+    private final DataXplorerClient loggerAgentClient;
     private final DataXplorerProperties dataXplorerProperties;
 
     private final String appName;
     private volatile ChannelHandlerContext context;
 
-    public AgentRegistryClientHandler(LoggerAgentClient loggerAgentClient, DataXplorerProperties dataXplorerProperties) {
+    public AgentRegistryClientHandler(DataXplorerClient loggerAgentClient, DataXplorerProperties dataXplorerProperties) {
         this.loggerAgentClient = loggerAgentClient;
         this.dataXplorerProperties = dataXplorerProperties;
         this.appName = dataXplorerProperties.getAppName();

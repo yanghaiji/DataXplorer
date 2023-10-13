@@ -1,6 +1,6 @@
 package com.javayh.agent.rpc.listener;
 
-import com.javayh.agent.rpc.network.LoggerAgentClient;
+import com.javayh.agent.rpc.network.DataXplorerClient;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import lombok.extern.slf4j.Slf4j;
@@ -13,9 +13,9 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class ConnectionListener implements ChannelFutureListener {
 
-    private final LoggerAgentClient loggerAgentClient;
+    private final DataXplorerClient loggerAgentClient;
 
-    public ConnectionListener(LoggerAgentClient loggerAgentClient) {
+    public ConnectionListener(DataXplorerClient loggerAgentClient) {
         this.loggerAgentClient = loggerAgentClient;
     }
 

@@ -1,17 +1,17 @@
 package com.javayh.agent.rpc.channel;
 
 import com.javayh.agent.common.configuration.DataXplorerProperties;
-import com.javayh.agent.rpc.encode.LoggerCollectorDecoder;
 import com.javayh.agent.rpc.encode.LoggerCollectorEncoder;
 import com.javayh.agent.rpc.encode.MessageBodyEncoder;
 import com.javayh.agent.rpc.handler.AgentClientHandler;
 import com.javayh.agent.rpc.handler.AgentRegistryClientHandler;
-import com.javayh.agent.rpc.network.LoggerAgentClient;
+import com.javayh.agent.rpc.network.DataXplorerClient;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.timeout.IdleStateHandler;
 
 /**
@@ -25,10 +25,10 @@ import io.netty.handler.timeout.IdleStateHandler;
  */
 public class AgentChannelInitializer extends ChannelInitializer<SocketChannel> {
 
-    private final LoggerAgentClient loggerAgentClient;
+    private final DataXplorerClient loggerAgentClient;
     private final DataXplorerProperties dataXplorerProperties;
 
-    public AgentChannelInitializer(LoggerAgentClient loggerAgentClient, DataXplorerProperties dataXplorerProperties) {
+    public AgentChannelInitializer(DataXplorerClient loggerAgentClient, DataXplorerProperties dataXplorerProperties) {
         this.loggerAgentClient = loggerAgentClient;
         this.dataXplorerProperties = dataXplorerProperties;
     }
@@ -45,11 +45,9 @@ public class AgentChannelInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch.pipeline()
-//                .addLast(new MessageBodyDecoder())
                 .addLast(new MessageBodyEncoder())
                 .addLast(new AgentRegistryClientHandler(loggerAgentClient, dataXplorerProperties))
 
-//                .addLast(new LoggerCollectorDecoder())
                 .addLast(new LoggerCollectorEncoder())
                 .addLast(new AgentClientHandler(loggerAgentClient, dataXplorerProperties))
                 .addLast(new IdleStateHandler(0, 30, 0));

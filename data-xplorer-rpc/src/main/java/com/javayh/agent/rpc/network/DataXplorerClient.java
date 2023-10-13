@@ -4,9 +4,8 @@ import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.rpc.channel.AgentChannelInitializer;
 import com.javayh.agent.rpc.listener.ConnectionListener;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.EventLoopGroup;
+import io.netty.buffer.PooledByteBufAllocator;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
@@ -22,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  * @author haiji
  */
 @Slf4j
-public class LoggerAgentClient {
+public class DataXplorerClient {
 
     @Autowired
     private DataXplorerProperties dataXplorerProperties;
@@ -39,8 +38,16 @@ public class LoggerAgentClient {
         bootstrap = new Bootstrap();
         bootstrap.group(group)
                 .channel(NioSocketChannel.class)
+                .option(ChannelOption.SO_KEEPALIVE, true)
+                .option(ChannelOption.SO_LINGER, 0)
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)
+                .option(ChannelOption.SO_RCVBUF, 1048576)
+                .option(ChannelOption.SO_SNDBUF, 1048576)
+                .option(ChannelOption.WRITE_BUFFER_WATER_MARK, new WriteBufferWaterMark(8 * 1024, 32 * 1024))
+                .option(ChannelOption.RCVBUF_ALLOCATOR, AdaptiveRecvByteBufAllocator.DEFAULT)
+                .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
                 .handler(new LoggingHandler(LogLevel.INFO))
-                .handler(new AgentChannelInitializer(LoggerAgentClient.this, dataXplorerProperties));
+                .handler(new AgentChannelInitializer(DataXplorerClient.this, dataXplorerProperties));
 
     }
 
@@ -48,7 +55,7 @@ public class LoggerAgentClient {
         //启动客户端去连接服务器端
         //关于 ChannelFuture 要分析，涉及到netty的异步模型
         ChannelFuture channelFuture = bootstrap.connect(dataXplorerProperties.getHost(), dataXplorerProperties.getPort())
-                .addListener(new ConnectionListener(LoggerAgentClient.this));
+                .addListener(new ConnectionListener(DataXplorerClient.this));
 
         log.info("DataXplorer continuously serving you");
         //给关闭通道进行监听

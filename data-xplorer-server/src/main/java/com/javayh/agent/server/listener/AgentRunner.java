@@ -1,7 +1,6 @@
 package com.javayh.agent.server.listener;
 
-import com.javayh.agent.rpc.network.LoggerAgentServer;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.javayh.agent.rpc.network.DataXplorerServer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class AgentRunner implements CommandLineRunner {
 
-    private final LoggerAgentServer agentServer;
+    private final DataXplorerServer agentServer;
 
-    public AgentRunner(LoggerAgentServer agentServer) {
+    public AgentRunner(DataXplorerServer agentServer) {
         this.agentServer = agentServer;
     }
 
