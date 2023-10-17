@@ -1,7 +1,6 @@
 package com.javayh.agent.core.runner;
 
-import com.javayh.agent.rpc.network.LoggerAgentClient;
-import lombok.extern.slf4j.Slf4j;
+import com.javayh.agent.rpc.network.DataXplorerClient;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class AgentClientRunner implements CommandLineRunner {
 
-    private final LoggerAgentClient agentClient;
+    private final DataXplorerClient agentClient;
 
-    public AgentClientRunner(LoggerAgentClient agentClient) {
+    public AgentClientRunner(DataXplorerClient agentClient) {
         this.agentClient = agentClient;
     }
 

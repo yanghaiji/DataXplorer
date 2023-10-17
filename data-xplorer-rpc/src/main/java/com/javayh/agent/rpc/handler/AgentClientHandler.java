@@ -4,8 +4,7 @@ import com.javayh.agent.common.cache.LoggerSendCache;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.executor.AgentExecutor;
 import com.javayh.agent.rpc.listener.ChannelListener;
-import com.javayh.agent.rpc.network.LoggerAgentClient;
-import io.netty.channel.ChannelFutureListener;
+import com.javayh.agent.rpc.network.DataXplorerClient;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
@@ -18,13 +17,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AgentClientHandler extends ChannelInboundHandlerAdapter {
 
-    private final LoggerAgentClient loggerAgentClient;
+    private final DataXplorerClient loggerAgentClient;
     private final DataXplorerProperties dataXplorerProperties;
 
     private final String appName;
     private volatile ChannelHandlerContext context;
 
-    public AgentClientHandler(LoggerAgentClient loggerAgentClient, DataXplorerProperties dataXplorerProperties) {
+    public AgentClientHandler(DataXplorerClient loggerAgentClient, DataXplorerProperties dataXplorerProperties) {
         this.loggerAgentClient = loggerAgentClient;
         this.dataXplorerProperties = dataXplorerProperties;
         this.appName = dataXplorerProperties.getAppName();
@@ -58,6 +57,7 @@ public class AgentClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        log.error("Channel inactive: {}", ctx.channel());
         loggerAgentClient.scheduleReconnect("channel inactive");
         ctx.fireChannelInactive();
     }
@@ -70,8 +70,7 @@ public class AgentClientHandler extends ChannelInboundHandlerAdapter {
             if (idleStateEvent.state() == IdleState.WRITER_IDLE) {
                 log.info("It's been 30 seconds without receiving any messages.");
                 // 向服务端发送消息
-                ctx.writeAndFlush(LoggerSendCache.build())
-                        .addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
+                ctx.writeAndFlush(LoggerSendCache.build());
             }
 
         }

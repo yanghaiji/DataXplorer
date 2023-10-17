@@ -1,6 +1,8 @@
 package com.javayh.agent.rpc.channel;
 
 import com.javayh.agent.common.configuration.DataXplorerProperties;
+import com.javayh.agent.rpc.encode.LoggerCollectorEncoder;
+import com.javayh.agent.rpc.encode.MessageBodyEncoder;
 import com.javayh.agent.rpc.encode.MessageDecoder;
 import com.javayh.agent.rpc.handler.AgentRegistryServerHandler;
 import com.javayh.agent.rpc.handler.AgentServerHandler;
@@ -38,22 +40,20 @@ public class AgentServerChannelInitializer extends ChannelInitializer<SocketChan
      * @throws Exception is thrown if an error occurs. In that case it will be handled by
      *                   {@link #exceptionCaught(ChannelHandlerContext, Throwable)} which will by default close
      *                   the {@link Channel}.
+     *                   .addLast(new ProtobufVarint32FrameDecoder())
+     *                   .addLast(new ProtobufDecoder(MessageBodyProto.MessageBody.getDefaultInstance()))
+     *                   .addLast(new ProtobufVarint32LengthFieldPrepender())
+     *                   .addLast(new ProtobufEncoder())
+     *                   .addLast(new AgentRegistryServerHandler(dataXplorerProperties))
      */
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch.pipeline()
+                .addLast(new IdleStateHandler(10, 10, 15))
                 .addLast(new MessageDecoder())
-//                .addLast(new MessageBodyEncoder())
+                .addLast(new MessageBodyEncoder())
                 .addLast(new AgentRegistryServerHandler(dataXplorerProperties))
-//                .addLast(new ProtobufVarint32FrameDecoder())
-//                .addLast(new ProtobufDecoder(MessageBodyProto.MessageBody.getDefaultInstance()))
-//                .addLast(new ProtobufVarint32LengthFieldPrepender())
-//                .addLast(new ProtobufEncoder())
-//                .addLast(new AgentRegistryServerHandler(dataXplorerProperties))
-
-//                .addLast(new LoggerCollectorDecoder())
-//                .addLast(new LoggerCollectorEncoder())
-                .addLast(new AgentServerHandler(dataXplorerProperties))
-                .addLast(new IdleStateHandler(30, 30, 35));
+                .addLast(new LoggerCollectorEncoder())
+                .addLast(new AgentServerHandler(dataXplorerProperties));
     }
 }

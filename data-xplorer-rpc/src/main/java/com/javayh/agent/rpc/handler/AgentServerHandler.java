@@ -5,7 +5,6 @@ import com.javayh.agent.common.cache.LoggerSendCache;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.context.SpringBeanContext;
 import com.javayh.agent.common.repository.LoggerRepository;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -81,13 +80,17 @@ public class AgentServerHandler extends SimpleChannelInboundHandler<LoggerCollec
             if (idleStateEvent.state() == IdleState.READER_IDLE) {
                 log.info("It's been 30 seconds without receiving any messages.");
                 // 向客户端发送消息
-                ctx.writeAndFlush(LoggerSendCache.build())
-                        .addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
+                ctx.writeAndFlush(LoggerSendCache.build());
             }
         }
 
     }
 
+
+    @Override
+    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+        super.channelUnregistered(ctx);
+    }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

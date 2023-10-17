@@ -3,17 +3,13 @@ package com.javayh.agent.rpc.network;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.rpc.channel.AgentServerChannelInitializer;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.buffer.PooledByteBufAllocator;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
-
-import java.nio.ByteOrder;
 
 /**
  * 参考
@@ -22,11 +18,11 @@ import java.nio.ByteOrder;
  * @author haiji
  */
 @Slf4j
-public class LoggerAgentServer {
+public class DataXplorerServer {
 
     private final DataXplorerProperties dataXplorerProperties;
 
-    public LoggerAgentServer(DataXplorerProperties dataXplorerProperties) {
+    public DataXplorerServer(DataXplorerProperties dataXplorerProperties) {
         this.dataXplorerProperties = dataXplorerProperties;
     }
 
@@ -41,10 +37,15 @@ public class LoggerAgentServer {
             bootstrap.group(bossGroup, workerGroup)
                     //使用NioSocketChannel 作为服务器的通道实现
                     .channel(NioServerSocketChannel.class)
+                    .option(ChannelOption.SO_KEEPALIVE, true)
+                    .option(ChannelOption.SO_LINGER, 0)
+                    .option(ChannelOption.SO_RCVBUF, 65536)
+                    .option(ChannelOption.SO_SNDBUF, 65536)
+                    .option(ChannelOption.WRITE_BUFFER_WATER_MARK, new WriteBufferWaterMark(8 * 1024, 32 * 1024))
+                    .option(ChannelOption.RCVBUF_ALLOCATOR, AdaptiveRecvByteBufAllocator.DEFAULT)
+                    .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
                     .option(ChannelOption.SO_BACKLOG, 128)
-                    .option(ChannelOption.SO_RCVBUF, 1024 * 1024)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childOption(ChannelOption.SO_KEEPALIVE, true)
                     .childHandler(new AgentServerChannelInitializer(dataXplorerProperties));
 
             //绑定一个端口并且同步, 生成了一个 ChannelFuture 对象

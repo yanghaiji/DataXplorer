@@ -6,51 +6,62 @@ import com.javayh.agent.common.bean.proto.MessageBodyProto;
 import com.javayh.agent.common.bean.proto.MessageTypeProto;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToMessageDecoder;
+import io.netty.handler.codec.ByteToMessageDecoder;
 
 import java.util.List;
 
 /**
+ * 统一的解码器
+ *
  * @author haiji
  */
-public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
+public class MessageDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws InvalidProtocolBufferException {
-        // 从消息中提取消息类型
-        // 读取消息类型字段
-        int messageTypeValue = in.readInt();
 
-        // 将消息类型字段的值解释为 MessageType 枚举
-        MessageTypeProto.MessageType messageType = MessageTypeProto.MessageType.valueOf(messageTypeValue);
+        try {
+            if (in.readableBytes() >= 8) {
+                // 读取消息类型字段的整数值
+                int messageTypeValue = in.readInt();
 
+                // 读取消息体的长度
+                int messageLength = in.readInt();
+                // 检查消息长度是否为负数
+                if (messageLength < 0) {
+                    // 处理错误，例如关闭连接或记录错误信息
+                    ctx.close(); // 或者其他适当的错误处理
+                    return;
+                }
 
-        // 根据消息类型选择合适的解码器
-        if (messageType == MessageTypeProto.MessageType.LOGGER_COLLECTOR) {
-            // 读取 MessageBodyProto.MessageBody
-            byte[] messageData = new byte[in.readableBytes()];
-            in.readBytes(messageData);
-            LoggerCollectorProto.LoggerCollector messageBody = LoggerCollectorProto.LoggerCollector.parseFrom(messageData);
+                // 检查是否有足够的数据来读取完整的消息
+                if (in.readableBytes() < messageLength) {
+                    // 如果没有足够的数据，返回并等待更多数据
+                    return;
+                }
 
-            // 执行相应的处理逻辑，将 messageBody 添加到 out 列表
-            out.add(messageBody);
-        } else if (messageType == MessageTypeProto.MessageType.MESSAGE_BODY) {
-            // 读取 MessageBodyProto.MessageBody
-            byte[] messageData = new byte[in.readableBytes()];
-            in.readBytes(messageData);
-            MessageBodyProto.MessageBody messageBody = MessageBodyProto.MessageBody.parseFrom(messageData);
+                // 读取完整的消息体
+                byte[] messageData = new byte[messageLength];
+                in.readBytes(messageData);
 
-            // 执行相应的处理逻辑，将 messageBody 添加到 out 列表
-            out.add(messageBody);
-        } else {
-            // 处理未知消息类型或抛出错误
-            ctx.close(); // 或者采取适当的错误处理措施
+                // 直接将整数值转换为 MessageTypeProto.MessageType 枚举
+                MessageTypeProto.MessageType messageType = MessageTypeProto.MessageType.valueOf(messageTypeValue);
+
+                if (messageType == MessageTypeProto.MessageType.LOGGER_COLLECTOR) {
+                    // 读取 LoggerCollectorProto.LoggerCollector
+                    LoggerCollectorProto.LoggerCollector messageBody = LoggerCollectorProto.LoggerCollector.parseFrom(messageData);
+                    out.add(messageBody);
+                } else if (messageType == MessageTypeProto.MessageType.MESSAGE_BODY) {
+                    // 读取 MessageBodyProto.MessageBody
+                    MessageBodyProto.MessageBody messageBody = MessageBodyProto.MessageBody.parseFrom(messageData);
+                    out.add(messageBody);
+                }
+            }
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
         }
+
     }
 
-    public static void main(String[] args) {
-        // 将消息类型字段的值解释为 MessageType 枚举
-        MessageTypeProto.MessageType messageType = MessageTypeProto.MessageType.valueOf(16);
-        System.out.println(messageType);
-    }
+
 }

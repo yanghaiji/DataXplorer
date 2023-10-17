@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @author haiji
  */
 @Slf4j
-public class LoggerAgentClient {
+public class DataXplorerClient {
 
     @Autowired
     private DataXplorerProperties dataXplorerProperties;
@@ -40,7 +40,7 @@ public class LoggerAgentClient {
         bootstrap.group(group)
                 .channel(NioSocketChannel.class)
                 .handler(new LoggingHandler(LogLevel.INFO))
-                .handler(new AgentChannelInitializer(LoggerAgentClient.this, dataXplorerProperties));
+                .handler(new AgentChannelInitializer(DataXplorerClient.this, dataXplorerProperties));
 
     }
 
@@ -48,15 +48,14 @@ public class LoggerAgentClient {
         //启动客户端去连接服务器端
         //关于 ChannelFuture 要分析，涉及到netty的异步模型
         ChannelFuture channelFuture = bootstrap.connect(dataXplorerProperties.getHost(), dataXplorerProperties.getPort())
-                .addListener(new ConnectionListener(LoggerAgentClient.this));
+                .addListener(new ConnectionListener(DataXplorerClient.this));
 
         log.info("DataXplorer continuously serving you");
         //给关闭通道进行监听
         try {
             channelFuture.channel().closeFuture().sync();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            channel.close();
+        } catch (Exception e) {
+            log.error("DataXplorerClient {}", e.getMessage(), e);
             channelFuture.channel().closeFuture();
         }
     }
