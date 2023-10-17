@@ -5,7 +5,6 @@ import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.executor.AgentExecutor;
 import com.javayh.agent.rpc.listener.ChannelListener;
 import com.javayh.agent.rpc.network.DataXplorerClient;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
@@ -58,6 +57,7 @@ public class AgentClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        log.error("Channel inactive: {}", ctx.channel());
         loggerAgentClient.scheduleReconnect("channel inactive");
         ctx.fireChannelInactive();
     }
@@ -70,8 +70,7 @@ public class AgentClientHandler extends ChannelInboundHandlerAdapter {
             if (idleStateEvent.state() == IdleState.WRITER_IDLE) {
                 log.info("It's been 30 seconds without receiving any messages.");
                 // 向服务端发送消息
-                ctx.writeAndFlush(LoggerSendCache.build())
-                        .addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
+                ctx.writeAndFlush(LoggerSendCache.build());
             }
 
         }

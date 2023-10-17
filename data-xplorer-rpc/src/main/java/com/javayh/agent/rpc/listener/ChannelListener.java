@@ -34,7 +34,7 @@ public class ChannelListener {
         // 初始延迟30秒，之后每次执行后等待30秒再继续
         try {
             AgentExecutor.singe().scheduleAtFixedRate(new QueueListener<>(
-                    AgentCacheQueue.MSG_CACHE_DE, data -> sendData(ctx, data)), 30, 10, TimeUnit.SECONDS);
+                    AgentCacheQueue.MSG_CACHE_DE, data -> sendData(ctx, data)), 30, 30, TimeUnit.SECONDS);
         } catch (Exception e) {
             log.error("listener {}", ExceptionUtils.getStackTrace(e));
         }
@@ -48,19 +48,19 @@ public class ChannelListener {
      * @param data 数据
      */
     private void sendData(ChannelHandlerContext ctx, LoggerCollectorProto.LoggerCollector data) {
-        try {
-            ctx.channel().eventLoop().execute(() -> {
-                try {
-                    if (Objects.nonNull(data)) {
+        if (Objects.nonNull(data)) {
+            try {
+                ctx.channel().eventLoop().execute(() -> {
+                    try {
                         ctx.writeAndFlush(data);
+                    } catch (Exception ex) {
+                        log.error("数据发送异常 {}", ExceptionUtils.getStackTrace(ex));
+                        throw new ChannelListenerException(ex);
                     }
-                } catch (Exception ex) {
-                    log.error("数据发送异常 {}", ExceptionUtils.getStackTrace(ex));
-                    throw new ChannelListenerException(ex);
-                }
-            });
-        } catch (Exception e) {
-            log.error("sendData {}", ExceptionUtils.getStackTrace(e));
+                });
+            } catch (Exception e) {
+                log.error("sendData {}", ExceptionUtils.getStackTrace(e));
+            }
         }
     }
 }

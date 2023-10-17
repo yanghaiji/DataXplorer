@@ -4,8 +4,9 @@ import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.rpc.channel.AgentChannelInitializer;
 import com.javayh.agent.rpc.listener.ConnectionListener;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.PooledByteBufAllocator;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
@@ -38,14 +39,6 @@ public class DataXplorerClient {
         bootstrap = new Bootstrap();
         bootstrap.group(group)
                 .channel(NioSocketChannel.class)
-                .option(ChannelOption.SO_KEEPALIVE, true)
-                .option(ChannelOption.SO_LINGER, 0)
-                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)
-                .option(ChannelOption.SO_RCVBUF, 1048576)
-                .option(ChannelOption.SO_SNDBUF, 1048576)
-                .option(ChannelOption.WRITE_BUFFER_WATER_MARK, new WriteBufferWaterMark(8 * 1024, 32 * 1024))
-                .option(ChannelOption.RCVBUF_ALLOCATOR, AdaptiveRecvByteBufAllocator.DEFAULT)
-                .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
                 .handler(new LoggingHandler(LogLevel.INFO))
                 .handler(new AgentChannelInitializer(DataXplorerClient.this, dataXplorerProperties));
 
@@ -61,9 +54,8 @@ public class DataXplorerClient {
         //给关闭通道进行监听
         try {
             channelFuture.channel().closeFuture().sync();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            channel.close();
+        } catch (Exception e) {
+            log.error("DataXplorerClient {}", e.getMessage(), e);
             channelFuture.channel().closeFuture();
         }
     }
