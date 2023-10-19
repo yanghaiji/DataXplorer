@@ -12,6 +12,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.timeout.IdleStateHandler;
 
 /**
@@ -57,8 +58,7 @@ public class AgentChannelInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch.pipeline()
-                .addLast(new IdleStateHandler(15, 15, 15))
-                .addLast(new MessageDecoder())
+                .addLast(new IdleStateHandler(0, 30, 0))
                 .addLast(new MessageBodyEncoder())
                 .addLast(new AgentRegistryClientHandler(loggerAgentClient, dataXplorerProperties))
                 .addLast(new LoggerCollectorEncoder())

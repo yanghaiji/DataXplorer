@@ -37,14 +37,17 @@ public class DataXplorerServer {
             bootstrap.group(bossGroup, workerGroup)
                     //使用NioSocketChannel 作为服务器的通道实现
                     .channel(NioServerSocketChannel.class)
-                    .option(ChannelOption.SO_KEEPALIVE, true)
-                    .option(ChannelOption.SO_LINGER, 0)
-                    .option(ChannelOption.SO_RCVBUF, 65536)
-                    .option(ChannelOption.SO_SNDBUF, 65536)
-                    .option(ChannelOption.WRITE_BUFFER_WATER_MARK, new WriteBufferWaterMark(8 * 1024, 32 * 1024))
-                    .option(ChannelOption.RCVBUF_ALLOCATOR, AdaptiveRecvByteBufAllocator.DEFAULT)
-                    .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
                     .option(ChannelOption.SO_BACKLOG, 128)
+                    .childOption(ChannelOption.SO_KEEPALIVE, true)
+                    .childOption(ChannelOption.TCP_NODELAY, true)
+                    .childOption(ChannelOption.SO_RCVBUF, 65536)
+                    .childOption(ChannelOption.SO_SNDBUF, 65536)
+                    //.option(ChannelOption.SO_LINGER, 0)
+                    .childOption(ChannelOption.CONNECT_TIMEOUT_MILLIS, 180000)
+                    .childOption(ChannelOption.WRITE_BUFFER_WATER_MARK, new WriteBufferWaterMark(32 * 1024, 64 * 1024))
+                    .childOption(ChannelOption.RCVBUF_ALLOCATOR, AdaptiveRecvByteBufAllocator.DEFAULT)
+                    .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
+
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new AgentServerChannelInitializer(dataXplorerProperties));
 

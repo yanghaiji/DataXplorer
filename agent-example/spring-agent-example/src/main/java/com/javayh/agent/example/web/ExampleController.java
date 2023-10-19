@@ -23,7 +23,9 @@ public class ExampleController {
     @GetMapping(value = "/agent")
     public String getName() {
         log.info("ewohefo");
-        LoggerReceived.received("test自定义埋点", 1, "haiji", null);
+        for (int i = 0; i < 10; i++) {
+            LoggerReceived.received("test自定义埋点", 1, "haiji", null);
+        }
         return "JavaYh Agent";
     }
 
