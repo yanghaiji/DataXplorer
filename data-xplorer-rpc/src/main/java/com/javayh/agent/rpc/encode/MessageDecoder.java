@@ -1,12 +1,12 @@
 package com.javayh.agent.rpc.encode;
 
-import com.google.protobuf.InvalidProtocolBufferException;
 import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.bean.proto.MessageBodyProto;
 import com.javayh.agent.common.bean.proto.MessageTypeProto;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -15,11 +15,11 @@ import java.util.List;
  *
  * @author haiji
  */
+@Slf4j
 public class MessageDecoder extends ByteToMessageDecoder {
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws InvalidProtocolBufferException {
-
+    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
         try {
             if (in.readableBytes() >= 8) {
                 // 读取消息类型字段的整数值
@@ -30,20 +30,21 @@ public class MessageDecoder extends ByteToMessageDecoder {
                 // 检查消息长度是否为负数
                 if (messageLength < 0) {
                     // 处理错误，例如关闭连接或记录错误信息
-                    ctx.close(); // 或者其他适当的错误处理
                     return;
                 }
 
                 // 检查是否有足够的数据来读取完整的消息
                 if (in.readableBytes() < messageLength) {
                     // 如果没有足够的数据，返回并等待更多数据
+                    in.resetReaderIndex(); // 重置读指针以便下一次解码
                     return;
                 }
 
                 // 读取完整的消息体
                 byte[] messageData = new byte[messageLength];
                 in.readBytes(messageData);
-
+                // 清除已读取的字节，以便下一个消息从正确的位置开始解码
+                in.discardReadBytes();
                 // 直接将整数值转换为 MessageTypeProto.MessageType 枚举
                 MessageTypeProto.MessageType messageType = MessageTypeProto.MessageType.valueOf(messageTypeValue);
 
@@ -57,11 +58,9 @@ public class MessageDecoder extends ByteToMessageDecoder {
                     out.add(messageBody);
                 }
             }
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            log.error("MessageDecoder {}", e.getMessage(), e);
         }
-
     }
-
 
 }

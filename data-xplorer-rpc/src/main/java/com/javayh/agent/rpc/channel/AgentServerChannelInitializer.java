@@ -2,7 +2,6 @@ package com.javayh.agent.rpc.channel;
 
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.rpc.encode.LoggerCollectorEncoder;
-import com.javayh.agent.rpc.encode.MessageBodyEncoder;
 import com.javayh.agent.rpc.encode.MessageDecoder;
 import com.javayh.agent.rpc.handler.AgentRegistryServerHandler;
 import com.javayh.agent.rpc.handler.AgentServerHandler;
@@ -49,11 +48,10 @@ public class AgentServerChannelInitializer extends ChannelInitializer<SocketChan
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch.pipeline()
-                .addLast(new IdleStateHandler(10, 10, 15))
-                .addLast(new MessageDecoder())
-                .addLast(new MessageBodyEncoder())
-                .addLast(new AgentRegistryServerHandler(dataXplorerProperties))
+                .addLast(new IdleStateHandler(30, 30, 30))
                 .addLast(new LoggerCollectorEncoder())
+                .addLast(new MessageDecoder())
+                .addLast(new AgentRegistryServerHandler(dataXplorerProperties))
                 .addLast(new AgentServerHandler(dataXplorerProperties));
     }
 }
