@@ -16,9 +16,16 @@ public class QueueListener<T> implements Runnable {
 
     private final QueueListenerCallback<T> callback;
 
-    public QueueListener(BlockingQueue<T> queue, QueueListenerCallback<T> callback) {
+    private final Integer dataThroughput;
+
+    private final Boolean showLog;
+
+    public QueueListener(BlockingQueue<T> queue, QueueListenerCallback<T> callback,
+                         Integer dataThroughput, Boolean showLog) {
         this.queue = queue;
         this.callback = callback;
+        this.dataThroughput = dataThroughput;
+        this.showLog = showLog;
     }
 
     @Override
@@ -26,14 +33,18 @@ public class QueueListener<T> implements Runnable {
         try {
             List<T> sendData = new LinkedList<>();
             // 获取一批需要推送的数据
-            queue.drainTo(sendData, 100);
+            queue.drainTo(sendData, dataThroughput);
             int size = sendData.size();
-            log.debug("待推送的数据条数 : {}", queue.size());
-            log.debug("本次需要推送数据条数 : {}", size);
+            if (showLog) {
+                log.info("number of pending data items : {}", queue.size());
+                log.info("the number of data items for this push : {}", size);
+            }
             for (T data : sendData) {
                 // 调用回调方法处理数据
                 callback.onDataReceived(data);
-                log.debug("本次待推送数据条数 : {}", --size);
+                if (showLog) {
+                    log.info("pending data count for this push : {}", --size);
+                }
             }
         } catch (Exception e) {
             log.error("{}", e.getMessage(), e);

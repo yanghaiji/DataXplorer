@@ -1,7 +1,7 @@
 package com.javayh.agent.rpc.network;
 
 import com.javayh.agent.common.configuration.DataXplorerProperties;
-import com.javayh.agent.rpc.channel.AgentServerChannelInitializer;
+import com.javayh.agent.rpc.channel.DataXplorerServerChannelInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.*;
@@ -49,7 +49,7 @@ public class DataXplorerServer {
                     .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
 
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new AgentServerChannelInitializer(dataXplorerProperties));
+                    .childHandler(new DataXplorerServerChannelInitializer(dataXplorerProperties));
 
             //绑定一个端口并且同步, 生成了一个 ChannelFuture 对象
             //启动服务器(并绑定端口)

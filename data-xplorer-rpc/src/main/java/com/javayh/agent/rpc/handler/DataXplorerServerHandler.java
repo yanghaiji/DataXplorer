@@ -23,14 +23,16 @@ import java.util.Date;
  */
 @Slf4j
 @ChannelHandler.Sharable
-public class AgentServerHandler extends SimpleChannelInboundHandler<LoggerCollectorProto.LoggerCollector> {
+public class DataXplorerServerHandler extends SimpleChannelInboundHandler<LoggerCollectorProto.LoggerCollector> {
 
     private static final String YMS = "yyyy-MM-dd HH:mm:ss";
 
     private final String appName;
+    private final Boolean showLog;
 
-    public AgentServerHandler(DataXplorerProperties dataXplorerProperties) {
+    public DataXplorerServerHandler(DataXplorerProperties dataXplorerProperties) {
         this.appName = dataXplorerProperties.getAppName();
+        this.showLog = dataXplorerProperties.getShowLog();
     }
 
     /**
@@ -45,7 +47,7 @@ public class AgentServerHandler extends SimpleChannelInboundHandler<LoggerCollec
             // 在这里处理 LoggerCollector 对象
             LoggerRepository loggerRepository = SpringBeanContext.getBean(LoggerRepository.class);
             loggerRepository.save(msg);
-            if (log.isInfoEnabled()) {
+            if (showLog) {
                 log.info("{}", msg);
             }
         } catch (Exception e) {
@@ -94,6 +96,6 @@ public class AgentServerHandler extends SimpleChannelInboundHandler<LoggerCollec
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        log.info("服务上线时间为: {}, IP 为:{}", DateFormatUtils.format(new Date(), YMS), ctx.channel().remoteAddress());
+        log.info("Service launch time is at : {}, IP 为:{}", DateFormatUtils.format(new Date(), YMS), ctx.channel().remoteAddress());
     }
 }

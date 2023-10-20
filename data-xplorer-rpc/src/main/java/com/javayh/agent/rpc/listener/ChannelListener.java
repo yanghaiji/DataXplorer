@@ -2,6 +2,7 @@ package com.javayh.agent.rpc.listener;
 
 import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.cache.AgentCacheQueue;
+import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.exception.ChannelListenerException;
 import com.javayh.agent.common.executor.AgentExecutor;
 import com.javayh.agent.common.listener.QueueListener;
@@ -27,14 +28,21 @@ public class ChannelListener {
     /**
      * channel的监听器
      *
-     * @param ctx channel 上下文
+     * @param ctx                   channel 上下文
+     * @param dataXplorerProperties 服务相关的配置
      */
-    public void listener(ChannelHandlerContext ctx) {
+    public void listener(ChannelHandlerContext ctx, DataXplorerProperties dataXplorerProperties) {
         // initialDelay（初始延迟）和 period（间隔时间）来控制定期执行的频率
         // 初始延迟30秒，之后每次执行后等待30秒再继续
         try {
+            DataXplorerProperties.InboundTransferRate transferRate = dataXplorerProperties.getInboundTransferRate();
+            Integer dataThroughput = transferRate.getDataThroughput();
+            Integer period = transferRate.getPeriod();
+            Integer initialDelay = transferRate.getInitialDelay();
+            Boolean showLog = dataXplorerProperties.getShowLog();
             AgentExecutor.singe().scheduleAtFixedRate(new QueueListener<>(
-                    AgentCacheQueue.MSG_CACHE_DE, data -> sendData(ctx, data)), 30, 45, TimeUnit.SECONDS);
+                            AgentCacheQueue.MSG_CACHE_DE, data -> sendData(ctx, data), dataThroughput, showLog),
+                    initialDelay, period, TimeUnit.SECONDS);
         } catch (Exception e) {
             log.error("listener {}", ExceptionUtils.getStackTrace(e));
         }
@@ -54,7 +62,7 @@ public class ChannelListener {
                     try {
                         ctx.writeAndFlush(data);
                     } catch (Exception ex) {
-                        log.error("数据发送异常 {}", ExceptionUtils.getStackTrace(ex));
+                        log.error("sendData Exception  {}", ExceptionUtils.getStackTrace(ex));
                         throw new ChannelListenerException(ex);
                     }
                 });

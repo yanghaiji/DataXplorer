@@ -20,6 +20,10 @@
             <groupId>com.javayh.agent</groupId>
             <artifactId>data-xplorer-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.javayh.agent</groupId>
+            <artifactId>data-xplorer-agent-boot-starter</artifactId>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

@@ -51,8 +51,33 @@ mvn clean package install
 
 # Agent 配置
 
+## 方式一
+
 - 将上一步骤编译好的`jdata-xplorer-agent-1.0-SNAPSHOT.jar`放在指定的位置，如`\usr\local\agent`
 - 在启动脚本上加入`-javaagent:\usr\local\agent\data-xplorer-agent-1.0-SNAPSHOT.jar`的命令参数
+
+## 方式二
+
+```
+<dependency>
+    <groupId>com.javayh.agent</groupId>
+    <artifactId>data-xplorer-agent-boot-starter</artifactId>
+</dependency>
+```
+
+无论采用哪种方式都需要在需要监听的服务内添加如下配置,可根据项目实际场景进行修改
+```
+data:
+  xplorer:
+    host: 127.0.0.1
+    port: 9098
+    show-log: true
+    inbound-transfer-rate:
+      data-throughput: 100
+      period: 45
+      initial-delay: 30 
+
+```
 
 # 日志
 

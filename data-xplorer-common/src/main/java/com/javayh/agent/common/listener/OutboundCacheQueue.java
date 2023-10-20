@@ -1,4 +1,4 @@
-package com.javayh.agent.common.cache;
+package com.javayh.agent.common.listener;
 
 import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +9,8 @@ import java.util.concurrent.LinkedBlockingDeque;
 /**
  * <p>
  * 数据缓存池
+ * <p>
+ * 用与临时存储数据,以方便批量操作,减少io操作
  * </p>
  *
  * @author hai ji
@@ -16,19 +18,19 @@ import java.util.concurrent.LinkedBlockingDeque;
  * @since 2023-09-20
  */
 @Slf4j
-public class AgentCacheQueue {
+public class OutboundCacheQueue {
 
-    public static CacheQueue<LoggerCollectorProto.LoggerCollector> MSG_CACHE_DE = new CacheQueue<>();
+    public static CacheQueue OUTBOUND_CACHE = new CacheQueue();
 
 
-    public static class CacheQueue<L extends LoggerCollectorProto.LoggerCollector> extends LinkedBlockingDeque<LoggerCollectorProto.LoggerCollector> {
+    public static class CacheQueue<T> extends LinkedBlockingDeque<T> {
 
         /**
          * @param loggerCollector {@link LoggerCollectorProto}
          * @throws NullPointerException if the specified element is null
          */
         @Override
-        public boolean offer(@NonNull LoggerCollectorProto.LoggerCollector loggerCollector) {
+        public boolean offer(@NonNull T loggerCollector) {
             boolean offer = super.offer(loggerCollector);
             log.debug("Current number of cached messages : {}", size());
             return offer;
@@ -37,8 +39,8 @@ public class AgentCacheQueue {
 
         @NonNull
         @Override
-        public LoggerCollectorProto.LoggerCollector take() throws InterruptedException {
-            LoggerCollectorProto.LoggerCollector take = super.take();
+        public T take() throws InterruptedException {
+            T take = super.take();
             log.debug("Current number of cached messages : {}", size());
             return take;
         }
