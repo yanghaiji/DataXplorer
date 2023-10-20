@@ -4,12 +4,14 @@ import com.javayh.agent.common.bean.proto.MessageBodyProto;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * body的编码器
  *
  * @author haiji
  */
+@Slf4j
 public class MessageBodyEncoder extends MessageToByteEncoder<MessageBodyProto.MessageBody> {
     @Override
     protected void encode(ChannelHandlerContext ctx, MessageBodyProto.MessageBody msg, ByteBuf out) {
@@ -23,7 +25,7 @@ public class MessageBodyEncoder extends MessageToByteEncoder<MessageBodyProto.Me
             // 将 MessageBody 对象编码为字节数据并写入 ByteBuf
             out.writeBytes(data);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("MessageBodyEncoder {}", e.getMessage(), e);
         }
     }
 }

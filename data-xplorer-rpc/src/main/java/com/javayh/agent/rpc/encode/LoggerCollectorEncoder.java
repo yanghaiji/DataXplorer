@@ -4,10 +4,12 @@ import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author haiji
  */
+@Slf4j
 public class LoggerCollectorEncoder extends MessageToByteEncoder<LoggerCollectorProto.LoggerCollector> {
     @Override
     protected void encode(ChannelHandlerContext ctx, LoggerCollectorProto.LoggerCollector msg, ByteBuf out) {
@@ -21,7 +23,7 @@ public class LoggerCollectorEncoder extends MessageToByteEncoder<LoggerCollector
             // 将 MessageBody 对象编码为字节数据并写入 ByteBuf
             out.writeBytes(data);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("LoggerCollectorEncoder {}", e.getMessage(), e);
         }
     }
 }

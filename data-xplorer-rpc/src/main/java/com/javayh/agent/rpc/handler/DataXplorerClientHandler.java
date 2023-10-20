@@ -15,18 +15,17 @@ import lombok.extern.slf4j.Slf4j;
  * @author haiji
  */
 @Slf4j
-public class AgentClientHandler extends ChannelInboundHandlerAdapter {
+public class DataXplorerClientHandler extends ChannelInboundHandlerAdapter {
 
     private final DataXplorerClient loggerAgentClient;
     private final DataXplorerProperties dataXplorerProperties;
 
-    private final String appName;
-    private volatile ChannelHandlerContext context;
+    private final Boolean showLog;
 
-    public AgentClientHandler(DataXplorerClient loggerAgentClient, DataXplorerProperties dataXplorerProperties) {
+    public DataXplorerClientHandler(DataXplorerClient loggerAgentClient, DataXplorerProperties dataXplorerProperties) {
         this.loggerAgentClient = loggerAgentClient;
         this.dataXplorerProperties = dataXplorerProperties;
-        this.appName = dataXplorerProperties.getAppName();
+        this.showLog = dataXplorerProperties.getShowLog();
     }
 
 
@@ -37,7 +36,7 @@ public class AgentClientHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         ctx.writeAndFlush(LoggerSendCache.build());
         AgentExecutor.shutdown();
-        new ChannelListener().listener(ctx);
+        new ChannelListener().listener(ctx, dataXplorerProperties);
     }
 
     /**
@@ -45,7 +44,9 @@ public class AgentClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        log.debug("{}", msg);
+        if (showLog) {
+            log.info("{}", msg);
+        }
     }
 
 

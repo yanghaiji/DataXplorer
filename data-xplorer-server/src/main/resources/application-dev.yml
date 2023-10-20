@@ -33,4 +33,8 @@ data:
   xplorer:
     host: 127.0.0.1
     port: 9098
-
+    show-log: true
+    outbound-transfer-rate:
+      initial-delay: 60
+      period: 300
+      data-throughput: 1000

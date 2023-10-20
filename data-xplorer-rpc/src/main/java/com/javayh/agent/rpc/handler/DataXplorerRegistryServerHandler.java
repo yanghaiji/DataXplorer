@@ -17,12 +17,12 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
  */
 @Slf4j
 @ChannelHandler.Sharable
-public class AgentRegistryServerHandler extends SimpleChannelInboundHandler<MessageBodyProto.MessageBody> {
+public class DataXplorerRegistryServerHandler extends SimpleChannelInboundHandler<MessageBodyProto.MessageBody> {
 
 
     private final String appName;
 
-    public AgentRegistryServerHandler(DataXplorerProperties dataXplorerProperties) {
+    public DataXplorerRegistryServerHandler(DataXplorerProperties dataXplorerProperties) {
         this.appName = dataXplorerProperties.getAppName();
     }
 

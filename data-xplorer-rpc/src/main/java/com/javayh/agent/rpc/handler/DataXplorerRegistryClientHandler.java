@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author haiji
  */
 @Slf4j
-public class AgentRegistryClientHandler extends ChannelInboundHandlerAdapter {
+public class DataXplorerRegistryClientHandler extends ChannelInboundHandlerAdapter {
 
     private final DataXplorerClient loggerAgentClient;
     private final DataXplorerProperties dataXplorerProperties;
@@ -20,7 +20,7 @@ public class AgentRegistryClientHandler extends ChannelInboundHandlerAdapter {
     private final String appName;
     private volatile ChannelHandlerContext context;
 
-    public AgentRegistryClientHandler(DataXplorerClient loggerAgentClient, DataXplorerProperties dataXplorerProperties) {
+    public DataXplorerRegistryClientHandler(DataXplorerClient loggerAgentClient, DataXplorerProperties dataXplorerProperties) {
         this.loggerAgentClient = loggerAgentClient;
         this.dataXplorerProperties = dataXplorerProperties;
         this.appName = dataXplorerProperties.getAppName();

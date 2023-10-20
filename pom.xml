@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>data-xplorer-agent</module>
+        <module>data-xplorer-agent-boot-starter</module>
         <module>agent-example</module>
         <module>data-xplorer-common</module>
         <module>data-xplorer-server</module>
@@ -99,6 +99,11 @@
             <dependency>
                 <groupId>com.javayh.agent</groupId>
                 <artifactId>data-xplorer-boot-starter</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.javayh.agent</groupId>
+                <artifactId>data-xplorer-agent-boot-starter</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
         </dependencies>

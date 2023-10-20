@@ -1,7 +1,7 @@
 package com.javayh.agent.rpc.network;
 
 import com.javayh.agent.common.configuration.DataXplorerProperties;
-import com.javayh.agent.rpc.channel.AgentChannelInitializer;
+import com.javayh.agent.rpc.channel.DataXplorerChannelInitializer;
 import com.javayh.agent.rpc.listener.ConnectionListener;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
@@ -52,7 +52,7 @@ public class DataXplorerClient {
                 .option(ChannelOption.TCP_NODELAY, true)
                 .option(ChannelOption.WRITE_BUFFER_WATER_MARK, new WriteBufferWaterMark(32 * 1024, 64 * 1024))
                 .handler(new LoggingHandler(LogLevel.INFO))
-                .handler(new AgentChannelInitializer(DataXplorerClient.this, dataXplorerProperties));
+                .handler(new DataXplorerChannelInitializer(DataXplorerClient.this, dataXplorerProperties));
 
     }
 

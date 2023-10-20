@@ -13,3 +13,10 @@ data:
     host: 127.0.0.1
     port: 9098
     app-name: ${spring.application.name}
+    show-log: true
+    inbound-transfer-rate:
+      data-throughput: 100
+      period: 45
+      initial-delay: 30
+
+

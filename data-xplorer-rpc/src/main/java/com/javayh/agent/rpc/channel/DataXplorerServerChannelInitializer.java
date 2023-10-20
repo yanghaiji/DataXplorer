@@ -3,8 +3,8 @@ package com.javayh.agent.rpc.channel;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.rpc.encode.LoggerCollectorEncoder;
 import com.javayh.agent.rpc.encode.MessageDecoder;
-import com.javayh.agent.rpc.handler.AgentRegistryServerHandler;
-import com.javayh.agent.rpc.handler.AgentServerHandler;
+import com.javayh.agent.rpc.handler.DataXplorerRegistryServerHandler;
+import com.javayh.agent.rpc.handler.DataXplorerServerHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
@@ -22,12 +22,12 @@ import io.netty.handler.timeout.IdleStateHandler;
  * @version 1.0.0
  * @since 2023-09-22
  */
-public class AgentServerChannelInitializer extends ChannelInitializer<SocketChannel> {
+public class DataXplorerServerChannelInitializer extends ChannelInitializer<SocketChannel> {
 
 
     private final DataXplorerProperties dataXplorerProperties;
 
-    public AgentServerChannelInitializer(DataXplorerProperties dataXplorerProperties) {
+    public DataXplorerServerChannelInitializer(DataXplorerProperties dataXplorerProperties) {
         this.dataXplorerProperties = dataXplorerProperties;
     }
 
@@ -51,7 +51,7 @@ public class AgentServerChannelInitializer extends ChannelInitializer<SocketChan
                 .addLast(new IdleStateHandler(30, 30, 30))
                 .addLast(new LoggerCollectorEncoder())
                 .addLast(new MessageDecoder())
-                .addLast(new AgentRegistryServerHandler(dataXplorerProperties))
-                .addLast(new AgentServerHandler(dataXplorerProperties));
+                .addLast(new DataXplorerRegistryServerHandler(dataXplorerProperties))
+                .addLast(new DataXplorerServerHandler(dataXplorerProperties));
     }
 }
