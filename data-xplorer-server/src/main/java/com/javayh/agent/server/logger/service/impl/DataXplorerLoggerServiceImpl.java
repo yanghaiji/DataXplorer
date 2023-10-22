@@ -1,11 +1,13 @@
 package com.javayh.agent.server.logger.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.javayh.agent.common.DatabaseService;
 import com.javayh.agent.server.api.entity.MicroservicesDataDTO;
 import com.javayh.agent.server.api.entity.UrlDataDTO;
 import com.javayh.agent.server.logger.dao.DataXplorerLoggerMapper;
 import com.javayh.agent.server.logger.entity.DataXplorerLoggerEntity;
 import com.javayh.agent.server.logger.service.DataXplorerLoggerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,12 +28,16 @@ public class DataXplorerLoggerServiceImpl extends ServiceImpl<DataXplorerLoggerM
     @Resource
     private DataXplorerLoggerMapper dataXplorerLoggerMapper;
 
+    @Autowired
+    private DatabaseService databaseService;
+
     /**
      * 查询top 时的url
      */
     @Override
     public List<UrlDataDTO> getTop10Urls() {
-        return dataXplorerLoggerMapper.getTop10Urls();
+        String databaseInfo = databaseService.getDatabaseInfo();
+        return dataXplorerLoggerMapper.getTop10Urls(databaseInfo);
     }
 
     /**
@@ -52,6 +58,6 @@ public class DataXplorerLoggerServiceImpl extends ServiceImpl<DataXplorerLoggerM
 
     @Override
     public List<MicroservicesDataDTO> dataGrowth() {
-        return dataXplorerLoggerMapper.dataGrowth();
+        return dataXplorerLoggerMapper.dataGrowth(databaseService.getDatabaseInfo());
     }
 }

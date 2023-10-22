@@ -1,5 +1,6 @@
 package com.javayh.agent.boot.starter.annotation;
 
+import com.javayh.agent.common.DatabaseService;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.context.AppNamingContext;
 import com.javayh.agent.common.context.SpringBeanContext;
@@ -28,6 +29,6 @@ import java.lang.annotation.*;
 @Configuration
 @Import({DataXplorerProperties.class, AppNamingContext.class, SpringBeanContext.class,
         DataXplorerServer.class, DataXplorerClient.class,
-        DataXplorerServerHandler.class, DefaultLoggerRepository.class})
+        DataXplorerServerHandler.class, DefaultLoggerRepository.class, DatabaseService.class})
 public @interface DataXporerAutoConfiguration {
 }

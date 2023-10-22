@@ -5,12 +5,13 @@
     <parent>
         <artifactId>data-xplorer</artifactId>
         <groupId>com.javayh.agent</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${data-xplorer.project.version}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>data-xplorer-common</artifactId>
-
+    <version>${data-xplorer.project.version}</version>
+    <packaging>jar</packaging>
     <properties>
         <netty.version>4.1.86.Final</netty.version>
         <esotericsoftware.version>4.0.2</esotericsoftware.version>
