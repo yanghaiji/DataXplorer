@@ -7,7 +7,7 @@
     <groupId>com.javayh.agent</groupId>
     <artifactId>data-xplorer</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>${data-xplorer.project.version}</version>
     <modules>
         <module>data-xplorer-agent-boot-starter</module>
         <module>agent-example</module>
@@ -18,6 +18,7 @@
     </modules>
 
     <properties>
+        <data-xplorer.project.version>1.0.0</data-xplorer.project.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven-compiler-plugin>3.6.2</maven-compiler-plugin>
@@ -76,6 +77,24 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.8.1</version>
+                <executions>
+                    <execution>
+                        <id>update-parent-version</id>
+                        <goals>
+                            <goal>set</goal>
+                        </goals>
+                        <configuration>
+                            <newVersion>${project.version}</newVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
     <dependencyManagement>
         <dependencies>
@@ -89,22 +108,22 @@
             <dependency>
                 <groupId>com.javayh.agent</groupId>
                 <artifactId>data-xplorer-common</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${data-xplorer.project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.javayh.agent</groupId>
                 <artifactId>data-xplorer-rpc</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${data-xplorer.project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.javayh.agent</groupId>
                 <artifactId>data-xplorer-boot-starter</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${data-xplorer.project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.javayh.agent</groupId>
                 <artifactId>data-xplorer-agent-boot-starter</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${data-xplorer.project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -5,11 +5,13 @@
     <parent>
         <artifactId>data-xplorer</artifactId>
         <groupId>com.javayh.agent</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${data-xplorer.project.version}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>data-xplorer-agent-boot-starter</artifactId>
+    <version>${data-xplorer.project.version}</version>
+    <packaging>jar</packaging>
 
     <properties>
         <javayh.agent.start>com.javayh.agent.core.LogAgent</javayh.agent.start>
@@ -51,36 +53,6 @@
                     <target>8</target>
                 </configuration>
             </plugin>
-            <!--            <plugin>-->
-            <!--                <artifactId>maven-assembly-plugin</artifactId>-->
-            <!--                <configuration>-->
-            <!--                    <archive>-->
-            <!--                        &lt;!&ndash;自动添加META-INF/MANIFEST.MF &ndash;&gt;-->
-            <!--                        <manifest>-->
-            <!--                            <addClasspath>true</addClasspath>-->
-            <!--                        </manifest>-->
-            <!--                        <manifestEntries>-->
-            <!--                            <Menifest-Version>1.0</Menifest-Version>-->
-            <!--                            <Premain-Class>com.javayh.http.agent.LogAgent</Premain-Class>-->
-            <!--                            <Can-Redefine-Classes>true</Can-Redefine-Classes>-->
-            <!--                            <Can-Retransform-Classes>true</Can-Retransform-Classes>-->
-            <!--                        </manifestEntries>-->
-            <!--                    </archive>-->
-            <!--                    <descriptorRefs>-->
-            <!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
-            <!--                    </descriptorRefs>-->
-            <!--                    <appendAssemblyId>false</appendAssemblyId>-->
-            <!--                </configuration>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <id>make-assembly</id>-->
-            <!--                        <phase>package</phase>-->
-            <!--                        <goals>-->
-            <!--                            <goal>assembly</goal>-->
-            <!--                        </goals>-->
-            <!--                    </execution>-->
-            <!--                </executions>-->
-            <!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>

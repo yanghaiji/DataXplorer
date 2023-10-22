@@ -5,6 +5,7 @@ import com.javayh.agent.server.api.entity.MicroservicesDataDTO;
 import com.javayh.agent.server.api.entity.UrlDataDTO;
 import com.javayh.agent.server.logger.entity.DataXplorerLoggerEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -24,8 +25,7 @@ public interface DataXplorerLoggerMapper extends BaseMapper<DataXplorerLoggerEnt
     /**
      * 查询 top 10 url
      */
-    @Select("SELECT url, count( url ) as requests  FROM data_xplorer_logger  GROUP BY url limit 10 ")
-    List<UrlDataDTO> getTop10Urls();
+    List<UrlDataDTO> getTop10Urls(@Param("dbType") String dbType);
 
     /**
      * 所有常用服务的百分比
@@ -38,7 +38,5 @@ public interface DataXplorerLoggerMapper extends BaseMapper<DataXplorerLoggerEnt
                     "JOIN   (SELECT b.app_name ,count(b.app_name) total FROM data_xplorer_logger b WHERE b.error_msg is not null GROUP BY b.app_name )  bb ON bb.app_name= aa.app_name")
     List<MicroservicesDataDTO> serviceErrorRate();
 
-    @Select("SELECT a.app_name ,count(a.app_name) total ,date_format(a.create_time,'%Y-%m-%d') date " +
-            " FROM data_xplorer_logger a GROUP BY a.app_name,date  HAVING date <= CURDATE() and date > DATE_SUB(CURDATE(), INTERVAL 7 DAY) ")
-    List<MicroservicesDataDTO> dataGrowth();
+    List<MicroservicesDataDTO> dataGrowth(@Param("dbType") String dbType);
 }

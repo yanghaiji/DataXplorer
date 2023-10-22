@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javayh.agent.server.logger.dao.DataXplorerLoggerMapper">
+
+    <select id="getTop10Urls" resultType="com.javayh.agent.server.api.entity.UrlDataDTO">
+        SELECT url, count(url) AS requests
+        FROM data_xplorer_logger
+        GROUP BY url
+        <choose>
+            <when test="dbType == 'MySQL' || dbType == 'PostgreSQL'">
+                LIMIT 10
+            </when>
+            <when test="dbType == 'Oracle'">
+                FETCH FIRST 10 ROWS ONLY
+            </when>
+        </choose>
+    </select>
+
+    <select id="dataGrowth" resultType="com.javayh.agent.server.api.entity.MicroservicesDataDTO">
+        <choose>
+            <!-- 查询适用于MySQL的SQL -->
+            <when test="dbType == 'MySQL'">
+                SELECT app_name, count(app_name) AS total, date_format(create_time, '%Y-%m-%d') AS date
+                FROM data_xplorer_logger
+                WHERE create_time <![CDATA[<= ]]> CURDATE() AND create_time > DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+                GROUP BY app_name, date_format(create_time, '%Y-%m-%d')
+            </when>
+
+            <!-- 查询适用于PostgreSQL的SQL -->
+            <when test="dbType == 'PostgreSQL'">
+                SELECT app_name, count(app_name) AS total, to_char(create_time, 'YYYY-MM-DD') AS date
+                FROM data_xplorer_logger
+                WHERE to_char(create_time, 'YYYY-MM-DD') <![CDATA[ <= ]]> to_char(current_date, 'YYYY-MM-DD')
+                AND to_char(create_time, 'YYYY-MM-DD') > to_char(current_date - interval '7 days', 'YYYY-MM-DD')
+                GROUP BY app_name, to_char(create_time, 'YYYY-MM-DD')
+            </when>
+
+            <!-- 查询适用于Oracle的SQL -->
+            <when test="dbType == 'Oracle'">
+                SELECT app_name, count(app_name) AS total, to_char(create_time, 'YYYY-MM-DD') AS date
+                FROM data_xplorer_logger
+                WHERE to_char(create_time, 'YYYY-MM-DD') <![CDATA[ <= ]]> to_char(sysdate, 'YYYY-MM-DD')
+                AND to_char(create_time, 'YYYY-MM-DD') > to_char(sysdate - 7, 'YYYY-MM-DD')
+                GROUP BY app_name, to_char(create_time, 'YYYY-MM-DD')
+            </when>
+        </choose>
+    </select>
+
+</mapper>
