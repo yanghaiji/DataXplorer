@@ -8,6 +8,17 @@
     <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - Java Style Guide"></a>
 </p>
 
+# 源代码地址
+
+| **仓库**   | **URL**                                                      |
+| ---------- | ------------------------------------------------------------ |
+| **Github** | **[https://github.com/yanghaiji/DataXplorer](https://github.com/yanghaiji/DataXplorer)** |
+| **Gitee**  | **[https://gitee.com/YangHaiJi/DataXplorer](https://gitee.com/YangHaiJi/DataXplorer)** |
+
+
+github上为最新版本，gitee上会略微滞后一些 如果对您有所帮助可以给个star， ✨不迷路，您的star是我们编写的动力 🙏
+
+
 #
 
 `DataXplorer`是一个非常有价值的工具，它的核心任务是解决分布式系统中日志收集和分析的挑战。该工具的设计理念基于"数据"和"探索"，旨在提供一种高度可定制且不侵入应用代码的方式来实现对日志数据的采集和分析。
