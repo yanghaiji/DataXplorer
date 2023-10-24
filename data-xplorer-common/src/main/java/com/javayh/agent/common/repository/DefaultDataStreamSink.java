@@ -16,24 +16,16 @@ import java.util.List;
  */
 @Slf4j
 @Component
-public class DefaultLoggerRepository implements LoggerRepository {
+public class DefaultDataStreamSink<T> implements DataStreamSink<T> {
     /**
      * 单条数据存储
      *
      * @param data 原始数据
      */
     @Override
-    public void save(Object data) {
-        log.info("DefaultLoggerRepository data{}", data);
+    public void sink(T data) {
+        log.info("DefaultDataStreamSink data{}", data);
     }
 
-    /**
-     * 单条数据存储
-     *
-     * @param data 原始数据集
-     */
-    @Override
-    public void batchSave(List data) {
-        log.info("DefaultLoggerRepository data{}", data);
-    }
+
 }

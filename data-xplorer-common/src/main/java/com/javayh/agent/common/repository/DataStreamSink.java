@@ -1,7 +1,5 @@
 package com.javayh.agent.common.repository;
 
-import java.util.List;
-
 /**
  * <p>
  * 持久化的统一接口
@@ -11,19 +9,13 @@ import java.util.List;
  * @version 1.0.0
  * @since 2023-09-23
  */
-public interface LoggerRepository<T> {
+public interface DataStreamSink<T> {
 
     /**
      * 单条数据存储
      *
      * @param data 原始数据
      */
-    void save(T data);
+    void sink(T data);
 
-    /**
-     * 单条数据存储
-     *
-     * @param data 原始数据集
-     */
-    void batchSave(List<T> data);
 }
