@@ -4,7 +4,7 @@ import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.executor.OutboundExecutor;
 import com.javayh.agent.common.listener.OutboundCacheQueue;
-import com.javayh.agent.common.repository.LoggerRepository;
+import com.javayh.agent.common.repository.DataStreamSink;
 import com.javayh.agent.server.listener.OutboundQueueListener;
 import com.javayh.agent.server.logger.entity.DataXplorerLoggerEntity;
 import com.javayh.agent.server.logger.service.DataXplorerLoggerService;
@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -28,13 +27,13 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Primary
 @Service
-public class LoggerRepositoryImpl implements LoggerRepository<LoggerCollectorProto.LoggerCollector> {
+public class DataStreamSinkImpl implements DataStreamSink<LoggerCollectorProto.LoggerCollector> {
 
     private final DataXplorerLoggerService dataXplorerLoggerService;
 
     private final DataXplorerProperties dataXplorerProperties;
 
-    public LoggerRepositoryImpl(DataXplorerLoggerService dataXplorerLoggerService, DataXplorerProperties dataXplorerProperties) {
+    public DataStreamSinkImpl(DataXplorerLoggerService dataXplorerLoggerService, DataXplorerProperties dataXplorerProperties) {
         DataXplorerProperties.OutboundTransferRate outboundTransferRate = dataXplorerProperties.getOutboundTransferRate();
         Integer initialDelay = outboundTransferRate.getInitialDelay();
         Integer period = outboundTransferRate.getPeriod();
@@ -54,7 +53,7 @@ public class LoggerRepositoryImpl implements LoggerRepository<LoggerCollectorPro
      * @param data 原始数据
      */
     @Override
-    public void save(LoggerCollectorProto.LoggerCollector data) {
+    public void sink(LoggerCollectorProto.LoggerCollector data) {
         if (!data.getIgnore()) {
             DataXplorerLoggerEntity dataXplorerLoggerEntity = new DataXplorerLoggerEntity();
             dataXplorerLoggerEntity.copy(data);
@@ -66,13 +65,4 @@ public class LoggerRepositoryImpl implements LoggerRepository<LoggerCollectorPro
         }
     }
 
-    /**
-     * 单条数据存储
-     *
-     * @param data 原始数据集
-     */
-    @Override
-    public void batchSave(List<LoggerCollectorProto.LoggerCollector> data) {
-
-    }
 }

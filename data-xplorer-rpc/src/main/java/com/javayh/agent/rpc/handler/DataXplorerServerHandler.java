@@ -4,7 +4,7 @@ import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.cache.LoggerSendCache;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.context.SpringBeanContext;
-import com.javayh.agent.common.repository.LoggerRepository;
+import com.javayh.agent.common.repository.DataStreamSink;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -45,8 +45,8 @@ public class DataXplorerServerHandler extends SimpleChannelInboundHandler<Logger
     protected void channelRead0(ChannelHandlerContext ctx, LoggerCollectorProto.LoggerCollector msg) throws Exception {
         try {
             // 在这里处理 LoggerCollector 对象
-            LoggerRepository loggerRepository = SpringBeanContext.getBean(LoggerRepository.class);
-            loggerRepository.save(msg);
+            DataStreamSink dataStreamSink = SpringBeanContext.getBean(DataStreamSink.class);
+            dataStreamSink.sink(msg);
             if (showLog) {
                 log.info("{}", msg);
             }
