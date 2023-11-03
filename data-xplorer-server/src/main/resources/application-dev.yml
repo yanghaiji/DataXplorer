@@ -20,7 +20,7 @@ spring:
   security:
     user:
       name: DataXplorer
-      password: DataXplorer
+      password: $2a$10$oMYF6u5dmIxTG7LyaDi/P.TQleoDwW6fGb4sbkot8D9CtvYa.ySM2
 
 server:
   port: 9090

@@ -65,6 +65,10 @@ public class AgentLogInterception implements HandlerInterceptor {
         String url = request.getRequestURI();
         String query = request.getQueryString();
         String method = request.getMethod();
+        String traceId = request.getParameter("TraceId");
+        if (StringUtils.isEmpty(traceId)) {
+            traceId = request.getHeader("TraceId");
+        }
         String ip = IpUtil.getIpAddr(request);
         String body = BODY.get();
         LoggerCollectorProto.LoggerCollector collector = LoggerCollectorProto.LoggerCollector.newBuilder()
@@ -76,7 +80,8 @@ public class AgentLogInterception implements HandlerInterceptor {
                 .setActionTime(stopWatch.getTime())
                 .setType(LoggerType.INTERCEPTOR.value())
                 .setMethod(method)
-                .setCreateTime(Timestamps.fromMillis(System.currentTimeMillis())).setTraceId(TraceContext.getTraceId())
+                .setCreateTime(Timestamps.fromMillis(System.currentTimeMillis()))
+                .setTraceId(StringUtils.isEmpty(traceId) ? TraceContext.getTraceId() : traceId)
                 .setSourceType(LoggerSourceType.AUTOMATIC.value())
                 .setMessageType(MessageTypeProto.MessageType.LOGGER_COLLECTOR)
                 // TODO: 2023/9/19 根据实际的项目进行集成

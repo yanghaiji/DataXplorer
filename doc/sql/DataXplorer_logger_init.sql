@@ -56,4 +56,19 @@ INSERT INTO `data_xplorer_dict_common` VALUES (4, '0', 'automatic', 'source_type
 INSERT INTO `data_xplorer_dict_common` VALUES (5, '1', 'manual', 'source_type', 'data_xplorer_logger', 999, 'STRING', NULL, 'source_type', '0', '0', '2023-09-25 05:16:13', '2023-09-25 05:16:22', 0);
 
 
+CREATE TABLE data_xplorer_frontend_event_logger (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `trace_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `event_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `element_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `element_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `page_url` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `event_time` datetime(0) NULL DEFAULT NULL,
+  `source_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `others_body` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
 SET FOREIGN_KEY_CHECKS = 1;
