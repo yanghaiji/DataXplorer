@@ -1,10 +1,5 @@
----
-name: Custom issue template
-about: Describe this issue template's purpose here.
-title: ''
-labels: ''
-assignees: ''
-
----
-
-
+blank_issues_enabled: false
+contact_links:
+  - name: DataXplorer 帮助中心
+    url:
+    about:
