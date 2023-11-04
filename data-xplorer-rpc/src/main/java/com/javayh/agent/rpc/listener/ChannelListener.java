@@ -4,7 +4,7 @@ import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.cache.AgentCacheQueue;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.exception.ChannelListenerException;
-import com.javayh.agent.common.executor.AgentExecutor;
+import com.javayh.agent.common.executor.DataXplorerExecutor;
 import com.javayh.agent.common.listener.QueueListener;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +40,7 @@ public class ChannelListener {
             Integer period = transferRate.getPeriod();
             Integer initialDelay = transferRate.getInitialDelay();
             Boolean showLog = dataXplorerProperties.getShowLog();
-            AgentExecutor.singe().scheduleAtFixedRate(new QueueListener<>(
+            DataXplorerExecutor.singe().scheduleAtFixedRate(new QueueListener<>(
                             AgentCacheQueue.MSG_CACHE_DE, data -> sendData(ctx, data), dataThroughput, showLog),
                     initialDelay, period, TimeUnit.SECONDS);
         } catch (Exception e) {

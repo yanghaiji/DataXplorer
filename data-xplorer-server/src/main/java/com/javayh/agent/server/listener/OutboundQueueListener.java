@@ -33,7 +33,7 @@ public class OutboundQueueListener<T> implements Runnable {
         try {
             LinkedBlockingDeque<T> sendData = new LinkedBlockingDeque<>();
             // 获取一批需要推送的数据
-            queue.drainTo(sendData, dataThroughput);
+            queue.drainTo(sendData, calculateDataToProcess());
             if (CollectionUtils.isNotEmpty(sendData)) {
                 iService.saveBatch(sendData);
             }
@@ -44,5 +44,12 @@ public class OutboundQueueListener<T> implements Runnable {
             // 恢复中断状态
             Thread.currentThread().interrupt();
         }
+    }
+
+
+    private int calculateDataToProcess() {
+        // 根据队列长度和dataThroughput来计算需要处理的数据条数
+        int queueSize = queue.size();
+        return Math.min(queueSize, dataThroughput);
     }
 }

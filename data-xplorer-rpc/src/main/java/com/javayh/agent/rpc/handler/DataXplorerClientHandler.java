@@ -2,7 +2,7 @@ package com.javayh.agent.rpc.handler;
 
 import com.javayh.agent.common.cache.LoggerSendCache;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
-import com.javayh.agent.common.executor.AgentExecutor;
+import com.javayh.agent.common.executor.DataXplorerExecutor;
 import com.javayh.agent.rpc.listener.ChannelListener;
 import com.javayh.agent.rpc.network.DataXplorerClient;
 import io.netty.channel.ChannelHandlerContext;
@@ -35,7 +35,7 @@ public class DataXplorerClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         ctx.writeAndFlush(LoggerSendCache.build());
-        AgentExecutor.shutdown();
+        DataXplorerExecutor.shutdown();
         new ChannelListener().listener(ctx, dataXplorerProperties);
     }
 

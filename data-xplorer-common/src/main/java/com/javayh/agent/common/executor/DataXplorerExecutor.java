@@ -4,8 +4,7 @@ import com.javayh.agent.common.factory.AgentThreadFactory;
 import com.javayh.agent.common.handler.AgentRecoveryHandler;
 
 import java.util.Objects;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.*;
 
 /**
  * <p>
@@ -16,7 +15,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
  * @version 1.0.0
  * @since 2023-09-22
  */
-public class AgentExecutor {
+public class DataXplorerExecutor {
 
     private static ScheduledExecutorService executorService;
 
@@ -34,4 +33,8 @@ public class AgentExecutor {
         executorService = null;
     }
 
+
+    public static ExecutorService executor = new ThreadPoolExecutor(5, 10, 0L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<>(), new AgentThreadFactory(),
+            new AgentRecoveryHandler());
 }

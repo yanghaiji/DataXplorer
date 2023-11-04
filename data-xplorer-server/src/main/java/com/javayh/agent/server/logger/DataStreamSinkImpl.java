@@ -6,7 +6,9 @@ import com.javayh.agent.common.executor.OutboundExecutor;
 import com.javayh.agent.common.listener.OutboundCacheQueue;
 import com.javayh.agent.common.repository.DataStreamSink;
 import com.javayh.agent.server.listener.OutboundQueueListener;
+import com.javayh.agent.server.logger.entity.DataXplorerFrontendLoggerEntity;
 import com.javayh.agent.server.logger.entity.DataXplorerLoggerEntity;
+import com.javayh.agent.server.logger.service.DataXplorerFrontendLoggerService;
 import com.javayh.agent.server.logger.service.DataXplorerLoggerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
@@ -29,11 +31,9 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class DataStreamSinkImpl implements DataStreamSink<LoggerCollectorProto.LoggerCollector> {
 
-    private final DataXplorerLoggerService dataXplorerLoggerService;
+    public DataStreamSinkImpl(DataXplorerLoggerService dataXplorerLoggerService, DataXplorerProperties dataXplorerProperties,
+                              DataXplorerFrontendLoggerService frontendLoggerService) {
 
-    private final DataXplorerProperties dataXplorerProperties;
-
-    public DataStreamSinkImpl(DataXplorerLoggerService dataXplorerLoggerService, DataXplorerProperties dataXplorerProperties) {
         DataXplorerProperties.OutboundTransferRate outboundTransferRate = dataXplorerProperties.getOutboundTransferRate();
         Integer initialDelay = outboundTransferRate.getInitialDelay();
         Integer period = outboundTransferRate.getPeriod();
@@ -43,8 +43,9 @@ public class DataStreamSinkImpl implements DataStreamSink<LoggerCollectorProto.L
         singe.scheduleAtFixedRate(new OutboundQueueListener<DataXplorerLoggerEntity>(
                         OutboundCacheQueue.OUTBOUND_CACHE, dataThroughput, dataXplorerLoggerService),
                 initialDelay, period, TimeUnit.SECONDS);
-        this.dataXplorerLoggerService = dataXplorerLoggerService;
-        this.dataXplorerProperties = dataXplorerProperties;
+        singe.scheduleAtFixedRate(new OutboundQueueListener<DataXplorerFrontendLoggerEntity>(
+                        OutboundCacheQueue.DB_CACHE, dataThroughput, frontendLoggerService),
+                initialDelay, period, TimeUnit.SECONDS);
     }
 
     /**
@@ -58,10 +59,6 @@ public class DataStreamSinkImpl implements DataStreamSink<LoggerCollectorProto.L
             DataXplorerLoggerEntity dataXplorerLoggerEntity = new DataXplorerLoggerEntity();
             dataXplorerLoggerEntity.copy(data);
             OutboundCacheQueue.OUTBOUND_CACHE.offer(dataXplorerLoggerEntity);
-            Integer dataThroughput = dataXplorerProperties.getOutboundTransferRate().getDataThroughput();
-            if (OutboundCacheQueue.OUTBOUND_CACHE.size() >= dataThroughput) {
-                new OutboundQueueListener<DataXplorerLoggerEntity>(OutboundCacheQueue.OUTBOUND_CACHE, dataThroughput, dataXplorerLoggerService);
-            }
         }
     }
 

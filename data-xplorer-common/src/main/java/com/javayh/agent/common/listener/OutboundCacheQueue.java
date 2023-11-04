@@ -21,6 +21,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class OutboundCacheQueue {
 
     public static CacheQueue OUTBOUND_CACHE = new CacheQueue();
+    public static CacheQueue DB_CACHE = new CacheQueue();
 
 
     public static class CacheQueue<T> extends LinkedBlockingDeque<T> {

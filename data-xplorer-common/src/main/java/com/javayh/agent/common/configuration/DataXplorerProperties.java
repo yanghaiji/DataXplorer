@@ -69,9 +69,9 @@ public class DataXplorerProperties {
         private Integer initialDelay = 30;
 
         /**
-         * 每次执行的时间间隔 {@link java.util.concurrent.TimeUnit#SECONDS}
+         * 每次执行的时间间隔，这个值需要根据实际情况而调整，避免数据的堆积{@link java.util.concurrent.TimeUnit#SECONDS}
          */
-        private Integer period = 45;
+        private Integer period = 30;
 
         /**
          * 每次间隔内需要发送数据的总和
@@ -92,9 +92,9 @@ public class DataXplorerProperties {
         private Integer initialDelay = 60;
 
         /**
-         * 每次执行的时间间隔 {@link java.util.concurrent.TimeUnit#SECONDS}
+         * 每次执行的时间间隔，这个值需要根据实际情况而调整，避免数据的堆积{@link java.util.concurrent.TimeUnit#SECONDS}
          */
-        private Integer period = 300;
+        private Integer period = 30;
 
         /**
          * 每次保存的数据量
