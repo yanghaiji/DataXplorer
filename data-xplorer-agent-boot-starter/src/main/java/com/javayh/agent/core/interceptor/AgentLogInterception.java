@@ -9,6 +9,7 @@ import com.javayh.agent.common.constant.LoggerSourceType;
 import com.javayh.agent.common.constant.LoggerType;
 import com.javayh.agent.common.context.AppNamingContext;
 import com.javayh.agent.common.context.TraceContext;
+import com.javayh.agent.common.repository.UserInfoRepository;
 import com.javayh.agent.common.servlet.AgentHttpServletRequestWrapper;
 import com.javayh.agent.common.utils.IpUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -30,9 +31,11 @@ import java.util.Objects;
 public class AgentLogInterception implements HandlerInterceptor {
 
     private final AppNamingContext appNamingContext;
+    private final UserInfoRepository userInfoRepository;
 
-    public AgentLogInterception(AppNamingContext appNamingContext) {
+    public AgentLogInterception(AppNamingContext appNamingContext, UserInfoRepository userInfoRepository) {
         this.appNamingContext = appNamingContext;
+        this.userInfoRepository = userInfoRepository;
     }
 
     private static final Logger log = LoggerFactory.getLogger(AgentLogInterception.class);
@@ -69,6 +72,7 @@ public class AgentLogInterception implements HandlerInterceptor {
         if (StringUtils.isEmpty(traceId)) {
             traceId = request.getHeader("TraceId");
         }
+        String user = userInfoRepository.queryUserName();
         String ip = IpUtil.getIpAddr(request);
         String body = BODY.get();
         LoggerCollectorProto.LoggerCollector collector = LoggerCollectorProto.LoggerCollector.newBuilder()
@@ -85,7 +89,7 @@ public class AgentLogInterception implements HandlerInterceptor {
                 .setSourceType(LoggerSourceType.AUTOMATIC.value())
                 .setMessageType(MessageTypeProto.MessageType.LOGGER_COLLECTOR)
                 // TODO: 2023/9/19 根据实际的项目进行集成
-                .setCreateBy("javayh-agent")
+                .setCreateBy(user)
                 .build();
         if (Objects.nonNull(ex)) {
             collector.toBuilder().setErrorMsg(ExceptionUtils.getStackTrace(ex));

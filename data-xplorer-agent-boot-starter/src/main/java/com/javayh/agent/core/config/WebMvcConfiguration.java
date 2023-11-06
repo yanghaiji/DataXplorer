@@ -2,6 +2,7 @@ package com.javayh.agent.core.config;
 
 import cn.hutool.core.util.ReflectUtil;
 import com.javayh.agent.common.context.AppNamingContext;
+import com.javayh.agent.common.repository.UserInfoRepository;
 import com.javayh.agent.core.interceptor.AgentLogInterception;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,17 +28,19 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     private static final Logger log = LoggerFactory.getLogger(WebMvcConfiguration.class);
 
-    private AppNamingContext appNamingContext;
+    private final AppNamingContext appNamingContext;
+    private final UserInfoRepository userInfoRepository;
 
-    public WebMvcConfiguration(AppNamingContext appNamingContext) {
+    public WebMvcConfiguration(AppNamingContext appNamingContext, UserInfoRepository userInfoRepository) {
         this.appNamingContext = appNamingContext;
+        this.userInfoRepository = userInfoRepository;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration interceptorRegistration;
         // 拦截的请求路径
-        interceptorRegistration = registry.addInterceptor(new AgentLogInterception(appNamingContext)).addPathPatterns("/**");
+        interceptorRegistration = registry.addInterceptor(new AgentLogInterception(appNamingContext, userInfoRepository)).addPathPatterns("/**");
         try {
             if (log.isInfoEnabled()) {
                 log.info("耗时拦截器加载成功");

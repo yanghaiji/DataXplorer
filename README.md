@@ -92,16 +92,26 @@ data:
 
 # 日志
 
-## 收集方式
+## 后端收集方式
 
 ### 自动收集
 
 进行agent的配置进行自动的日志收集
 
 ```
-22:17:05.317 [nioEventLoopGroup-3-3] INFO com.javayh.agent.server.handler.AgentServerHandler - 客户端地址: /127.0.0.1:60163
-22:17:05.317 [nioEventLoopGroup-3-3] INFO com.javayh.agent.server.handler.AgentServerHandler - 客户端发送消息是: {"actionTime":7596,"appName":"agent-example","body":"sss=sss","createBy":"javayh-agent","createTime":123,"ip":"0:0:0:0:0:0:0:1","method":"GET","sourceType":0,"traceId":"b4d071fb-54c2-40f8-b025-f4362232f7d6","type":1,"url":"/agent/example/test/agent"}
-
+ {
+     "actionTime": 7596,
+     "appName": "agent-example",
+     "body": "sss=sss",
+     "createBy": "javayh-agent",
+     "createTime": 123,
+     "ip": "0:0:0:0:0:0:0:1",
+     "method": "GET",
+     "sourceType": 0,
+     "traceId": "b4d071fb-54c2-40f8-b025-f4362232f7d6",
+     "type": 1,
+     "url": "/agent/example/test/agent"
+ }
 ```
 
 ### 手动埋点
@@ -112,11 +122,49 @@ LoggerReceived.received("test自定义埋点", 1, "haiji", null);
 ```
 
 ```
-22:17:05.316 [nioEventLoopGroup-3-3] INFO com.javayh.agent.server.handler.AgentServerHandler - 客户端地址: /127.0.0.1:60163
-22:17:05.317 [nioEventLoopGroup-3-3] INFO com.javayh.agent.server.handler.AgentServerHandler - 客户端发送消息是: {"appName":"agent-example","body":"test自定义埋点","createBy":"haiji","createTime":123,"query":"test自定义埋点","sourceType":0,"traceId":"b4d071fb-54c2-40f8-b025-f4362232f7d6","type":1}
+{
+    "appName": "agent-example",
+    "body": "test自定义埋点",
+    "createBy": "haiji",
+    "createTime": 123,
+    "query": "test自定义埋点",
+    "sourceType": 0,
+    "traceId": "b4d071fb-54c2-40f8-b025-f4362232f7d6",
+    "type": 1
+}
+```
+
+## 前端日志收集
+
+提供了前端的收集接口
+- 统一的traceId 生成
+```
+localhost:9090/admin/api/fr/ev/trace
+```
+
+- 通过接口进行收集
+```
+localhost:9090/admin/api/fr/ev/collect
+
+{
+    "traceId": "8779d7cd-f86d-453c-b26b-6c86691cdb77",
+    "eventName": "Button Click",
+    "elementId": "myButton",
+    "elementType": "Button",
+    "pageUrl": "https://example.com/page1",
+    "userId": "123456",
+    "eventTime": "2023-11-03T12:00:00",
+    "sourceType": "web",
+    "others": {
+        "custom_param1": "value1",
+        "custom_param2": 42,
+        "custom_param3": true
+    }
+}
 
 ```
 
+将生成的`traceId` 进行前端的收集，如果前端的操作关联了后端的接口，也可以将`traceId`放入到后端的`header`里，这样就可以进行前端的同一个链路的追踪
 
 ## 日志格式
 
@@ -135,13 +183,5 @@ LoggerReceived.received("test自定义埋点", 1, "haiji", null);
     "type": 1,
     "url": "/agent/example/test/agent"
 }
-```
-
-
-```
-2023-08-19 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-19 [http-nio-8080-exec-2] INFO  c.j.a.example.web.ExampleController - ewohefo
-2023-08-19 [http-nio-8080-exec-2] INFO  c.j.a.c.i.AgentLogInterception - 埋点日志 : {"actionTime":23,"appName":"agent-example","body":"","createBy":"javayh-agent","createTime":null,"ip":"0:0:0:0:0:0:0:1","method":"GET","traceId":"bd861b19-242a-4846-838f-62519fd180b4","type":1,"url":"/agent/example/test/agent"}
-
 ```
 
