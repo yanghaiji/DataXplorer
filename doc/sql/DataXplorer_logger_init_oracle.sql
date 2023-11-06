@@ -96,4 +96,4 @@ FOR EACH ROW
 BEGIN
   SELECT data_xplorer_event_logger_seq.NEXTVAL INTO :new.id FROM dual;
 END;
-/
+
