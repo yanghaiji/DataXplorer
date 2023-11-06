@@ -67,3 +67,33 @@ BEGIN
   INTO :NEW.id
   FROM dual;
 END;
+
+
+CREATE SEQUENCE data_xplorer_event_logger_seq
+  START WITH 1
+  INCREMENT BY 1
+  NOCACHE
+  NOCYCLE;
+
+
+CREATE TABLE data_xplorer_frontend_event_logger (
+  id NUMBER PRIMARY KEY,
+  trace_id VARCHAR2(255 CHAR) NOT NULL,
+  event_name VARCHAR2(255 CHAR) NOT NULL,
+  element_id VARCHAR2(255 CHAR),
+  element_type VARCHAR2(255 CHAR),
+  page_url CLOB,
+  user_id VARCHAR2(255 CHAR),
+  event_time TIMESTAMP,
+  source_type VARCHAR2(255 CHAR),
+  others_body CLOB,
+  create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE OR REPLACE TRIGGER data_xplorer_event_logger_trigger
+BEFORE INSERT ON data_xplorer_frontend_event_logger
+FOR EACH ROW
+BEGIN
+  SELECT data_xplorer_event_logger_seq.NEXTVAL INTO :new.id FROM dual;
+END;
+

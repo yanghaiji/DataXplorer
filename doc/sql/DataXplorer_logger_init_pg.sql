@@ -43,3 +43,18 @@ INSERT INTO data_xplorer_dict_common (dict_code, dict_desc, category_code, categ
 ('1', 'interceptor', 'request_type', 'data_xplorer_logger', 999, 'STRING', NULL, 'request_type', '0', '0', '2023-09-25 05:16:13', '2023-09-25 05:19:36', 0),
 ('0', 'automatic', 'source_type', 'data_xplorer_logger', 999, 'STRING', NULL, 'source_type', '0', '0', '2023-09-25 05:16:13', '2023-09-25 05:16:22', 0),
 ('1', 'manual', 'source_type', 'data_xplorer_logger', 999, 'STRING', NULL, 'source_type', '0', '0', '2023-09-25 05:16:13', '2023-09-25 05:16:22', 0);
+
+
+CREATE TABLE data_xplorer_frontend_event_logger (
+  id serial PRIMARY KEY,
+  trace_id character varying(255) NOT NULL,
+  event_name character varying(255) NOT NULL,
+  element_id character varying(255),
+  element_type character varying(255),
+  page_url text,
+  user_id character varying(255),
+  event_time timestamp,
+  source_type character varying(255),
+  others_body text,
+  create_time timestamp DEFAULT current_timestamp
+);
