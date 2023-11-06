@@ -35,7 +35,7 @@ public interface DataXplorerLoggerMapper extends BaseMapper<DataXplorerLoggerEnt
 
     @Select(
             "SELECT aa.app_name ,aa.total,bb.total/aa.total * 100 rate FROM  (SELECT a.app_name ,count(a.app_name) total  FROM data_xplorer_logger a GROUP BY a.app_name ) aa " +
-                    "JOIN   (SELECT b.app_name ,count(b.app_name) total FROM data_xplorer_logger b WHERE b.error_msg is not null GROUP BY b.app_name )  bb ON bb.app_name= aa.app_name")
+                    "JOIN   (SELECT b.app_name ,count(b.app_name) total FROM data_xplorer_logger b WHERE b.error_msg <> '' GROUP BY b.app_name )  bb ON bb.app_name= aa.app_name")
     List<MicroservicesDataDTO> serviceErrorRate();
 
     List<MicroservicesDataDTO> dataGrowth(@Param("dbType") String dbType);

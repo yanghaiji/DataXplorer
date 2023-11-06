@@ -1,10 +1,10 @@
 package com.javayh.agent.core.config;
 
 import com.javayh.agent.common.context.AppNamingContext;
+import com.javayh.agent.common.repository.UserInfoRepository;
 import com.javayh.agent.common.servlet.AgentChannelFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,15 +24,20 @@ public class SpringInterceptorConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(SpringInterceptorConfiguration.class);
 
-    @Autowired
-    private AppNamingContext appNamingContext;
+    private final AppNamingContext appNamingContext;
+    private final UserInfoRepository userInfoRepository;
+
+    public SpringInterceptorConfiguration(AppNamingContext appNamingContext, UserInfoRepository userInfoRepository) {
+        this.appNamingContext = appNamingContext;
+        this.userInfoRepository = userInfoRepository;
+    }
 
     @Bean
     public WebMvcConfiguration addWebInterceptor() {
         if (log.isInfoEnabled()) {
             log.info("Define web interceptors RequestWebInterceptorConfiguration");
         }
-        return new WebMvcConfiguration(appNamingContext);
+        return new WebMvcConfiguration(appNamingContext, userInfoRepository);
     }
 
     @Bean
@@ -40,10 +45,5 @@ public class SpringInterceptorConfiguration {
         return new AgentChannelFilter();
     }
 
-//    @Bean(AgentConstant.AGENT_DISPATCHER_SERVLET)
-//    @Qualifier(DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_BEAN_NAME)
-//    public DispatcherServlet dispatcherServlet() {
-//        return new AgentDispatcherServlet();
-//    }
 
 }
