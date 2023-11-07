@@ -1,6 +1,7 @@
 package com.javayh.agent.core.config;
 
 import cn.hutool.core.util.ReflectUtil;
+import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.context.AppNamingContext;
 import com.javayh.agent.common.repository.UserInfoRepository;
 import com.javayh.agent.core.interceptor.AgentLogInterception;
@@ -30,17 +31,21 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     private final AppNamingContext appNamingContext;
     private final UserInfoRepository userInfoRepository;
+    private final DataXplorerProperties dataXplorerProperties;
 
-    public WebMvcConfiguration(AppNamingContext appNamingContext, UserInfoRepository userInfoRepository) {
+    public WebMvcConfiguration(AppNamingContext appNamingContext, UserInfoRepository userInfoRepository,
+                               DataXplorerProperties dataXplorerProperties) {
         this.appNamingContext = appNamingContext;
         this.userInfoRepository = userInfoRepository;
+        this.dataXplorerProperties = dataXplorerProperties;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration interceptorRegistration;
         // 拦截的请求路径
-        interceptorRegistration = registry.addInterceptor(new AgentLogInterception(appNamingContext, userInfoRepository)).addPathPatterns("/**");
+        interceptorRegistration = registry.addInterceptor(new AgentLogInterception(appNamingContext, userInfoRepository, dataXplorerProperties))
+                .addPathPatterns("/**");
         try {
             if (log.isInfoEnabled()) {
                 log.info("耗时拦截器加载成功");
@@ -52,18 +57,5 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         } catch (Exception e) {
             log.error("耗时拦截器加载失败 >>>", e);
         }
-        // 拦截的请求路径
-//        interceptorRegistration = registry.addInterceptor(new WebInterceptor()).addPathPatterns("/**");
-//        try{
-//            if (log.isInfoEnabled()) {
-//                log.info("web拦截器加载成功");
-//            }
-//            Method method = ReflectUtil.getMethod(InterceptorRegistration.class, "order", Integer.class);
-//            if (Objects.nonNull(method)){
-//                method.invoke(interceptorRegistration, Ordered.HIGHEST_PRECEDENCE);
-//            }
-//        } catch (Exception e){
-//            log.error("web拦截器加载失败 >>>",e);
-//        }
     }
 }

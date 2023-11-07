@@ -7,6 +7,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 
+import java.util.List;
+
 /**
  * <p>
  * 配置类
@@ -45,6 +47,11 @@ public class DataXplorerProperties {
     private Boolean showLog = true;
 
     /**
+     * 需要排除的url
+     */
+    private List<String> excludeUrl;
+
+    /**
      * 服务的配速
      * <p>
      * 这里的配置需要注意配置，需要根据实际的网速和资源进行合理的配比
@@ -54,6 +61,9 @@ public class DataXplorerProperties {
     @NonNull
     private InboundTransferRate inboundTransferRate;
 
+    /**
+     * 数据消费的速率，这里需要根据项目的实际内存进行分析，避免消费过慢导致的内存剧增
+     */
     @NonNull
     private OutboundTransferRate outboundTransferRate;
 

@@ -1,5 +1,6 @@
 package com.javayh.agent.core.config;
 
+import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.context.AppNamingContext;
 import com.javayh.agent.common.repository.UserInfoRepository;
 import com.javayh.agent.common.servlet.AgentChannelFilter;
@@ -26,10 +27,13 @@ public class SpringInterceptorConfiguration {
 
     private final AppNamingContext appNamingContext;
     private final UserInfoRepository userInfoRepository;
+    private final DataXplorerProperties dataXplorerProperties;
 
-    public SpringInterceptorConfiguration(AppNamingContext appNamingContext, UserInfoRepository userInfoRepository) {
+    public SpringInterceptorConfiguration(AppNamingContext appNamingContext, UserInfoRepository userInfoRepository,
+                                          DataXplorerProperties dataXplorerProperties) {
         this.appNamingContext = appNamingContext;
         this.userInfoRepository = userInfoRepository;
+        this.dataXplorerProperties = dataXplorerProperties;
     }
 
     @Bean
@@ -37,7 +41,7 @@ public class SpringInterceptorConfiguration {
         if (log.isInfoEnabled()) {
             log.info("Define web interceptors RequestWebInterceptorConfiguration");
         }
-        return new WebMvcConfiguration(appNamingContext, userInfoRepository);
+        return new WebMvcConfiguration(appNamingContext, userInfoRepository,dataXplorerProperties);
     }
 
     @Bean
