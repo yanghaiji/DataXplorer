@@ -18,5 +18,8 @@ data:
       data-throughput: 100
       period: 45
       initial-delay: 30
+    exclude-url:
+      - /agent/example/test/agent
+      - /agent/example/test/agent
 
 
