@@ -1,6 +1,8 @@
 package com.javayh.agent.common.factory;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.protobuf.util.Timestamps;
+import com.javayh.agent.common.bean.proto.CustomTrackLoggerProto;
 import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.bean.proto.MessageTypeProto;
 import com.javayh.agent.common.cache.AgentCacheQueue;
@@ -10,6 +12,7 @@ import com.javayh.agent.common.context.SpringBeanContext;
 import com.javayh.agent.common.context.TraceContext;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -32,26 +35,26 @@ public class LoggerFactory {
      * @param ex        异常
      * @return {@link LoggerCollectorProto}
      */
-    public LoggerCollectorProto.LoggerCollector createBean(String parameter, Integer type, String createBy, Throwable ex) {
+    public CustomTrackLoggerProto.CustomTrackLogger createBean(Map<String,Object> parameter, String type, String createBy, Throwable ex) {
         AppNamingContext namingContext = SpringBeanContext.getBean(AppNamingContext.class);
-        LoggerCollectorProto.LoggerCollector loggerCollector = LoggerCollectorProto.LoggerCollector.newBuilder()
-                .setQuery(parameter)
-                .setBody(parameter)
-                .setType(type)
-                .setCreateBy(createBy)
+        CustomTrackLoggerProto.CustomTrackLogger.Builder loggerBuilder = CustomTrackLoggerProto.CustomTrackLogger.newBuilder()
                 .setAppName(namingContext.getAppNaming())
+                .setOperationType(type)
+                .setCreateBy(createBy)
                 .setMessageType(MessageTypeProto.MessageType.LOGGER_COLLECTOR)
                 .setTraceId(TraceContext.getTraceId())
-                .setCreateTime(Timestamps.fromMillis(System.currentTimeMillis()))
-                .setSourceType(LoggerSourceType.AUTOMATIC.value())
-                .build();
+                .setCreateTime(Timestamps.fromMillis(System.currentTimeMillis()));
 
-        if (Objects.nonNull(ex)) {
-            loggerCollector.toBuilder().setErrorMsg(ExceptionUtils.getStackTrace(ex));
+        // 将 parameter 存入 KeyValues 字段
+        if (parameter != null && !parameter.isEmpty()) {
+
+            loggerBuilder.setRequestParameter(JSONObject.toJSONString(parameter));
         }
-        AgentCacheQueue.MSG_CACHE_DE.offer(loggerCollector);
-        return loggerCollector;
+        // 处理异常信息
+        if (Objects.nonNull(ex)) {
+            loggerBuilder.setErrorMsg(ExceptionUtils.getStackTrace(ex));
+        }
+        return loggerBuilder.build();
+
     }
-
-
 }

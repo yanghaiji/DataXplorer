@@ -1,0 +1,58 @@
+syntax = "proto3";
+package com.javayh.agent.rpc;
+
+option java_outer_classname = "CustomTrackLoggerProto";
+
+import "google/protobuf/timestamp.proto";
+import "MessageType.proto";
+
+message CustomTrackLogger {
+
+    MessageType messageType = 1;
+
+    int64 id = 2;
+    /**
+     * 请求的trace id
+     */
+    string traceId = 3;
+    /**
+     * 实际业务的操作，比如 saveOrder ， updateOrder ，
+     */
+    string operationType = 4;
+
+    /** 请求的参数，string*/
+    string requestParameter = 5;
+
+    /**
+     * 服务的名字
+     */
+    string appName = 6;
+
+    /**
+     * 创建的时间
+     */
+    google.protobuf.Timestamp createTime = 7;
+
+    /**
+     * 创建人
+     * <p>
+     * 这里需要结合自己的开发脚手架进行创建人
+     */
+    string createBy = 8;
+
+    /**
+     * 异常信息
+     */
+    string errorMsg = 9;
+    /**
+     * 是否忽略此消息，消息传递时判断是否需要继续向下传递
+     */
+    bool ignore = 10;
+
+
+
+    message KeyValues {
+        string key = 1;
+        string value = 2;
+    }
+}
