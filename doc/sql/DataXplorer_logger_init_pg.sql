@@ -58,3 +58,15 @@ CREATE TABLE data_xplorer_frontend_event_logger (
   others_body text,
   create_time timestamp DEFAULT current_timestamp
 );
+
+CREATE TABLE data_xplorer_custom_track (
+    id SERIAL PRIMARY KEY,
+    trace_id VARCHAR(255),
+    operation_type INTEGER,
+    request_parameter TEXT,
+    app_name VARCHAR(255),
+    create_time TIMESTAMP,
+    create_by VARCHAR(255),
+    error_msg text,
+    insert_time TIMESTAMP
+);

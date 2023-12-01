@@ -1,5 +1,6 @@
 package com.javayh.agent.core.config;
 
+import com.javayh.agent.common.factory.LoggerFactory;
 import com.javayh.agent.core.runner.AgentClientRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

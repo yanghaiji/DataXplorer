@@ -1,19 +1,24 @@
 package com.javayh.agent.server.logger;
 
+import com.javayh.agent.common.bean.proto.CustomTrackLoggerProto;
 import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.executor.OutboundExecutor;
 import com.javayh.agent.common.listener.OutboundCacheQueue;
 import com.javayh.agent.common.repository.DataStreamSink;
 import com.javayh.agent.server.listener.OutboundQueueListener;
+import com.javayh.agent.server.logger.dao.DataXploreCustomTrackMapper;
+import com.javayh.agent.server.logger.entity.DataXplorerCustomTrackEntity;
 import com.javayh.agent.server.logger.entity.DataXplorerFrontendLoggerEntity;
 import com.javayh.agent.server.logger.entity.DataXplorerLoggerEntity;
 import com.javayh.agent.server.logger.service.DataXplorerFrontendLoggerService;
 import com.javayh.agent.server.logger.service.DataXplorerLoggerService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -29,7 +34,10 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Primary
 @Service
-public class DataStreamSinkImpl implements DataStreamSink<LoggerCollectorProto.LoggerCollector> {
+public class DataStreamSinkImpl<T> implements DataStreamSink<T> {
+
+    @Resource
+    private DataXploreCustomTrackMapper customTrackMapper;
 
     public DataStreamSinkImpl(DataXplorerLoggerService dataXplorerLoggerService, DataXplorerProperties dataXplorerProperties,
                               DataXplorerFrontendLoggerService frontendLoggerService) {
@@ -54,11 +62,18 @@ public class DataStreamSinkImpl implements DataStreamSink<LoggerCollectorProto.L
      * @param data 原始数据
      */
     @Override
-    public void sink(LoggerCollectorProto.LoggerCollector data) {
-        if (!data.getIgnore()) {
-            DataXplorerLoggerEntity dataXplorerLoggerEntity = new DataXplorerLoggerEntity();
-            dataXplorerLoggerEntity.copy(data);
-            OutboundCacheQueue.OUTBOUND_CACHE.offer(dataXplorerLoggerEntity);
+    public void sink(T data) {
+        if (data instanceof LoggerCollectorProto.LoggerCollector) {
+            boolean ignore = ((LoggerCollectorProto.LoggerCollector) data).getIgnore();
+            if (!ignore) {
+                DataXplorerLoggerEntity dataXplorerLoggerEntity = new DataXplorerLoggerEntity();
+                dataXplorerLoggerEntity.copy((LoggerCollectorProto.LoggerCollector)data);
+                OutboundCacheQueue.OUTBOUND_CACHE.offer(dataXplorerLoggerEntity);
+            }
+        }else if(data instanceof CustomTrackLoggerProto.CustomTrackLogger){
+            DataXplorerCustomTrackEntity dataXplorerLoggerEntity = new DataXplorerCustomTrackEntity();
+            dataXplorerLoggerEntity.copy((CustomTrackLoggerProto.CustomTrackLogger)data);
+            customTrackMapper.insert(dataXplorerLoggerEntity);
         }
     }
 

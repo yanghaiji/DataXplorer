@@ -95,7 +95,6 @@ public class AgentLogInterception implements HandlerInterceptor {
                     .setTraceId(StringUtils.isEmpty(traceId) ? TraceContext.getTraceId() : traceId)
                     .setSourceType(LoggerSourceType.AUTOMATIC.value())
                     .setMessageType(MessageTypeProto.MessageType.LOGGER_COLLECTOR)
-                    // TODO: 2023/9/19 根据实际的项目进行集成
                     .setCreateBy(user)
                     .build();
             if (Objects.nonNull(ex)) {

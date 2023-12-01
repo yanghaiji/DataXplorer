@@ -97,3 +97,22 @@ BEGIN
   SELECT data_xplorer_event_logger_seq.NEXTVAL INTO :new.id FROM dual;
 END;
 
+-- 创建序列
+CREATE SEQUENCE custom_track_sequence
+  START WITH 1
+  INCREMENT BY 1
+  NOCACHE
+  NOCYCLE;
+
+-- 创建表并使用序列生成主键
+CREATE TABLE data_xplorer_custom_track (
+    id NUMBER DEFAULT custom_track_sequence.NEXTVAL PRIMARY KEY,
+    trace_id VARCHAR2(255),
+    operation_type NUMBER,
+    request_parameter CLOB,
+    app_name VARCHAR2(255),
+    create_time TIMESTAMP,
+    create_by VARCHAR2(255),
+    error_msg CLOB,
+    insert_time TIMESTAMP
+);
