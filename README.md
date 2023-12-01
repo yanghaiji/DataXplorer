@@ -12,8 +12,8 @@
 
 | **仓库**   | **URL**                                                      |
 | ---------- | ------------------------------------------------------------ |
-| **Github** | **[https://github.com/yanghaiji/DataXplorer](https://github.com/yanghaiji/DataXplorer)** |
-| **Gitee**  | **[https://gitee.com/YangHaiJi/DataXplorer](https://gitee.com/YangHaiJi/DataXplorer)** |
+| **Github** | [https://github.com/yanghaiji/DataXplorer](https://github.com/yanghaiji/DataXplorer) |
+| **Gitee**  | [https://gitee.com/YangHaiJi/DataXplorer](https://gitee.com/YangHaiJi/DataXplorer) |
 
 
 github上为最新版本，gitee上会略微滞后一些 如果对您有所帮助可以给个star， ✨不迷路，您的star是我们编写的动力 🙏
@@ -117,22 +117,41 @@ data:
 ### 手动埋点
 
 通过使用`LoggerReceived`进行自定义的埋点
+- 方式一
 ```
-LoggerReceived.received("test自定义埋点", 1, "haiji", null);
-```
+    @GetMapping(value = "/agent")
+    public String getName() {
+        log.info("ewohefo");
+        Map<String,Object> parameter = new HashMap<>();
+        parameter.put("id",1);
+        parameter.put("name","test"+1);
+        LoggerReceived.received(parameter, CrudEnum.SAVE, null);
+        return "JavaYh Agent";
+    }
+
 
 ```
-{
-    "appName": "agent-example",
-    "body": "test自定义埋点",
-    "createBy": "haiji",
-    "createTime": 123,
-    "query": "test自定义埋点",
-    "sourceType": 0,
-    "traceId": "b4d071fb-54c2-40f8-b025-f4362232f7d6",
-    "type": 1
-}
+
+- 方式二
 ```
+    @PostMapping(value = "/agent")
+    public String getNam3(@RequestBody Map<String, Object> map) {
+        TrackLogger build = TrackLogger.builder().parameter(map).type(CustomEnum.EXAMPLE).build();
+        try {
+            Object type = map.get("type");
+            if (type.equals("ex")) {
+                Integer.valueOf((Integer) type);
+            }
+        }catch (Exception e){
+            build.setThrowable(e);
+        }finally {
+            LoggerReceived.received(build);
+        }
+
+        return "JavaYh Agent";
+    }
+```
+
 
 ## 前端日志收集
 
@@ -165,23 +184,4 @@ localhost:9090/admin/api/fr/ev/collect
 ```
 
 将生成的`traceId` 进行前端的收集，如果前端的操作关联了后端的接口，也可以将`traceId`放入到后端的`header`里，这样就可以进行前端的同一个链路的追踪
-
-## 日志格式
-
-目前只收集了一些基本信息，大家可以在`LoggerCollector`进行扩展，丰富自己的日志格式
-
-```metadata json
-{
-    "actionTime": 23,
-    "appName": "agent-example",
-    "body": "",
-    "createBy": "javayh-agent",
-    "createTime": null,
-    "ip": "0:0:0:0:0:0:0:1",
-    "method": "GET",
-    "traceId": "bd861b19-242a-4846-838f-62519fd180b4",
-    "type": 1,
-    "url": "/agent/example/test/agent"
-}
-```
 
