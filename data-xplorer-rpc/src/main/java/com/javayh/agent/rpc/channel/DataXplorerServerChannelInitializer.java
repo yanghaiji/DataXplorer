@@ -3,6 +3,7 @@ package com.javayh.agent.rpc.channel;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.rpc.encode.LoggerCollectorEncoder;
 import com.javayh.agent.rpc.encode.MessageDecoder;
+import com.javayh.agent.rpc.handler.DataXplorerCustomTrackHandler;
 import com.javayh.agent.rpc.handler.DataXplorerRegistryServerHandler;
 import com.javayh.agent.rpc.handler.DataXplorerServerHandler;
 import io.netty.channel.Channel;
@@ -52,6 +53,7 @@ public class DataXplorerServerChannelInitializer extends ChannelInitializer<Sock
                 .addLast(new LoggerCollectorEncoder())
                 .addLast(new MessageDecoder())
                 .addLast(new DataXplorerRegistryServerHandler(dataXplorerProperties))
+                .addLast(new DataXplorerCustomTrackHandler(dataXplorerProperties))
                 .addLast(new DataXplorerServerHandler(dataXplorerProperties));
     }
 }

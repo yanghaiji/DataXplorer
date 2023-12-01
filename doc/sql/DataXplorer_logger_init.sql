@@ -71,4 +71,16 @@ CREATE TABLE data_xplorer_frontend_event_logger (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
+CREATE TABLE data_xplorer_custom_track (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    trace_id VARCHAR(255),
+    operation_type INT,
+    request_parameter TEXT,
+    app_name VARCHAR(255),
+    create_time TIMESTAMP,
+    create_by VARCHAR(255),
+    error_msg text,
+    insert_time TIMESTAMP
+);
+
 SET FOREIGN_KEY_CHECKS = 1;

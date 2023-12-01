@@ -1,6 +1,7 @@
 package com.javayh.agent.rpc.channel;
 
 import com.javayh.agent.common.configuration.DataXplorerProperties;
+import com.javayh.agent.rpc.encode.CustomTrackEncoder;
 import com.javayh.agent.rpc.encode.LoggerCollectorEncoder;
 import com.javayh.agent.rpc.encode.MessageBodyEncoder;
 import com.javayh.agent.rpc.handler.DataXplorerClientHandler;
@@ -60,6 +61,7 @@ public class DataXplorerChannelInitializer extends ChannelInitializer<SocketChan
                 .addLast(new MessageBodyEncoder())
                 .addLast(new DataXplorerRegistryClientHandler(loggerAgentClient, dataXplorerProperties))
                 .addLast(new LoggerCollectorEncoder())
+                .addLast(new CustomTrackEncoder())
                 .addLast(new DataXplorerClientHandler(loggerAgentClient, dataXplorerProperties));
 
 

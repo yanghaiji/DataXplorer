@@ -8,5 +8,6 @@ enum MessageType {
 
     LOGGER_COLLECTOR = 0;
     MESSAGE_BODY = 1;
+    CUSTOM_TRACK = 2;
 
 }

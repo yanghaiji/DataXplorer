@@ -1,5 +1,6 @@
 package com.javayh.agent.rpc.encode;
 
+import com.javayh.agent.common.bean.proto.CustomTrackLoggerProto;
 import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.bean.proto.MessageBodyProto;
 import com.javayh.agent.common.bean.proto.MessageTypeProto;
@@ -56,6 +57,11 @@ public class MessageDecoder extends ByteToMessageDecoder {
                     // 读取 MessageBodyProto.MessageBody
                     MessageBodyProto.MessageBody messageBody = MessageBodyProto.MessageBody.parseFrom(messageData);
                     out.add(messageBody);
+                }
+                else if (messageType == MessageTypeProto.MessageType.CUSTOM_TRACK) {
+                    // 读取 CustomTrackLoggerProto.CustomTrackLogger
+                    CustomTrackLoggerProto.CustomTrackLogger customTrackLogger = CustomTrackLoggerProto.CustomTrackLogger.parseFrom(messageData);
+                    out.add(customTrackLogger);
                 }
             }
         } catch (Exception e) {

@@ -63,21 +63,10 @@ public final class CustomTrackLoggerProto {
      * 实际业务的操作，比如 saveOrder ， updateOrder ，
      * </pre>
      *
-     * <code>string operationType = 4;</code>
+     * <code>int32 operationType = 4;</code>
      * @return The operationType.
      */
-    java.lang.String getOperationType();
-    /**
-     * <pre>
-     **
-     * 实际业务的操作，比如 saveOrder ， updateOrder ，
-     * </pre>
-     *
-     * <code>string operationType = 4;</code>
-     * @return The bytes for operationType.
-     */
-    com.google.protobuf.ByteString
-        getOperationTypeBytes();
+    int getOperationType();
 
     /**
      * <pre>
@@ -225,7 +214,6 @@ public final class CustomTrackLoggerProto {
     private CustomTrackLogger() {
       messageType_ = 0;
       traceId_ = "";
-      operationType_ = "";
       requestParameter_ = "";
       appName_ = "";
       createBy_ = "";
@@ -279,10 +267,9 @@ public final class CustomTrackLoggerProto {
               traceId_ = s;
               break;
             }
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 32: {
 
-              operationType_ = s;
+              operationType_ = input.readInt32();
               break;
             }
             case 42: {
@@ -1156,51 +1143,19 @@ public final class CustomTrackLoggerProto {
     }
 
     public static final int OPERATIONTYPE_FIELD_NUMBER = 4;
-    private volatile java.lang.Object operationType_;
+    private int operationType_;
     /**
      * <pre>
      **
      * 实际业务的操作，比如 saveOrder ， updateOrder ，
      * </pre>
      *
-     * <code>string operationType = 4;</code>
+     * <code>int32 operationType = 4;</code>
      * @return The operationType.
      */
     @java.lang.Override
-    public java.lang.String getOperationType() {
-      java.lang.Object ref = operationType_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        operationType_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     **
-     * 实际业务的操作，比如 saveOrder ， updateOrder ，
-     * </pre>
-     *
-     * <code>string operationType = 4;</code>
-     * @return The bytes for operationType.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getOperationTypeBytes() {
-      java.lang.Object ref = operationType_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        operationType_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getOperationType() {
+      return operationType_;
     }
 
     public static final int REQUESTPARAMETER_FIELD_NUMBER = 5;
@@ -1477,8 +1432,8 @@ public final class CustomTrackLoggerProto {
       if (!getTraceIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, traceId_);
       }
-      if (!getOperationTypeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, operationType_);
+      if (operationType_ != 0) {
+        output.writeInt32(4, operationType_);
       }
       if (!getRequestParameterBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, requestParameter_);
@@ -1518,8 +1473,9 @@ public final class CustomTrackLoggerProto {
       if (!getTraceIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, traceId_);
       }
-      if (!getOperationTypeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, operationType_);
+      if (operationType_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, operationType_);
       }
       if (!getRequestParameterBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, requestParameter_);
@@ -1561,8 +1517,8 @@ public final class CustomTrackLoggerProto {
           != other.getId()) return false;
       if (!getTraceId()
           .equals(other.getTraceId())) return false;
-      if (!getOperationType()
-          .equals(other.getOperationType())) return false;
+      if (getOperationType()
+          != other.getOperationType()) return false;
       if (!getRequestParameter()
           .equals(other.getRequestParameter())) return false;
       if (!getAppName()
@@ -1597,7 +1553,7 @@ public final class CustomTrackLoggerProto {
       hash = (37 * hash) + TRACEID_FIELD_NUMBER;
       hash = (53 * hash) + getTraceId().hashCode();
       hash = (37 * hash) + OPERATIONTYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getOperationType().hashCode();
+      hash = (53 * hash) + getOperationType();
       hash = (37 * hash) + REQUESTPARAMETER_FIELD_NUMBER;
       hash = (53 * hash) + getRequestParameter().hashCode();
       hash = (37 * hash) + APPNAME_FIELD_NUMBER;
@@ -1752,7 +1708,7 @@ public final class CustomTrackLoggerProto {
 
         traceId_ = "";
 
-        operationType_ = "";
+        operationType_ = 0;
 
         requestParameter_ = "";
 
@@ -1868,9 +1824,8 @@ public final class CustomTrackLoggerProto {
           traceId_ = other.traceId_;
           onChanged();
         }
-        if (!other.getOperationType().isEmpty()) {
-          operationType_ = other.operationType_;
-          onChanged();
+        if (other.getOperationType() != 0) {
+          setOperationType(other.getOperationType());
         }
         if (!other.getRequestParameter().isEmpty()) {
           requestParameter_ = other.requestParameter_;
@@ -2109,27 +2064,19 @@ public final class CustomTrackLoggerProto {
         return this;
       }
 
-      private java.lang.Object operationType_ = "";
+      private int operationType_ ;
       /**
        * <pre>
        **
        * 实际业务的操作，比如 saveOrder ， updateOrder ，
        * </pre>
        *
-       * <code>string operationType = 4;</code>
+       * <code>int32 operationType = 4;</code>
        * @return The operationType.
        */
-      public java.lang.String getOperationType() {
-        java.lang.Object ref = operationType_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          operationType_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      @java.lang.Override
+      public int getOperationType() {
+        return operationType_;
       }
       /**
        * <pre>
@@ -2137,38 +2084,12 @@ public final class CustomTrackLoggerProto {
        * 实际业务的操作，比如 saveOrder ， updateOrder ，
        * </pre>
        *
-       * <code>string operationType = 4;</code>
-       * @return The bytes for operationType.
-       */
-      public com.google.protobuf.ByteString
-          getOperationTypeBytes() {
-        java.lang.Object ref = operationType_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          operationType_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       **
-       * 实际业务的操作，比如 saveOrder ， updateOrder ，
-       * </pre>
-       *
-       * <code>string operationType = 4;</code>
+       * <code>int32 operationType = 4;</code>
        * @param value The operationType to set.
        * @return This builder for chaining.
        */
-      public Builder setOperationType(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      public Builder setOperationType(int value) {
+        
         operationType_ = value;
         onChanged();
         return this;
@@ -2179,33 +2100,12 @@ public final class CustomTrackLoggerProto {
        * 实际业务的操作，比如 saveOrder ， updateOrder ，
        * </pre>
        *
-       * <code>string operationType = 4;</code>
+       * <code>int32 operationType = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearOperationType() {
         
-        operationType_ = getDefaultInstance().getOperationType();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       **
-       * 实际业务的操作，比如 saveOrder ， updateOrder ，
-       * </pre>
-       *
-       * <code>string operationType = 4;</code>
-       * @param value The bytes for operationType to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOperationTypeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        operationType_ = value;
+        operationType_ = 0;
         onChanged();
         return this;
       }
@@ -2905,7 +2805,7 @@ public final class CustomTrackLoggerProto {
       "\032\021MessageType.proto\"\267\002\n\021CustomTrackLogge" +
       "r\0226\n\013messageType\030\001 \001(\0162!.com.javayh.agen" +
       "t.rpc.MessageType\022\n\n\002id\030\002 \001(\003\022\017\n\007traceId" +
-      "\030\003 \001(\t\022\025\n\roperationType\030\004 \001(\t\022\030\n\020request" +
+      "\030\003 \001(\t\022\025\n\roperationType\030\004 \001(\005\022\030\n\020request" +
       "Parameter\030\005 \001(\t\022\017\n\007appName\030\006 \001(\t\022.\n\ncrea" +
       "teTime\030\007 \001(\0132\032.google.protobuf.Timestamp" +
       "\022\020\n\010createBy\030\010 \001(\t\022\020\n\010errorMsg\030\t \001(\t\022\016\n\006" +

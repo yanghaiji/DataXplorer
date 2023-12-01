@@ -1,6 +1,5 @@
 package com.javayh.agent.rpc.listener;
 
-import com.javayh.agent.common.bean.proto.LoggerCollectorProto;
 import com.javayh.agent.common.cache.AgentCacheQueue;
 import com.javayh.agent.common.configuration.DataXplorerProperties;
 import com.javayh.agent.common.exception.ChannelListenerException;
@@ -43,6 +42,9 @@ public class ChannelListener {
             DataXplorerExecutor.singe().scheduleAtFixedRate(new QueueListener<>(
                             AgentCacheQueue.MSG_CACHE_DE, data -> sendData(ctx, data), dataThroughput, showLog),
                     initialDelay, period, TimeUnit.SECONDS);
+            DataXplorerExecutor.singe().scheduleAtFixedRate(new QueueListener<>(
+                            AgentCacheQueue.CUS_TRACK_CACHE_DE, data -> sendData(ctx, data), dataThroughput, showLog),
+                    initialDelay, period, TimeUnit.SECONDS);
         } catch (Exception e) {
             log.error("listener {}", ExceptionUtils.getStackTrace(e));
         }
@@ -55,7 +57,7 @@ public class ChannelListener {
      * @param ctx  channel 上下文
      * @param data 数据
      */
-    private void sendData(ChannelHandlerContext ctx, LoggerCollectorProto.LoggerCollector data) {
+    private void sendData(ChannelHandlerContext ctx, Object data) {
         if (Objects.nonNull(data)) {
             try {
                 ctx.channel().eventLoop().execute(() -> {

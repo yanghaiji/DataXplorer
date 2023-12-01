@@ -18,7 +18,7 @@ message CustomTrackLogger {
     /**
      * 实际业务的操作，比如 saveOrder ， updateOrder ，
      */
-    string operationType = 4;
+    int32 operationType = 4;
 
     /** 请求的参数，string*/
     string requestParameter = 5;

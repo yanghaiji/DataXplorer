@@ -21,7 +21,7 @@ public class DataXplorerExecutor {
 
     public static ScheduledExecutorService singe() {
         if (Objects.isNull(executorService)) {
-            executorService = new ScheduledThreadPoolExecutor(1, new AgentThreadFactory(), new AgentRecoveryHandler());
+            executorService = new ScheduledThreadPoolExecutor(2, new AgentThreadFactory(), new AgentRecoveryHandler());
         }
         return executorService;
     }
